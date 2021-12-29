@@ -23,6 +23,7 @@ public class HymnCanvas extends AppCompatActivity {
         Hymn hymn = Utils.hymns.get(nr - 1);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(hymn.getTitle());
+        getSupportActionBar().setHideOnContentScrollEnabled(true);
         WebView webView = findViewById(R.id.wvCanvas);
         webView.getSettings().setJavaScriptEnabled(true);
         String content = Utils.readContent(id, true, getApplicationContext());
