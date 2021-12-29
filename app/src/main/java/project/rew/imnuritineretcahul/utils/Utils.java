@@ -162,7 +162,6 @@ public class Utils {
     public static boolean downloadSingleFile(FTPClient ftpClient,
                                              String remoteFilePath, String savePath) throws IOException {
         File downloadFile = new File(savePath);
-
         File parentDir = downloadFile.getParentFile();
         if (!parentDir.exists()) {
             parentDir.mkdir();

@@ -33,7 +33,7 @@ public class HymnCanvas extends AppCompatActivity {
         WebView webView = findViewById(R.id.wvCanvas);
         webView.getSettings().setJavaScriptEnabled(true);
         String content = Utils.readContent(id, true, getApplicationContext());
-        webView.loadDataWithBaseURL(null, "<font size=" +'"'+ String.valueOf(seekvalue/10)+"px" +'"'+">"+ content + "</font>", "text/html", "utf-8", null);
+        webView.loadDataWithBaseURL(null, "<font size=" +'"'+ String.valueOf(seekvalue/10)+"px" +'"'+">"+ content + "</font><br><br>", "text/html", "utf-8", null);
         SeekBar seekBar = (SeekBar) findViewById(R.id.seekbar);
         seekBar.setProgress(seekvalue);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -43,7 +43,7 @@ public class HymnCanvas extends AppCompatActivity {
                 if (seekvalue < minsbprogress) {
                     seekvalue = minsbprogress;
                 }
-                webView.loadDataWithBaseURL(null, "<font size=" +'"'+ String.valueOf(seekvalue/10)+"px" +'"'+">"+ content + "</font>", "text/html", "utf-8", null);
+                webView.loadDataWithBaseURL(null, "<font size=" +'"'+ String.valueOf(seekvalue/10)+"px" +'"'+">"+ content + "</font><br><br>", "text/html", "utf-8", null);
             }
 
             @Override
