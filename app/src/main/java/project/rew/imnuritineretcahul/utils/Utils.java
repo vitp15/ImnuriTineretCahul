@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.RecursiveAction;
 
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.hymns.Hymn;
@@ -60,6 +61,7 @@ public class Utils {
             fragmentActivity.runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.settings_connect_to_internet), Toast.LENGTH_SHORT).show());
             return;
         }
+
         String server = "ftpupload.net";
         int port = 21;
         String user = "epiz_30672048";
@@ -71,7 +73,31 @@ public class Utils {
             ftpClient.enterLocalPassiveMode();
 
             fragmentActivity.runOnUiThread(() -> Toast.makeText(context, "Connected", Toast.LENGTH_SHORT).show());
+//Delete directory taht are deleted from server or that name are deleted
+            FTPFile[] subFiles = getDirectoryFiles(ftpClient, "/htdocs/imnuri");
+            String[] id_ftp=new String[subFiles.length-2];
+            String[] name_ftp=new String[subFiles.length-2];
+            for (int i=0;i<subFiles.length-2;i++) {
+                String[] hymn_ftp = subFiles[i+2].getName().split(" - ");
+                id_ftp[i]=hymn_ftp[0];
+                name_ftp[i]=hymn_ftp[1];
+            }
+
+            File[] dirFiles = internalDir.listFiles();
+            for (File dirFile : dirFiles) {
+                String[] hymn = dirFile.getName().split(" - ");
+                boolean exist=false;
+                for (int i=0;i<id_ftp.length;i++){
+                    if (hymn[0].equals(id_ftp[i])){
+                        exist=true;
+                        if (!hymn[1].equals(name_ftp[i])) DeleteRecursive(dirFile);
+                    }
+                }
+                if (!exist) DeleteRecursive(dirFile);
+            }
+//finish directory deleting if it is needed
             Utils.downloadDirectory(ftpClient, "/htdocs/imnuri", "", internalDir.getAbsolutePath());
+
             ftpClient.logout();
             ftpClient.disconnect();
             fragmentActivity.runOnUiThread(() -> Toast.makeText(context, "Disconnected", Toast.LENGTH_SHORT).show());
@@ -190,6 +216,7 @@ public class Utils {
     public static String readContent(int nr, boolean chordsFlag, Context context) {
         StringBuilder contentBuilder = new StringBuilder();
         String filename = "";
+
         try {
             File internalDir = context.getDir(context.getString(R.string.internal_hymns_folder), Context.MODE_PRIVATE);
             File[] dirFiles = internalDir.listFiles();
@@ -214,5 +241,13 @@ public class Utils {
             Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
         }
         return contentBuilder.toString();
+    }
+
+    private static void DeleteRecursive(File fileOrDirectory){
+        if (fileOrDirectory.isDirectory())
+            for (File child:fileOrDirectory.listFiles()){
+                DeleteRecursive(child);
+            }
+        fileOrDirectory.delete();
     }
 }

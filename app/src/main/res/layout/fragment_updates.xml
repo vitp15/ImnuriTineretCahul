@@ -9,7 +9,9 @@
         android:id="@+id/btnHymnsUpdate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="159dp"
-        tools:layout_editor_absoluteY="27dp" />
+        android:text="Actualizează imnurile"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+         />
 </RelativeLayout>
