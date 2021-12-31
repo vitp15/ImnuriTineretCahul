@@ -11,7 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import project.rew.imnuritineretcahul.R;
-import project.rew.imnuritineretcahul.hymns.UpdateHymnsTask;
+import project.rew.imnuritineretcahul.ro.hymns.UpdateHymnsTask;
+import project.rew.imnuritineretcahul.ro.ui.audio.UpdateAudioTask;
+import project.rew.imnuritineretcahul.ro.ui.audio.Utils;
 
 public class UpdatesFragment extends Fragment {
     private ProgressBar progressBar;
@@ -19,9 +21,17 @@ public class UpdatesFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_updates, container, false);
         Button btn = root.findViewById(R.id.btnHymnsUpdate);
+        Button btn1 = root.findViewById(R.id.btnAudioUpdate);
+        Button btn2 = root.findViewById(R.id.btnAudioUpdateone);
         progressBar = new ProgressBar(getContext());
         btn.setOnClickListener(v -> {
             new UpdateHymnsTask(getContext(), getActivity()).execute();
+        });
+        btn1.setOnClickListener(v -> {
+            new UpdateAudioTask(getContext(), getActivity(),false).execute();
+        });
+        btn2.setOnClickListener(v -> {
+            new UpdateAudioTask(getContext(), getActivity(),true).execute();
         });
         return root;
     }

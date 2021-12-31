@@ -1,4 +1,4 @@
-package project.rew.imnuritineretcahul.hymns;
+package project.rew.imnuritineretcahul.ro.hymns;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Comparator;
@@ -48,6 +48,6 @@ public class Hymn {
 
     @Override
     public String toString() {
-        return title;
+        return nr+" "+title;
     }
 }

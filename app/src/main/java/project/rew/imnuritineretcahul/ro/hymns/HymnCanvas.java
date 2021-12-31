@@ -1,4 +1,4 @@
-package project.rew.imnuritineretcahul.hymns;
+package project.rew.imnuritineretcahul.ro.hymns;
 
 import android.app.Dialog;
 import android.graphics.Color;
@@ -6,7 +6,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -21,7 +20,7 @@ import androidx.appcompat.widget.SwitchCompat;
 
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.utils.PrefConfig;
-import project.rew.imnuritineretcahul.utils.Utils;
+import project.rew.imnuritineretcahul.ro.ui.home.Utils;
 
 public class HymnCanvas extends AppCompatActivity {
 

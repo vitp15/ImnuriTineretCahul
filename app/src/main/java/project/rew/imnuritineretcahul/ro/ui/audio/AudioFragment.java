@@ -1,4 +1,4 @@
-package project.rew.imnuritineretcahul.ui.home;
+package project.rew.imnuritineretcahul.ro.ui.audio;
 
 import android.os.Bundle;
 
@@ -21,23 +21,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import project.rew.imnuritineretcahul.R;
-import project.rew.imnuritineretcahul.hymns.Hymn;
-import project.rew.imnuritineretcahul.hymns.HymnsAdapter;
-import project.rew.imnuritineretcahul.utils.Utils;
+import project.rew.imnuritineretcahul.ro.hymns.Hymn;
+import project.rew.imnuritineretcahul.ro.ui.home.Utils;
 
-public class HomeFragment extends Fragment {
+public class AudioFragment extends Fragment {
     private List<Hymn> all_hymns;
-    private HymnsAdapter adapter;
+    private AudioListHymnsAdapter adapter;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
-        Utils.loadHymns(root.getContext(), getString(R.string.internal_hymns_folder));
+        View root = inflater.inflate(R.layout.fragment_audio, container, false);
+        Utils.loadHymns(root.getContext(), getString(R.string.ro_internal_hymns_folder));
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
         all_hymns=Utils.hymns;
-        adapter=new HymnsAdapter(all_hymns);
+        adapter=new AudioListHymnsAdapter(all_hymns);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         TextView textView=root.findViewById(R.id.textView);
+
         // Loading Hymns from local storage
 
         if (Utils.hymns.isEmpty()) {
@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment {
     public void onCreateOptionsMenu(@NonNull @NotNull Menu menu, @NonNull @NotNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater= getActivity().getMenuInflater();
-        inflater.inflate(R.menu.fragment_home,menu);
+        inflater.inflate(R.menu.fragment_audio,menu);
         MenuItem searchItem = menu.findItem(R.id.search);
         SearchView searchView=(SearchView) searchItem.getActionView();
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
@@ -72,6 +72,7 @@ public class HomeFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String s) {
                 adapter.getFilter().filter(s);
+
                 return false;
             }
         });
@@ -81,4 +82,6 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
     }
+
+
 }

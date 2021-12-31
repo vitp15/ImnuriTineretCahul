@@ -1,4 +1,4 @@
-package project.rew.imnuritineretcahul.hymns;
+package project.rew.imnuritineretcahul.ro.hymns;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -7,7 +7,7 @@ import android.os.AsyncTask;
 import androidx.fragment.app.FragmentActivity;
 
 import project.rew.imnuritineretcahul.R;
-import project.rew.imnuritineretcahul.utils.Utils;
+import project.rew.imnuritineretcahul.ro.ui.home.Utils;
 
 
 public class UpdateHymnsTask extends AsyncTask<String, String, String> {

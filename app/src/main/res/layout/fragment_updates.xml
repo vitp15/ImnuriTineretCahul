@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.audio.AudioFragment">
+    tools:context=".ro.ui.audio.AudioFragment">
     <Button
         android:id="@+id/btnHymnsUpdate"
         android:layout_width="match_parent"
@@ -14,4 +14,24 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="20dp"
          />
+    <Button
+        android:id="@+id/btnAudioUpdate"
+        android:layout_below="@id/btnHymnsUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Descarcă toate audiourile"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        />
+    <Button
+        android:id="@+id/btnAudioUpdateone"
+        android:layout_below="@id/btnAudioUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Descarcă doar audio pt imnul 5"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        />
 </RelativeLayout>

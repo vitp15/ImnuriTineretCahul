@@ -11,7 +11,24 @@
     <string name="menu_audio">Audio</string>
     <string name="menu_notspdf">Note PDF</string>
     <string name="menu_updates">Actualizare</string>
-    <string name="internal_hymns_folder">hymns</string>
+
+    <string name="ro_internal_hymns_folder">ro_hymns</string>
+    <string name="ro_internal_mp3_folder">ro_audio</string>
+    <string name="ro_internal_pdf_folder">ro_notes_pdf</string>
+
+    <string name="ru_internal_hymns_folder">ru_hymns</string>
+    <string name="ru_internal_mp3_folder">ru_audio</string>
+    <string name="ru_internal_pdf_folder">ru_notes_pdf</string>
+
+
+    <string name="ro_external_hymns_folder">/htdocs/ro/imnuri</string>
+    <string name="ro_external_mp3_folder">/htdocs/ro/audio</string>
+    <string name="ro_external_pdf_folder">/htdocs/ro/note_pdf</string>
+
+    <string name="ru_external_hymns_folder">/htdocs/ru/imnuri</string>
+    <string name="ru_external_mp3_folder">/htdocs/ru/audio</string>
+    <string name="ru_external_pdf_folder">/htdocs/ru/note_pdf</string>
+
     <string name="settings_connect_to_internet">Please connect to Internet</string>
     <string name="settings_hymn_extension">.txt</string>
     <string name="updating">Actualizare</string>

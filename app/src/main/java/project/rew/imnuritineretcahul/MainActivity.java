@@ -2,10 +2,8 @@ package project.rew.imnuritineretcahul;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Menu;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.navigation.NavController;
@@ -16,8 +14,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import project.rew.imnuritineretcahul.databinding.ActivityMainBinding;
-import project.rew.imnuritineretcahul.hymns.UpdateHymnsTask;
-import project.rew.imnuritineretcahul.utils.Utils;
 
 public class MainActivity extends AppCompatActivity {
 

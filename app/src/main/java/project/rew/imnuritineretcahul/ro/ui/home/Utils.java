@@ -1,4 +1,4 @@
-package project.rew.imnuritineretcahul.utils;
+package project.rew.imnuritineretcahul.ro.ui.home;
 
 import android.content.Context;
 import android.widget.Toast;
@@ -19,10 +19,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.RecursiveAction;
 
 import project.rew.imnuritineretcahul.R;
-import project.rew.imnuritineretcahul.hymns.Hymn;
+import project.rew.imnuritineretcahul.ro.hymns.Hymn;
+import project.rew.imnuritineretcahul.utils.NetworkUtils;
+
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
@@ -30,11 +31,6 @@ import org.apache.commons.net.ftp.FTPFile;
 public class Utils {
 
     public static List<Hymn> hymns = new ArrayList<>();
-
-    public static String removeDiacriticalMarks(String string) {
-        return Normalizer.normalize(string, Normalizer.Form.NFD)
-                .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
-    }
 
     public static void loadHymns(@NotNull Context context, String internalFolder) {
         File internalDir = context.getDir(internalFolder, Context.MODE_PRIVATE);
@@ -56,7 +52,7 @@ public class Utils {
     }
 
     public static void updateHymns(Context context, FragmentActivity fragmentActivity) {
-        File internalDir = context.getDir(context.getString(R.string.internal_hymns_folder), Context.MODE_PRIVATE);
+        File internalDir = context.getDir(context.getString(R.string.ro_internal_hymns_folder), Context.MODE_PRIVATE);
         if (!NetworkUtils.hasActiveNetworkConnection(context)) {
             fragmentActivity.runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.settings_connect_to_internet), Toast.LENGTH_SHORT).show());
             return;
@@ -74,7 +70,7 @@ public class Utils {
 
             fragmentActivity.runOnUiThread(() -> Toast.makeText(context, "Connected", Toast.LENGTH_SHORT).show());
 //Delete directory taht are deleted from server or that name are deleted
-            FTPFile[] subFiles = getDirectoryFiles(ftpClient, "/htdocs/imnuri");
+            FTPFile[] subFiles = getDirectoryFiles(ftpClient, fragmentActivity.getString(R.string.ro_external_hymns_folder));
             String[] id_ftp=new String[subFiles.length-2];
             String[] name_ftp=new String[subFiles.length-2];
             for (int i=0;i<subFiles.length-2;i++) {
@@ -96,7 +92,7 @@ public class Utils {
                 if (!exist) DeleteRecursive(dirFile);
             }
 //finish directory deleting if it is needed
-            Utils.downloadDirectory(ftpClient, "/htdocs/imnuri", "", internalDir.getAbsolutePath());
+            Utils.downloadDirectory(ftpClient, fragmentActivity.getString(R.string.ro_external_hymns_folder), "", internalDir.getAbsolutePath());
 
             ftpClient.logout();
             ftpClient.disconnect();
@@ -218,7 +214,7 @@ public class Utils {
         String filename = "";
 
         try {
-            File internalDir = context.getDir(context.getString(R.string.internal_hymns_folder), Context.MODE_PRIVATE);
+            File internalDir = context.getDir(context.getString(R.string.ro_internal_hymns_folder), Context.MODE_PRIVATE);
             File[] dirFiles = internalDir.listFiles();
             assert dirFiles != null;
             if (dirFiles.length != 0) {

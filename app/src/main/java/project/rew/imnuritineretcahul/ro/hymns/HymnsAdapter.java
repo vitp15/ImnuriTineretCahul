@@ -1,4 +1,4 @@
-package project.rew.imnuritineretcahul.hymns;
+package project.rew.imnuritineretcahul.ro.hymns;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,16 +12,10 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import project.rew.imnuritineretcahul.R;
-import project.rew.imnuritineretcahul.utils.Utils;
 
 
 public class HymnsAdapter extends RecyclerView.Adapter<HymnsAdapter.ViewHolder> implements Filterable {
@@ -76,9 +70,9 @@ public class HymnsAdapter extends RecyclerView.Adapter<HymnsAdapter.ViewHolder> 
             } else {
                 String filterPattern = charSequence.toString().toLowerCase();
                 for (Hymn hymn : all_hymns) {
-                    if (hymn.getTitle().toLowerCase().replaceAll("ă","a").replaceAll("â","a").replaceAll("î","i").replaceAll("ș","s").replaceAll("ț","t").contains(filterPattern)||hymn.getTitle().toLowerCase().contains(filterPattern)||
-                            hymn.getTitle().toLowerCase().replaceAll("ă","a").replaceAll("â","a").replaceAll("î","i").replaceAll("ș","s").replaceAll("ț","t").replaceAll("\\,","").replaceAll("\\.","").replaceAll("\\-","").replaceAll("\\?","").replaceAll("\\!","").contains(filterPattern)||
-                            hymn.getTitle().toLowerCase().replaceAll("\\,","").replaceAll("\\.","").replaceAll("\\-","").replaceAll("\\?","").replaceAll("\\!","").contains(filterPattern)) {
+                    if (hymn.toString().toLowerCase().replaceAll("ă","a").replaceAll("â","a").replaceAll("î","i").replaceAll("ș","s").replaceAll("ț","t").contains(filterPattern)||hymn.toString().toLowerCase().contains(filterPattern)||
+                            hymn.toString().toLowerCase().replaceAll("ă","a").replaceAll("â","a").replaceAll("î","i").replaceAll("ș","s").replaceAll("ț","t").replaceAll("\\,","").replaceAll("\\.","").replaceAll("\\-","").replaceAll("\\?","").replaceAll("\\!","").contains(filterPattern)||
+                            hymn.toString().toLowerCase().replaceAll("\\,","").replaceAll("\\.","").replaceAll("\\-","").replaceAll("\\?","").replaceAll("\\!","").contains(filterPattern)) {
                         filteredList.add(hymn);
                     }
                 }

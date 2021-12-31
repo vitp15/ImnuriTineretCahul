@@ -1,4 +1,4 @@
-package project.rew.imnuritineretcahul.ui.note_pdf;
+package project.rew.imnuritineretcahul.ro.ui.note_pdf;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
