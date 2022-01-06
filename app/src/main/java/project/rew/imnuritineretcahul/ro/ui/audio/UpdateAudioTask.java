@@ -14,12 +14,12 @@ public class UpdateAudioTask extends AsyncTask<String, String, String> {
     private String result;
     private ProgressDialog progressDialog;
     private FragmentActivity fragmentActivity;
-    private boolean single;
+    private String file;
 
-    public UpdateAudioTask(Context context, FragmentActivity fragmentActivity,boolean single) {
+    public UpdateAudioTask(Context context, FragmentActivity fragmentActivity ,String file) {
         this.context = context;
         this.fragmentActivity = fragmentActivity;
-        this.single=single;
+        this.file=file;
     }
 
     @Override
@@ -32,7 +32,9 @@ public class UpdateAudioTask extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... args) {
         publishProgress("Se actualizeaza audiourile");
-        Utils.updateAudio(context, fragmentActivity,single);
+        if (file=="all")
+        Utils.updateAudio(context, fragmentActivity);
+        else Utils.updateAudio(context, fragmentActivity,file);
         return null;
     }
 
@@ -43,5 +45,6 @@ public class UpdateAudioTask extends AsyncTask<String, String, String> {
 
     protected void onPostExecute(String result) {
         progressDialog.dismiss();
+        fragmentActivity.recreate();
     }
 }

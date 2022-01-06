@@ -30,10 +30,22 @@ import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.ro.hymns.Hymn;
 import project.rew.imnuritineretcahul.utils.NetworkUtils;
 
+import static project.rew.imnuritineretcahul.ro.ui.home.Utils.hymns;
+
 public class Utils {
 
-    public static void updateAudio(Context context, FragmentActivity fragmentActivity,boolean single) {
+    public static void deleteAudio(Context context, String forDelete) {
         File internalDir = context.getDir(context.getString(R.string.ro_internal_mp3_folder), Context.MODE_PRIVATE);
+        File[] dirFiles = internalDir.listFiles();
+        for (File dirFile : dirFiles) {
+            if (dirFile.getName().equals(forDelete)) DeleteRecursive(dirFile);
+        }
+    }
+
+    public static void updateAudio(Context context, FragmentActivity fragmentActivity) {
+        File internalDir = context.getDir(context.getString(R.string.ro_internal_mp3_folder), Context.MODE_PRIVATE);
+
+
         if (!NetworkUtils.hasActiveNetworkConnection(context)) {
             fragmentActivity.runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.settings_connect_to_internet), Toast.LENGTH_SHORT).show());
             return;
@@ -49,19 +61,60 @@ public class Utils {
             ftpClient.login(user, pass);
             ftpClient.enterLocalPassiveMode();
 
-            fragmentActivity.runOnUiThread(() -> Toast.makeText(context, "Connected", Toast.LENGTH_SHORT).show());
-            Utils.downloadDirectory(ftpClient, fragmentActivity.getString(R.string.ro_external_mp3_folder), "", internalDir.getAbsolutePath(),single);
+            //Delete directory taht are deleted from server or that name are deleted
+            FTPFile[] subFiles = getDirectoryFiles(ftpClient, fragmentActivity.getString(R.string.ro_external_mp3_folder));
+
+            File[] dirFiles = internalDir.listFiles();
+            for (File dirFile : dirFiles) {
+                boolean exist = false;
+                for (int i = 0; i < subFiles.length; i++) {
+                    if (dirFile.getName().equals(subFiles[i].getName())) {
+                        exist = true;
+                    }
+                }
+                if (!exist) DeleteRecursive(dirFile);
+            }
+//finish directory deleting if it is needed
+            Utils.downloadDirectory(ftpClient, fragmentActivity.getString(R.string.ro_external_mp3_folder), "", internalDir.getAbsolutePath());
 
             ftpClient.logout();
             ftpClient.disconnect();
-            fragmentActivity.runOnUiThread(() -> Toast.makeText(context, "Disconnected", Toast.LENGTH_SHORT).show());
-            File[] dirFiles = internalDir.listFiles();
-            for (File dirFile:dirFiles) System.out.println(dirFile.getName().toString());
         } catch (Exception ex) {
             ex.printStackTrace();
             fragmentActivity.runOnUiThread(() -> Toast.makeText(context, "Failed: " + ex.getLocalizedMessage(), Toast.LENGTH_LONG).show());
         }
+    }
 
+    public static void updateAudio(Context context, FragmentActivity fragmentActivity, String file) {
+        File internalDir = context.getDir(context.getString(R.string.ro_internal_mp3_folder), Context.MODE_PRIVATE);
+
+
+        if (!NetworkUtils.hasActiveNetworkConnection(context)) {
+            fragmentActivity.runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.settings_connect_to_internet), Toast.LENGTH_SHORT).show());
+            return;
+        }
+
+        String server = "ftpupload.net";
+        int port = 21;
+        String user = "epiz_30672048";
+        String pass = "wiejPSD0VHtsYx";
+        FTPClient ftpClient = new FTPClient();
+        try {
+            ftpClient.connect(server, port);
+            ftpClient.login(user, pass);
+            ftpClient.enterLocalPassiveMode();
+
+
+            Utils.downloadDirectory(context, fragmentActivity, ftpClient, fragmentActivity.getString(R.string.ro_external_mp3_folder), "", internalDir.getAbsolutePath(), file);
+
+            ftpClient.logout();
+            ftpClient.disconnect();
+            File[] dirFiles = internalDir.listFiles();
+            for (File dirFile : dirFiles) System.out.println(dirFile.getName().toString());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            fragmentActivity.runOnUiThread(() -> Toast.makeText(context, "Failed: " + ex.getLocalizedMessage(), Toast.LENGTH_LONG).show());
+        }
     }
 
     /**
@@ -74,7 +127,7 @@ public class Utils {
      * * downloaded and saved.
      * * @throws IOException if any network or IO error occurred.
      */
-    public static void downloadDirectory(FTPClient ftpClient, String parentDir, String currentDir, String saveDir ,boolean single) throws IOException {
+    public static void downloadDirectory(FTPClient ftpClient, String parentDir, String currentDir, String saveDir) throws IOException {
         String dirToList = parentDir;
         if (!currentDir.equals("")) {
             dirToList += "/" + currentDir;
@@ -83,87 +136,104 @@ public class Utils {
 
         if (subFiles != null && subFiles.length > 0) {
             for (FTPFile aFile : subFiles) {
-                    String currentFileName = aFile.getName();
-                    if (single){
-                        if (currentFileName.toString().equals("Pages.txt")){
-                        if (currentFileName.equals(".") || currentFileName.equals("..")) {
-                            continue;
-                        }
-                        String filePath = parentDir + "/" + currentDir + File.separator
-                                + currentFileName;
-                        if (currentDir.equals("")) {
-                            filePath = parentDir + "/" + currentFileName;
-                        }
+                String currentFileName = aFile.getName();
+                if (currentFileName.equals(".") || currentFileName.equals("..")) {
+                    continue;
+                }
+                String filePath = parentDir + "/" + currentDir + File.separator
+                        + currentFileName;
+                if (currentDir.equals("")) {
+                    filePath = parentDir + "/" + currentFileName;
+                }
 
-                        String newDirPath = saveDir + File.separator + currentFileName;
+                String newDirPath = saveDir + File.separator + currentFileName;
 
-                        if (currentDir.equals("")) {
-                            newDirPath = saveDir + File.separator
-                                    + currentFileName;
-                        }
+                if (currentDir.equals("")) {
+                    newDirPath = saveDir + File.separator
+                            + currentFileName;
+                }
 
-                        if (aFile.isDirectory()) {
-                            File newDir = new File(newDirPath);
-                            boolean created = newDir.mkdirs();
-                            if (created) {
-                                System.out.println("CREATED the directory: " + newDirPath);
-                            } else {
-                                System.out.println("COULD NOT create the directory: " + newDirPath);
-                            }
-                            downloadDirectory(ftpClient, dirToList, currentFileName,
-                                    saveDir + File.separator + currentFileName, single);
-                        } else {
-                            boolean success = downloadSingleFile(ftpClient, filePath,
-                                    newDirPath);
-                            if (success) {
-                                System.out.println("DOWNLOADED the file: " + filePath);
-                            } else {
-                                System.out.println("COULD NOT download the file: "
-                                        + filePath);
-                            }
-                        }
-                    }}
-                    else{
-                            if (currentFileName.equals(".") || currentFileName.equals("..")) {
-                                continue;
-                            }
-                            String filePath = parentDir + "/" + currentDir + File.separator
-                                    + currentFileName;
-                            if (currentDir.equals("")) {
-                                filePath = parentDir + "/" + currentFileName;
-                            }
-
-                            String newDirPath = saveDir + File.separator + currentFileName;
-
-                            if (currentDir.equals("")) {
-                                newDirPath = saveDir + File.separator
-                                        + currentFileName;
-                            }
-
-                            if (aFile.isDirectory()) {
-                                File newDir = new File(newDirPath);
-                                boolean created = newDir.mkdirs();
-                                if (created) {
-                                    System.out.println("CREATED the directory: " + newDirPath);
-                                } else {
-                                    System.out.println("COULD NOT create the directory: " + newDirPath);
-                                }
-                                downloadDirectory(ftpClient, dirToList, currentFileName,
-                                        saveDir + File.separator + currentFileName, single);
-                            } else {
-                                boolean success = downloadSingleFile(ftpClient, filePath,
-                                        newDirPath);
-                                if (success) {
-                                    System.out.println("DOWNLOADED the file: " + filePath);
-                                } else {
-                                    System.out.println("COULD NOT download the file: "
-                                            + filePath);
-                                }
-                            }
-                        }
+                if (aFile.isDirectory()) {
+                    File newDir = new File(newDirPath);
+                    boolean created = newDir.mkdirs();
+                    if (created) {
+                        System.out.println("CREATED the directory: " + newDirPath);
+                    } else {
+                        System.out.println("COULD NOT create the directory: " + newDirPath);
+                    }
+                    downloadDirectory(ftpClient, dirToList, currentFileName,
+                            saveDir + File.separator + currentFileName);
+                } else {
+                    boolean success = downloadSingleFile(ftpClient, filePath,
+                            newDirPath);
+                    if (success) {
+                        System.out.println("DOWNLOADED the file: " + filePath);
+                    } else {
+                        System.out.println("COULD NOT download the file: "
+                                + filePath);
+                    }
+                }
             }
         }
     }
+
+
+    public static void downloadDirectory(Context context, FragmentActivity fragmentActivity, FTPClient ftpClient, String parentDir, String currentDir, String saveDir, String file) throws IOException {
+        String dirToList = parentDir;
+        if (!currentDir.equals("")) {
+            dirToList += "/" + currentDir;
+        }
+        FTPFile[] subFiles = getDirectoryFiles(ftpClient, dirToList);
+
+        if (subFiles != null && subFiles.length > 0) {
+            boolean exist = false;
+            for (FTPFile aFile : subFiles) {
+                String currentFileName = aFile.getName();
+                if (currentFileName.toString().equals(file)) {
+                    exist = true;
+                    if (currentFileName.equals(".") || currentFileName.equals("..")) {
+                        continue;
+                    }
+                    String filePath = parentDir + "/" + currentDir + File.separator
+                            + currentFileName;
+                    if (currentDir.equals("")) {
+                        filePath = parentDir + "/" + currentFileName;
+                    }
+
+                    String newDirPath = saveDir + File.separator + currentFileName;
+
+                    if (currentDir.equals("")) {
+                        newDirPath = saveDir + File.separator
+                                + currentFileName;
+                    }
+
+                    if (aFile.isDirectory()) {
+                        File newDir = new File(newDirPath);
+                        boolean created = newDir.mkdirs();
+                        if (created) {
+                            System.out.println("CREATED the directory: " + newDirPath);
+                        } else {
+                            System.out.println("COULD NOT create the directory: " + newDirPath);
+                        }
+                        downloadDirectory(context, fragmentActivity, ftpClient, dirToList, currentFileName,
+                                saveDir + File.separator + currentFileName, file);
+                    } else {
+                        boolean success = downloadSingleFile(ftpClient, filePath,
+                                newDirPath);
+                        if (success) {
+                            System.out.println("DOWNLOADED the file: " + filePath);
+                        } else {
+                            System.out.println("COULD NOT download the file: "
+                                    + filePath);
+                        }
+                    }
+                }
+            }
+            if (!exist)
+                fragmentActivity.runOnUiThread(() -> Toast.makeText(context, "Ne pare rău acest fișier audio nu există pe server", Toast.LENGTH_SHORT).show());
+        }
+    }
+
 
     private static FTPFile[] getDirectoryFiles(FTPClient ftp, String dirPath) throws IOException {
         String cwd = ftp.printWorkingDirectory();
@@ -204,45 +274,10 @@ public class Utils {
         }
     }
 
-    /**
-     * @param nr         Numarul imnului
-     * @param chordsFlag Flag daca sa caute cantarea cu acorduri
-     * @param context    De unde se apeleaza metoda {@link #readContent(int, boolean, Context)}
-     * @return Continutul cantarii din fisier local.
-     */
-    public static String readContent(int nr, boolean chordsFlag, Context context) {
-        StringBuilder contentBuilder = new StringBuilder();
-        String filename = "";
 
-        try {
-            File internalDir = context.getDir(context.getString(R.string.ro_internal_hymns_folder), Context.MODE_PRIVATE);
-            File[] dirFiles = internalDir.listFiles();
-            assert dirFiles != null;
-            if (dirFiles.length != 0) {
-                for (File dirFile : dirFiles) {
-                    String[] hymn = dirFile.getName().split(" - ");
-                    if (nr == Integer.parseInt(hymn[0])) {
-                        filename = chordsFlag ?
-                                dirFile.getAbsolutePath() + File.separator + "_" + nr + context.getString(R.string.settings_hymn_extension) :
-                                dirFile.getAbsolutePath() + File.separator + nr + context.getString(R.string.settings_hymn_extension);
-                    }
-                }
-            }
-            BufferedReader in = new BufferedReader(new FileReader(filename));
-            String str;
-            while ((str = in.readLine()) != null) {
-                contentBuilder.append(str);
-            }
-            in.close();
-        } catch (IOException e) {
-            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-        return contentBuilder.toString();
-    }
-
-    private static void DeleteRecursive(File fileOrDirectory){
+    private static void DeleteRecursive(File fileOrDirectory) {
         if (fileOrDirectory.isDirectory())
-            for (File child:fileOrDirectory.listFiles()){
+            for (File child : fileOrDirectory.listFiles()) {
                 DeleteRecursive(child);
             }
         fileOrDirectory.delete();

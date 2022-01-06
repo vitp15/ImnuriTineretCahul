@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/nav_pdfs"
-        android:name="project.rew.imnuritineretcahul.ro.ui.note_pdf.NotePDFFragment"
+        android:name="project.rew.imnuritineretcahul.ro.ui.note_pdf.NotePDFragment"
         android:label="@string/menu_notspdf"
         tools:layout="@layout/fragment_notepdf" />
     <fragment

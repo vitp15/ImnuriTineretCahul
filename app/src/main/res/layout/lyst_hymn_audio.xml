@@ -13,20 +13,34 @@
         android:textColor="@color/black"
         android:paddingLeft="10dp"
         android:textSize="18sp"
+        android:text="Imn"
         />
+    <LinearLayout
+        android:id="@+id/linearLayoutAll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/textView"
+        >
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:orientation="vertical" >
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:id="@+id/linearButons"
             android:layout_gravity="center">
+            <TextView
+                android:id="@+id/delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:text="Stergeți"
+                android:textSize="15dp" />
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -76,6 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/player_position"
+                android:layout_marginLeft="7dp"
                 android:text="00:00" />
             <SeekBar
                 android:layout_width="0dp"
@@ -87,8 +102,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/player_duration"
+                android:layout_marginRight="7dp"
                 android:text="00:00" />
         </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearLayout"
+        android:orientation="vertical"
+        >
+        <Button
+            android:id="@+id/btnAudioUpdateone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descarcă audio"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            />
+    </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

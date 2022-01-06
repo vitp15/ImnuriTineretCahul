@@ -1,5 +1,6 @@
 package project.rew.imnuritineretcahul.ro.ui.home;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
@@ -24,6 +25,8 @@ import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.ro.hymns.Hymn;
 import project.rew.imnuritineretcahul.ro.hymns.HymnsAdapter;
 
+import static project.rew.imnuritineretcahul.ro.ui.audio.SetMediaPlayer.mediaPlayer;
+
 public class HomeFragment extends Fragment {
     private List<Hymn> all_hymns;
     private HymnsAdapter adapter;
@@ -31,6 +34,11 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         Utils.loadHymns(root.getContext(), getString(R.string.ro_internal_hymns_folder));
+        for (MediaPlayer mediaPlayer:mediaPlayer){
+            if (mediaPlayer!=null){
+            mediaPlayer.seekTo(0);
+            mediaPlayer.stop();}
+        }
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
         all_hymns=Utils.hymns;
         adapter=new HymnsAdapter(all_hymns);

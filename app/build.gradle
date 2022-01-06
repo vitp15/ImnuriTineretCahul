@@ -47,4 +47,6 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.2.0"
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
     implementation group: 'commons-net', name: 'commons-net', version: '3.8.0'
+
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
 }
