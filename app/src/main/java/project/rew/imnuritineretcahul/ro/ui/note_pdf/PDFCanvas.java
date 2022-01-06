@@ -34,8 +34,8 @@ public class PDFCanvas extends AppCompatActivity {
         hymn = hymns.get(nr - 1);
         PDFView pdfView = findViewById(R.id.pdfView);
         pdfView.fromFile(hymn.getPdfView()).load();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(hymn.getTitle());
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHideOnContentScrollEnabled(true);
 
     }
@@ -52,13 +52,15 @@ public class PDFCanvas extends AppCompatActivity {
             Utils.deletePDF(this, String.valueOf(hymn.getId()) + ".pdf");
             onBackPressed();
         }
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        recreate();
     }
 
     @Override

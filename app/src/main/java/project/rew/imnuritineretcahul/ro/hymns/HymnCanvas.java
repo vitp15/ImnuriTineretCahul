@@ -332,6 +332,9 @@ public class HymnCanvas extends AppCompatActivity {
         if (id == R.id.rightcorneroptions) {
             dialog.show();
         }
+        if (id == android.R.id.home) {
+            onBackPressed();
+        }
         return super.onOptionsItemSelected(item);
     }
 
