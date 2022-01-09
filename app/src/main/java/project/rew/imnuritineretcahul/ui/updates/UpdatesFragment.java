@@ -11,12 +11,13 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import project.rew.imnuritineretcahul.R;
-import project.rew.imnuritineretcahul.ro.hymns.UpdateHymnsTask;
-import project.rew.imnuritineretcahul.ro.ui.audio.UpdateAudioTask;
+import project.rew.imnuritineretcahul.enums.Language;
+import project.rew.imnuritineretcahul.enums.Type;
 import project.rew.imnuritineretcahul.utils.UpdateFilesTask;
 
 public class UpdatesFragment extends Fragment {
     private ProgressBar progressBar;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_updates, container, false);
@@ -26,13 +27,13 @@ public class UpdatesFragment extends Fragment {
         Button btn2 = root.findViewById(R.id.btnPdfUpdate);
         progressBar = new ProgressBar(getContext());
         btn.setOnClickListener(v -> {
-            new UpdateHymnsTask(getContext(), getActivity()).execute();
+            new UpdateFilesTask(getContext(), getActivity(), Type.HYMN, Language.RO).execute();
         });
         btn1.setOnClickListener(v -> {
-            new UpdateAudioTask(getContext(), getActivity(),"all").execute();
+            new UpdateFilesTask(getContext(), getActivity(), Type.AUDIO, Language.RO).execute();
         });
         btn2.setOnClickListener(v -> {
-            new UpdateFilesTask(getContext(),getActivity(),"all").execute();
+            new UpdateFilesTask(getContext(), getActivity(), Type.PDF, Language.RO).execute();
         });
         return root;
     }

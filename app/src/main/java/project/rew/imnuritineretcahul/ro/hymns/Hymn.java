@@ -1,15 +1,11 @@
 package project.rew.imnuritineretcahul.ro.hymns;
 
 import android.media.MediaPlayer;
-import android.os.Handler;
-
-import com.github.barteksc.pdfviewer.PDFView;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.Comparator;
 
-import static project.rew.imnuritineretcahul.ro.ui.home.Utils.hymns;
 
 public class Hymn {
     private int id;

@@ -16,9 +16,6 @@ import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.ro.hymns.Hymn;
 import project.rew.imnuritineretcahul.utils.Utils;
 
-
-import static project.rew.imnuritineretcahul.ro.ui.home.Utils.hymns;
-
 public class PDFCanvas extends AppCompatActivity {
     Hymn hymn;
 
@@ -28,7 +25,7 @@ public class PDFCanvas extends AppCompatActivity {
         setContentView(R.layout.activity_pdf_canvas);
         int id = getIntent().getIntExtra("id", 0);
         int nr = getIntent().getIntExtra("nr", 0);
-        hymn = hymns.get(nr - 1);
+        hymn = Utils.hymns_ro.get(nr - 1);
         PDFView pdfView = findViewById(R.id.pdfView);
         pdfView.fromFile(hymn.getPdfView()).load();
         getSupportActionBar().setTitle(hymn.getTitle());

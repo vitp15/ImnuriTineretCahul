@@ -29,15 +29,14 @@ import androidx.appcompat.widget.SwitchCompat;
 import java.util.concurrent.TimeUnit;
 
 import project.rew.imnuritineretcahul.R;
+import project.rew.imnuritineretcahul.enums.Language;
+import project.rew.imnuritineretcahul.enums.Type;
 import project.rew.imnuritineretcahul.ro.ui.audio.SetMediaPlayer;
-import project.rew.imnuritineretcahul.ro.ui.audio.UpdateAudioTask;
 import project.rew.imnuritineretcahul.ro.ui.note_pdf.PDFCanvas;
 import project.rew.imnuritineretcahul.ro.ui.note_pdf.SetPDF;
 import project.rew.imnuritineretcahul.utils.UpdateFilesTask;
 import project.rew.imnuritineretcahul.utils.PrefConfig;
-import project.rew.imnuritineretcahul.ro.ui.home.Utils;
-
-import static project.rew.imnuritineretcahul.ro.ui.home.Utils.hymns;
+import project.rew.imnuritineretcahul.utils.Utils;
 
 public class HymnCanvas extends AppCompatActivity {
 
@@ -61,7 +60,7 @@ public class HymnCanvas extends AppCompatActivity {
         setContentView(R.layout.activity_hymn_canvas);
         int id = getIntent().getIntExtra("id", 0);
         int nr = getIntent().getIntExtra("nr", 0);
-        Hymn hymn = hymns.get(nr - 1);
+        Hymn hymn = Utils.hymns_ro.get(nr - 1);
         seekvalue = PrefConfig.load_saved_progress(this);
         SetMediaPlayer.setMediaPlayer(this);
 
@@ -108,7 +107,8 @@ public class HymnCanvas extends AppCompatActivity {
             notePDF.setVisibility(View.GONE);
             pdfMiss.setVisibility(View.VISIBLE);
             downaldPdf.setOnClickListener(view -> {
-                new UpdateFilesTask(this, this, String.valueOf(hymn.getId()) + ".pdf").execute();
+                new UpdateFilesTask(this, this,
+                        String.valueOf(hymn.getId()) + ".pdf", Type.PDF, Language.RO).execute();
             });
         }
 
@@ -238,7 +238,7 @@ public class HymnCanvas extends AppCompatActivity {
                             if (j[0] == 1) {
                                 Toast.makeText(HymnCanvas.this, "Apăsați de două ori pentru a sterge", Toast.LENGTH_SHORT).show();
                             } else if (j[0] == 2) {
-                                project.rew.imnuritineretcahul.ro.ui.audio.Utils.deleteAudio(HymnCanvas.this, String.valueOf(hymn.getId()) + ".mp3");
+                                Utils.deleteFile(HymnCanvas.this, String.valueOf(hymn.getId()) + ".mp3");
                                 audioElements.setVisibility(View.GONE);
                                 btFf.setVisibility(View.GONE);
                                 btRew.setVisibility(View.GONE);
@@ -247,7 +247,8 @@ public class HymnCanvas extends AppCompatActivity {
                                 downald.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        new UpdateAudioTask(HymnCanvas.this, HymnCanvas.this, String.valueOf(hymn.getId()) + ".mp3").execute();
+                                        new UpdateFilesTask(HymnCanvas.this, HymnCanvas.this, String.valueOf(hymn.getId()) + ".mp3",
+                                                Type.HYMN,Language.RO).execute();
                                     }
                                 });
                             }
@@ -265,7 +266,8 @@ public class HymnCanvas extends AppCompatActivity {
             downald.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    new UpdateAudioTask(HymnCanvas.this, HymnCanvas.this, String.valueOf(hymn.getId()) + ".mp3").execute();
+                    new UpdateFilesTask(HymnCanvas.this, HymnCanvas.this, String.valueOf(hymn.getId()) + ".mp3",
+                            Type.HYMN,Language.RO).execute();
                 }
             });
         }

@@ -1,6 +1,5 @@
 package project.rew.imnuritineretcahul.ro.ui.note_pdf;
 
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,9 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.jetbrains.annotations.NotNull;
 
 import project.rew.imnuritineretcahul.R;
-import project.rew.imnuritineretcahul.ro.ui.home.Utils;
-
-import static project.rew.imnuritineretcahul.ro.ui.audio.SetMediaPlayer.mediaPlayer;
+import project.rew.imnuritineretcahul.utils.Utils;
 
 
 public class NotePDFragment extends Fragment {
@@ -35,14 +32,14 @@ public class NotePDFragment extends Fragment {
         Utils.loadHymns(root.getContext(), getString(R.string.ro_internal_hymns_folder));
 
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
-        adapter=new HymnsPdfAdapter(Utils.hymns,getActivity());
+        adapter=new HymnsPdfAdapter(Utils.hymns_ro,getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         TextView textView=root.findViewById(R.id.textView);
         SetPDF.setPDF(root.getContext());
         // Loading Hymns from local storage
 
-        if (Utils.hymns.isEmpty()) {
+        if (Utils.hymns_ro.isEmpty()) {
             textView.setVisibility(View.VISIBLE);
         } else {
             textView.setVisibility(View.GONE);

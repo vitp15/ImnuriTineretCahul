@@ -25,7 +25,11 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import project.rew.imnuritineretcahul.R;
+import project.rew.imnuritineretcahul.enums.Language;
+import project.rew.imnuritineretcahul.enums.Type;
 import project.rew.imnuritineretcahul.ro.hymns.Hymn;
+import project.rew.imnuritineretcahul.utils.UpdateFilesTask;
+import project.rew.imnuritineretcahul.utils.Utils;
 
 
 public class AudioListHymnsAdapter extends RecyclerView.Adapter<AudioListHymnsAdapter.ViewHolder> implements Filterable {
@@ -194,13 +198,14 @@ public class AudioListHymnsAdapter extends RecyclerView.Adapter<AudioListHymnsAd
                                 Toast.makeText(context, "Apăsați de două ori pentru a sterge", Toast.LENGTH_SHORT).show();
                             }
                             else if (i[0] ==2){
-                                Utils.deleteAudio(context,String.valueOf(hymn.getId())+".mp3");
+                                Utils.deleteFile(context,String.valueOf(hymn.getId())+".mp3");
                                 holder.linearLayout.setVisibility(View.GONE);
                                 holder.linearLayout1.setVisibility(View.VISIBLE);
                                 holder.btnUpdSingle.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        new UpdateAudioTask(context, fragment, String.valueOf(hymn.getId()) + ".mp3").execute();
+                                        new UpdateFilesTask(context, fragment, String.valueOf(hymn.getId()) + ".mp3",
+                                                Type.AUDIO, Language.RO).execute();
                                     }
                                 });
                             }
@@ -214,7 +219,8 @@ public class AudioListHymnsAdapter extends RecyclerView.Adapter<AudioListHymnsAd
             holder.btnUpdSingle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    new UpdateAudioTask(context, fragment, String.valueOf(hymn.getId()) + ".mp3").execute();
+                    new UpdateFilesTask(context, fragment, String.valueOf(hymn.getId()) + ".mp3",
+                            Type.AUDIO,Language.RO).execute();
                 }
             });
         }

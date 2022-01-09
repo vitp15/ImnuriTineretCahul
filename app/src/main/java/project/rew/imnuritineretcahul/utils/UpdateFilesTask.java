@@ -14,39 +14,101 @@ import org.apache.commons.net.ftp.FTPFile;
 import java.io.File;
 
 import project.rew.imnuritineretcahul.R;
+import project.rew.imnuritineretcahul.enums.Language;
+import project.rew.imnuritineretcahul.enums.Type;
 
 
 public class UpdateFilesTask extends AsyncTask<String, String, String> {
     private Context context;
-    private String result;
+    private Type type;
+    private Language language;
     private ProgressDialog progressDialog;
     private FragmentActivity fragmentActivity;
-    private String file;
+    private String file = "all";
     private String server = "ftpupload.net";
     private int port = 21;
     private String user = "epiz_30672048";
     private String pass = "wiejPSD0VHtsYx";
+    private String ftpPatch;
+    private String internalPatch;
 
-    public UpdateFilesTask(Context context, FragmentActivity fragmentActivity, String file) {
+    public UpdateFilesTask(Context context, FragmentActivity fragmentActivity, String file,
+                           Type type, Language language) {
         this.context = context;
         this.fragmentActivity = fragmentActivity;
         this.file = file;
+        this.type = type;
+        this.language = language;
+        if (language == Language.RO) {
+            if (type == Type.HYMN) {
+                internalPatch = context.getString(R.string.ro_internal_hymns_folder);
+                ftpPatch = fragmentActivity.getString(R.string.ro_external_hymns_folder);
+            } else if (type == Type.AUDIO) {
+                internalPatch = context.getString(R.string.ro_internal_mp3_folder);
+                ftpPatch = fragmentActivity.getString(R.string.ro_external_mp3_folder);
+            } else if (type == Type.PDF) {
+                internalPatch = context.getString(R.string.ro_internal_pdf_folder);
+                ftpPatch = fragmentActivity.getString(R.string.ro_external_pdf_folder);
+            }
+        } else if (language == Language.RU) {
+            if (type == Type.HYMN) {
+                internalPatch = context.getString(R.string.ru_internal_hymns_folder);
+                ftpPatch = fragmentActivity.getString(R.string.ru_external_hymns_folder);
+            } else if (type == Type.AUDIO) {
+                internalPatch = context.getString(R.string.ru_internal_mp3_folder);
+                ftpPatch = fragmentActivity.getString(R.string.ru_external_mp3_folder);
+            } else if (type == Type.PDF) {
+                internalPatch = context.getString(R.string.ru_internal_pdf_folder);
+                ftpPatch = fragmentActivity.getString(R.string.ru_external_pdf_folder);
+            }
+        }
+    }
+
+    public UpdateFilesTask(Context context, FragmentActivity fragmentActivity,
+                           Type type, Language language) {
+        this.context = context;
+        this.fragmentActivity = fragmentActivity;
+        this.type = type;
+        this.language = language;
+        if (language == Language.RO) {
+            if (type == Type.HYMN) {
+                internalPatch = context.getString(R.string.ro_internal_hymns_folder);
+                ftpPatch = fragmentActivity.getString(R.string.ro_external_hymns_folder);
+            } else if (type == Type.AUDIO) {
+                internalPatch = context.getString(R.string.ro_internal_mp3_folder);
+                ftpPatch = fragmentActivity.getString(R.string.ro_external_mp3_folder);
+            } else if (type == Type.PDF) {
+                internalPatch = context.getString(R.string.ro_internal_pdf_folder);
+                ftpPatch = fragmentActivity.getString(R.string.ro_external_pdf_folder);
+            }
+        } else if (language == Language.RU) {
+            if (type == Type.HYMN) {
+                internalPatch = context.getString(R.string.ru_internal_hymns_folder);
+                ftpPatch = fragmentActivity.getString(R.string.ru_external_hymns_folder);
+            } else if (type == Type.AUDIO) {
+                internalPatch = context.getString(R.string.ru_internal_mp3_folder);
+                ftpPatch = fragmentActivity.getString(R.string.ru_external_mp3_folder);
+            } else if (type == Type.PDF) {
+                internalPatch = context.getString(R.string.ru_internal_pdf_folder);
+                ftpPatch = fragmentActivity.getString(R.string.ru_external_pdf_folder);
+            }
+        }
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
         progressDialog = new ProgressDialog(context);
-        progressDialog.setCancelable(true);
+        progressDialog.setCancelable(false);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.setMax(100);
         progressDialog.setMessage("Se pregăteștete");
-        progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Anulare", new DialogInterface.OnClickListener() {
+        /*progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Anulare", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
             }
-        });
+        });*/
         progressDialog.show();
     }
 
@@ -56,15 +118,26 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
         if (!NetworkUtils.hasActiveNetworkConnection(context)) {
             fragmentActivity.runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.settings_connect_to_internet), Toast.LENGTH_SHORT).show());
         } else {
-            File internalDir = context.getDir(context.getString(R.string.ro_internal_pdf_folder), Context.MODE_PRIVATE);
+            File internalDir = context.getDir(internalPatch, Context.MODE_PRIVATE);
             if (file.equals("all")) {
-                downaldAll(ftpClient, fragmentActivity.getString(R.string.ro_external_pdf_folder), internalDir.getAbsolutePath());
+                try {
+                    ftpClient.connect(server, port);
+                    ftpClient.login(user, pass);
+                    ftpClient.enterLocalPassiveMode();
+                    FTPFile[] subFiles = Utils.getDirectoryFiles(ftpClient, ftpPatch);
+                    deleteFiles(subFiles);
+                    ftpClient.logout();
+                    ftpClient.disconnect();
+                    downaldAll(ftpClient, ftpPatch, internalDir.getAbsolutePath());
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             } else {
                 try {
                     ftpClient.connect(server, port);
                     ftpClient.login(user, pass);
                     ftpClient.enterLocalPassiveMode();
-                    FTPFile[] subFiles = Utils.getDirectoryFiles(ftpClient, fragmentActivity.getString(R.string.ro_external_pdf_folder));
+                    FTPFile[] subFiles = Utils.getDirectoryFiles(ftpClient, ftpPatch);
                     deleteFiles(subFiles);
                     ftpClient.logout();
                     ftpClient.disconnect();
@@ -73,7 +146,7 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
                         if (fileFtp.getName().equals(file)) {
                             exist = true;
                             updateItem(fileFtp,
-                                    fragmentActivity.getString(R.string.ro_external_pdf_folder)
+                                    ftpPatch
                                             + File.separator + fileFtp.getName(),
                                     internalDir.getAbsolutePath() + File.separator + fileFtp.getName());
                             break;
@@ -105,7 +178,6 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
             ftpClient.login(user, pass);
             ftpClient.enterLocalPassiveMode();
             FTPFile[] subFiles = Utils.getDirectoryFiles(ftpClient, dirToList);
-            deleteFiles(subFiles);
             ftpClient.logout();
             ftpClient.disconnect();
             String remoteFilePatch, savePatch;
@@ -115,11 +187,7 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
                 }
                 if (fileFtp.isDirectory()) {
                     File newDir = new File(dirSave + File.separator + fileFtp.getName());
-                    boolean created = newDir.mkdirs();
-                    if (created)
-                        System.out.println("Created the Directory " + newDir);
-                    else
-                        System.out.println("Cannot create the directory " + newDir);
+                    newDir.mkdirs();
                     downaldAll(ftpClient, dirToList + File.separator + fileFtp.getName(),
                             newDir.getAbsolutePath());
                 } else {
@@ -152,7 +220,7 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
     }
 
     private void deleteFiles(FTPFile[] subFiles) {
-        File internalDir = context.getDir(context.getString(R.string.ro_internal_pdf_folder), Context.MODE_PRIVATE);
+        File internalDir = context.getDir(internalPatch, Context.MODE_PRIVATE);
         File[] dirFiles = internalDir.listFiles();
         for (File dirFile : dirFiles) {
             boolean exist = false;

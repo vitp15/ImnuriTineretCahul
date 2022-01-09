@@ -4,30 +4,32 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.widget.Toast;
 
-import androidx.fragment.app.FragmentActivity;
-
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.ro.hymns.Hymn;
-import project.rew.imnuritineretcahul.utils.NetworkUtils;
 
 public class Utils {
 
-    public static List<Hymn> hymns = new ArrayList<>();
+    public static List<Hymn> hymns_ro = new ArrayList<>();
+
 
     public static void deleteFile(Context context, String forDelete) {
         File internalDir = context.getDir(context.getString(R.string.ro_internal_pdf_folder), Context.MODE_PRIVATE);
@@ -79,14 +81,15 @@ public class Utils {
                 outputStream.write(data, 0, count);
             }
             System.out.println("Downalded the file: " + savePath);
-            outputStream.close();
-            input.close();
             progressDialog.setMessage("Finising...");
             return true;
         } catch (IOException ex) {
             throw ex;
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            outputStream.close();
+            input.close();
         }
         return false;
     }
@@ -98,6 +101,62 @@ public class Utils {
                 DeleteRecursive(child);
             }
         fileOrDirectory.delete();
+    }
+
+
+    /**
+     * @param nr         Numarul imnului
+     * @param chordsFlag Flag daca sa caute cantarea cu acorduri
+     * @param context    De unde se apeleaza metoda {@link #readContent(int, boolean, Context)}
+     * @return Continutul cantarii din fisier local.
+     */
+    public static String readContent(int nr, boolean chordsFlag, Context context) {
+        StringBuilder contentBuilder = new StringBuilder();
+        String filename = "";
+
+        try {
+            File internalDir = context.getDir(context.getString(R.string.ro_internal_hymns_folder), Context.MODE_PRIVATE);
+            File[] dirFiles = internalDir.listFiles();
+            assert dirFiles != null;
+            if (dirFiles.length != 0) {
+                for (File dirFile : dirFiles) {
+                    String[] hymn = dirFile.getName().split(" - ");
+                    if (nr == Integer.parseInt(hymn[0])) {
+                        filename = chordsFlag ?
+                                dirFile.getAbsolutePath() + File.separator + "_" + nr + context.getString(R.string.settings_hymn_extension) :
+                                dirFile.getAbsolutePath() + File.separator + nr + context.getString(R.string.settings_hymn_extension);
+                    }
+                }
+            }
+            BufferedReader in = new BufferedReader(new FileReader(filename));
+            String str;
+            while ((str = in.readLine()) != null) {
+                contentBuilder.append(str);
+            }
+            in.close();
+        } catch (IOException e) {
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+        return contentBuilder.toString();
+    }
+
+    public static void loadHymns(@NotNull Context context, String internalFolder) {
+        File internalDir = context.getDir(internalFolder, Context.MODE_PRIVATE);
+        File[] dirFiles = internalDir.listFiles();
+        assert dirFiles != null;
+        Arrays.sort(dirFiles);
+        if (dirFiles.length != 0) {
+            hymns_ro.clear();
+            for (File dirFile : dirFiles) {
+                String[] hymn = dirFile.getName().split(" - ");
+                hymns_ro.add(new Hymn(Integer.parseInt(hymn[0]), hymn[1]));
+            }
+        }
+        Collections.sort(hymns_ro, Hymn.HymnComparator);
+        for (int i = 0; i< hymns_ro.size(); i++){
+            Hymn hymn = hymns_ro.get(i);
+            hymn.setNr(i+1);
+        }
     }
 
 }

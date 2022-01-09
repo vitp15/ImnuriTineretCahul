@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import project.rew.imnuritineretcahul.R;
+import project.rew.imnuritineretcahul.enums.Language;
+import project.rew.imnuritineretcahul.enums.Type;
 import project.rew.imnuritineretcahul.ro.hymns.Hymn;
 import project.rew.imnuritineretcahul.utils.UpdateFilesTask;
 
@@ -30,10 +32,10 @@ public class HymnsPdfAdapter extends RecyclerView.Adapter<HymnsPdfAdapter.ViewHo
     private FragmentActivity fragment;
 
     // RecyclerView recyclerView;
-    public HymnsPdfAdapter(List<Hymn> hymns,FragmentActivity ft) {
+    public HymnsPdfAdapter(List<Hymn> hymns, FragmentActivity ft) {
         this.hymns = new ArrayList<>(hymns);
-        all_hymns=hymns;
-        fragment=ft;
+        all_hymns = hymns;
+        fragment = ft;
     }
 
     @Override
@@ -47,25 +49,26 @@ public class HymnsPdfAdapter extends RecyclerView.Adapter<HymnsPdfAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Hymn hymn = hymns.get(position);
-        holder.textView.setText(hymn.getNr()+" "+hymn.getTitle());
+        holder.textView.setText(hymn.getNr() + " " + hymn.getTitle());
         holder.linearLayout.setVisibility(View.GONE);
-        if (hymn.getPdfView()!=null) {
+        if (hymn.getPdfView() != null) {
             holder.linearLayout.setVisibility(View.GONE);
             holder.textView.setOnClickListener(view -> {
 
                 Intent startHymn = new Intent(context, PDFCanvas.class);
                 startHymn.putExtra("id", hymn.getId());
-                startHymn.putExtra("nr",hymn.getNr());
+                startHymn.putExtra("nr", hymn.getNr());
                 context.startActivity(startHymn);
             });
         } else {
             holder.textView.setOnClickListener(view -> {
-                if (holder.linearLayout.getVisibility()==View.GONE){
-                holder.linearLayout.setVisibility(View.VISIBLE);
-                holder.pdfUpdate.setOnClickListener(v -> {
-                    new UpdateFilesTask(context,fragment,String.valueOf(hymn.getId())+".pdf").execute();
-                });
-                } else{
+                if (holder.linearLayout.getVisibility() == View.GONE) {
+                    holder.linearLayout.setVisibility(View.VISIBLE);
+                    holder.pdfUpdate.setOnClickListener(v -> {
+                        new UpdateFilesTask(context, fragment,
+                                String.valueOf(hymn.getId()) + ".pdf", Type.PDF, Language.RO).execute();
+                    });
+                } else {
                     holder.linearLayout.setVisibility(View.GONE);
                 }
             });
@@ -92,9 +95,9 @@ public class HymnsPdfAdapter extends RecyclerView.Adapter<HymnsPdfAdapter.ViewHo
             } else {
                 String filterPattern = charSequence.toString().toLowerCase();
                 for (Hymn hymn : all_hymns) {
-                    if (hymn.toString().toLowerCase().replaceAll("ă","a").replaceAll("â","a").replaceAll("î","i").replaceAll("ș","s").replaceAll("ț","t").contains(filterPattern)||hymn.toString().toLowerCase().contains(filterPattern)||
-                            hymn.toString().toLowerCase().replaceAll("ă","a").replaceAll("â","a").replaceAll("î","i").replaceAll("ș","s").replaceAll("ț","t").replaceAll("\\,","").replaceAll("\\.","").replaceAll("\\-","").replaceAll("\\?","").replaceAll("\\!","").contains(filterPattern)||
-                            hymn.toString().toLowerCase().replaceAll("\\,","").replaceAll("\\.","").replaceAll("\\-","").replaceAll("\\?","").replaceAll("\\!","").contains(filterPattern)) {
+                    if (hymn.toString().toLowerCase().replaceAll("ă", "a").replaceAll("â", "a").replaceAll("î", "i").replaceAll("ș", "s").replaceAll("ț", "t").contains(filterPattern) || hymn.toString().toLowerCase().contains(filterPattern) ||
+                            hymn.toString().toLowerCase().replaceAll("ă", "a").replaceAll("â", "a").replaceAll("î", "i").replaceAll("ș", "s").replaceAll("ț", "t").replaceAll("\\,", "").replaceAll("\\.", "").replaceAll("\\-", "").replaceAll("\\?", "").replaceAll("\\!", "").contains(filterPattern) ||
+                            hymn.toString().toLowerCase().replaceAll("\\,", "").replaceAll("\\.", "").replaceAll("\\-", "").replaceAll("\\?", "").replaceAll("\\!", "").contains(filterPattern)) {
                         filteredList.add(hymn);
                     }
                 }
@@ -123,8 +126,8 @@ public class HymnsPdfAdapter extends RecyclerView.Adapter<HymnsPdfAdapter.ViewHo
             super(itemView);
             this.textView = itemView.findViewById(R.id.textView);
             relativeLayout = itemView.findViewById(R.id.relativeLayout);
-            pdfUpdate=itemView.findViewById(R.id.btnPDFUpdate);
-            linearLayout=itemView.findViewById(R.id.linearLayout);
+            pdfUpdate = itemView.findViewById(R.id.btnPDFUpdate);
+            linearLayout = itemView.findViewById(R.id.linearLayout);
         }
     }
 }

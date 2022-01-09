@@ -24,6 +24,7 @@ import java.util.List;
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.ro.hymns.Hymn;
 import project.rew.imnuritineretcahul.ro.hymns.HymnsAdapter;
+import project.rew.imnuritineretcahul.utils.Utils;
 
 import static project.rew.imnuritineretcahul.ro.ui.audio.SetMediaPlayer.mediaPlayer;
 
@@ -35,14 +36,14 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         Utils.loadHymns(root.getContext(), getString(R.string.ro_internal_hymns_folder));
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
-        all_hymns=Utils.hymns;
+        all_hymns=Utils.hymns_ro;
         adapter=new HymnsAdapter(all_hymns);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         TextView textView=root.findViewById(R.id.textView);
         // Loading Hymns from local storage
 
-        if (Utils.hymns.isEmpty()) {
+        if (Utils.hymns_ro.isEmpty()) {
             textView.setVisibility(View.VISIBLE);
         } else {
             textView.setVisibility(View.GONE);
