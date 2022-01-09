@@ -1,4 +1,4 @@
-package project.rew.imnuritineretcahul.ro.ui.audio;
+package project.rew.imnuritineretcahul.items.audio;
 
 import android.content.Context;
 import android.media.MediaPlayer;

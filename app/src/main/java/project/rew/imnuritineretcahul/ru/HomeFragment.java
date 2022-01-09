@@ -1,10 +1,7 @@
-package project.rew.imnuritineretcahul.ro.ui.home;
+package project.rew.imnuritineretcahul.ru;
 
-import android.media.MediaPlayer;
 import android.os.Bundle;
-
 import android.view.LayoutInflater;
-
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,21 +16,22 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import org.jetbrains.annotations.NotNull;
-import java.util.List;
-import project.rew.imnuritineretcahul.R;
-import project.rew.imnuritineretcahul.ro.hymns.Hymn;
-import project.rew.imnuritineretcahul.ro.hymns.HymnsAdapter;
-import project.rew.imnuritineretcahul.utils.Utils;
 
-import static project.rew.imnuritineretcahul.ro.ui.audio.SetMediaPlayer.mediaPlayer;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+
+import project.rew.imnuritineretcahul.R;
+import project.rew.imnuritineretcahul.items.hymns.Hymn;
+import project.rew.imnuritineretcahul.items.hymns.HymnsAdapter;
+import project.rew.imnuritineretcahul.utils.Utils;
 
 public class HomeFragment extends Fragment {
     private List<Hymn> all_hymns;
     private HymnsAdapter adapter;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+        View root = inflater.inflate(R.layout.fragment_home_ru, container, false);
         Utils.loadHymns(root.getContext(), getString(R.string.ro_internal_hymns_folder));
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
         all_hymns=Utils.hymns_ro;

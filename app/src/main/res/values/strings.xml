@@ -7,9 +7,12 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Imnuri</string>
-    <string name="menu_audio">Audio</string>
-    <string name="menu_notspdf">Note PDF</string>
+    <string name="hymns_ro">Imnuri</string>
+    <string name="menu_audio_ro">Audio</string>
+    <string name="menu_notspdf_ro">Note PDF</string>
+    <string name="hymns_ru">Imnuri ruse</string>
+    <string name="menu_audio_ru">Audio ruse</string>
+    <string name="menu_notspdf_ru">Note PDF ruse</string>
     <string name="menu_updates">Actualizare</string>
 
     <string name="ro_internal_hymns_folder">ro_hymns</string>

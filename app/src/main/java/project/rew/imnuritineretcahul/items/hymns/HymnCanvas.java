@@ -1,4 +1,4 @@
-package project.rew.imnuritineretcahul.ro.hymns;
+package project.rew.imnuritineretcahul.items.hymns;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -31,9 +31,9 @@ import java.util.concurrent.TimeUnit;
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.enums.Type;
-import project.rew.imnuritineretcahul.ro.ui.audio.SetMediaPlayer;
-import project.rew.imnuritineretcahul.ro.ui.note_pdf.PDFCanvas;
-import project.rew.imnuritineretcahul.ro.ui.note_pdf.SetPDF;
+import project.rew.imnuritineretcahul.items.audio.SetMediaPlayer;
+import project.rew.imnuritineretcahul.items.note_pdf.PDFCanvas;
+import project.rew.imnuritineretcahul.items.note_pdf.SetPDF;
 import project.rew.imnuritineretcahul.utils.UpdateFilesTask;
 import project.rew.imnuritineretcahul.utils.PrefConfig;
 import project.rew.imnuritineretcahul.utils.Utils;
@@ -238,7 +238,7 @@ public class HymnCanvas extends AppCompatActivity {
                             if (j[0] == 1) {
                                 Toast.makeText(HymnCanvas.this, "Apăsați de două ori pentru a sterge", Toast.LENGTH_SHORT).show();
                             } else if (j[0] == 2) {
-                                Utils.deleteFile(HymnCanvas.this, String.valueOf(hymn.getId()) + ".mp3");
+                                Utils.deleteFile(HymnCanvas.this, String.valueOf(hymn.getId()) + ".mp3",getString(R.string.ro_internal_pdf_folder));
                                 audioElements.setVisibility(View.GONE);
                                 btFf.setVisibility(View.GONE);
                                 btRew.setVisibility(View.GONE);

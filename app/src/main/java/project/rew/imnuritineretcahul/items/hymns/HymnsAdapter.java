@@ -1,4 +1,4 @@
-package project.rew.imnuritineretcahul.ro.hymns;
+package project.rew.imnuritineretcahul.items.hymns;
 
 import android.content.Context;
 import android.content.Intent;

@@ -1,4 +1,4 @@
-package project.rew.imnuritineretcahul.ro.ui.note_pdf;
+package project.rew.imnuritineretcahul.items.note_pdf;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,7 +21,7 @@ import java.util.List;
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.enums.Type;
-import project.rew.imnuritineretcahul.ro.hymns.Hymn;
+import project.rew.imnuritineretcahul.items.hymns.Hymn;
 import project.rew.imnuritineretcahul.utils.UpdateFilesTask;
 
 

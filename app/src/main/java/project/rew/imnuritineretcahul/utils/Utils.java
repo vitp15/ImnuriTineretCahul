@@ -24,15 +24,16 @@ import java.util.Collections;
 import java.util.List;
 
 import project.rew.imnuritineretcahul.R;
-import project.rew.imnuritineretcahul.ro.hymns.Hymn;
+import project.rew.imnuritineretcahul.items.hymns.Hymn;
 
 public class Utils {
 
     public static List<Hymn> hymns_ro = new ArrayList<>();
 
 
-    public static void deleteFile(Context context, String forDelete) {
-        File internalDir = context.getDir(context.getString(R.string.ro_internal_pdf_folder), Context.MODE_PRIVATE);
+    public static void deleteFile(Context context, String forDelete,String folder) {
+
+        File internalDir = context.getDir(folder, Context.MODE_PRIVATE);
         File[] dirFiles = internalDir.listFiles();
         for (File dirFile : dirFiles) {
             if (dirFile.getName().equals(forDelete)) DeleteRecursive(dirFile);

@@ -1,4 +1,4 @@
-package project.rew.imnuritineretcahul.ro.ui.note_pdf;
+package project.rew.imnuritineretcahul.items.note_pdf;
 
 import android.content.Context;
 

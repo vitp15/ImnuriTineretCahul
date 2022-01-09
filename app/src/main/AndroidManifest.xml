@@ -11,8 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ImnuriTineretCahul">
-        <activity android:name=".ro.hymns.HymnCanvas"></activity>
-        <activity android:name=".ro.ui.note_pdf.PDFCanvas"></activity>
+        <activity android:name=".items.hymns.HymnCanvas"></activity>
+        <activity android:name=".items.note_pdf.PDFCanvas"></activity>
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
