@@ -20,7 +20,7 @@ import java.util.List;
 
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.ro.hymns.Hymn;
-import project.rew.imnuritineretcahul.ro.hymns.HymnCanvas;
+import project.rew.imnuritineretcahul.utils.UpdateFilesTask;
 
 
 public class HymnsPdfAdapter extends RecyclerView.Adapter<HymnsPdfAdapter.ViewHolder> implements Filterable {
@@ -63,7 +63,7 @@ public class HymnsPdfAdapter extends RecyclerView.Adapter<HymnsPdfAdapter.ViewHo
                 if (holder.linearLayout.getVisibility()==View.GONE){
                 holder.linearLayout.setVisibility(View.VISIBLE);
                 holder.pdfUpdate.setOnClickListener(v -> {
-                    new UpdatePdfTask(context,fragment,String.valueOf(hymn.getId())+".pdf").execute();
+                    new UpdateFilesTask(context,fragment,String.valueOf(hymn.getId())+".pdf").execute();
                 });
                 } else{
                     holder.linearLayout.setVisibility(View.GONE);

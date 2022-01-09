@@ -34,11 +34,6 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         Utils.loadHymns(root.getContext(), getString(R.string.ro_internal_hymns_folder));
-        for (MediaPlayer mediaPlayer:mediaPlayer){
-            if (mediaPlayer!=null){
-            mediaPlayer.seekTo(0);
-            mediaPlayer.stop();}
-        }
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
         all_hymns=Utils.hymns;
         adapter=new HymnsAdapter(all_hymns);

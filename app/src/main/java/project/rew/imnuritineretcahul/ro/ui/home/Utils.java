@@ -185,12 +185,13 @@ public class Utils {
                                              String remoteFilePath, String savePath) throws IOException {
         File downloadFile = new File(savePath);
         File parentDir = downloadFile.getParentFile();
+        OutputStream outputStream = new BufferedOutputStream(
+                new FileOutputStream(downloadFile));
         if (!parentDir.exists()) {
             parentDir.mkdir();
         }
 
-        OutputStream outputStream = new BufferedOutputStream(
-                new FileOutputStream(downloadFile));
+
         try {
             ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
             return ftpClient.retrieveFile(remoteFilePath, outputStream);

@@ -33,7 +33,7 @@ import project.rew.imnuritineretcahul.ro.ui.audio.SetMediaPlayer;
 import project.rew.imnuritineretcahul.ro.ui.audio.UpdateAudioTask;
 import project.rew.imnuritineretcahul.ro.ui.note_pdf.PDFCanvas;
 import project.rew.imnuritineretcahul.ro.ui.note_pdf.SetPDF;
-import project.rew.imnuritineretcahul.ro.ui.note_pdf.UpdatePdfTask;
+import project.rew.imnuritineretcahul.utils.UpdateFilesTask;
 import project.rew.imnuritineretcahul.utils.PrefConfig;
 import project.rew.imnuritineretcahul.ro.ui.home.Utils;
 
@@ -52,7 +52,7 @@ public class HymnCanvas extends AppCompatActivity {
     SeekBar playerTrack;
     TextView playerDuration, playerPosition, delete;
     LinearLayout audioElements, audioMiss, notePDF, pdfMiss;
-    Button downald,downaldPdf;
+    Button downald, downaldPdf;
     MediaPlayer mediaPlayer;
 
     @Override
@@ -92,7 +92,7 @@ public class HymnCanvas extends AppCompatActivity {
         mediaPlayer = hymn.getMediaPlayer();
         notePDF = dialog.findViewById(R.id.linear_notePdf);
         pdfMiss = dialog.findViewById(R.id.pdfMiss);
-        downaldPdf=dialog.findViewById(R.id.btnPDFUpdate);
+        downaldPdf = dialog.findViewById(R.id.btnPDFUpdate);
         SetPDF.setPDF(this);
 
         if (hymn.getPdfView() != null) {
@@ -101,14 +101,14 @@ public class HymnCanvas extends AppCompatActivity {
             notePDF.setOnClickListener(view -> {
                 Intent startPDF = new Intent(this, PDFCanvas.class);
                 startPDF.putExtra("id", hymn.getId());
-                startPDF.putExtra("nr",hymn.getNr());
+                startPDF.putExtra("nr", hymn.getNr());
                 this.startActivity(startPDF);
             });
         } else {
             notePDF.setVisibility(View.GONE);
             pdfMiss.setVisibility(View.VISIBLE);
             downaldPdf.setOnClickListener(view -> {
-                new UpdatePdfTask(this,this,String.valueOf(hymn.getId())+".pdf").execute();
+                new UpdateFilesTask(this, this, String.valueOf(hymn.getId()) + ".pdf").execute();
             });
         }
 
@@ -340,8 +340,10 @@ public class HymnCanvas extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        mediaPlayer.seekTo(0);
-        mediaPlayer.stop();
+        if (mediaPlayer != null) {
+            mediaPlayer.seekTo(0);
+            mediaPlayer.stop();
+        }
         finish();
         super.onBackPressed();
     }

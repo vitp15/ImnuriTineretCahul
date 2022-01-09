@@ -13,8 +13,7 @@ import androidx.fragment.app.Fragment;
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.ro.hymns.UpdateHymnsTask;
 import project.rew.imnuritineretcahul.ro.ui.audio.UpdateAudioTask;
-import project.rew.imnuritineretcahul.ro.ui.audio.Utils;
-import project.rew.imnuritineretcahul.ro.ui.note_pdf.UpdatePdfTask;
+import project.rew.imnuritineretcahul.utils.UpdateFilesTask;
 
 public class UpdatesFragment extends Fragment {
     private ProgressBar progressBar;
@@ -33,7 +32,7 @@ public class UpdatesFragment extends Fragment {
             new UpdateAudioTask(getContext(), getActivity(),"all").execute();
         });
         btn2.setOnClickListener(v -> {
-            new UpdatePdfTask(getContext(),getActivity(),"all").execute();
+            new UpdateFilesTask(getContext(),getActivity(),"all").execute();
         });
         return root;
     }

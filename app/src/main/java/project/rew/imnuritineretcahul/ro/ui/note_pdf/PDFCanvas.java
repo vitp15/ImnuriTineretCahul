@@ -1,10 +1,6 @@
 package project.rew.imnuritineretcahul.ro.ui.note_pdf;
 
-import android.content.Context;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -18,6 +14,7 @@ import com.github.barteksc.pdfviewer.PDFView;
 
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.ro.hymns.Hymn;
+import project.rew.imnuritineretcahul.utils.Utils;
 
 
 import static project.rew.imnuritineretcahul.ro.ui.home.Utils.hymns;
@@ -49,7 +46,7 @@ public class PDFCanvas extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.delete) {
-            Utils.deletePDF(this, String.valueOf(hymn.getId()) + ".pdf");
+            Utils.deleteFile(this, String.valueOf(hymn.getId()) + ".pdf");
             onBackPressed();
         }
         if (item.getItemId() == android.R.id.home) {
