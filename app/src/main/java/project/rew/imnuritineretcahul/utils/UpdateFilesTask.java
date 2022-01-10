@@ -31,6 +31,10 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
     private String pass = "wiejPSD0VHtsYx";
     private String ftpPatch;
     private String internalPatch;
+    public static long fileSize,total;
+    private int totalItems = 0, curentItem = 0;
+    private double procentPerHymn;
+
 
     public UpdateFilesTask(Context context, FragmentActivity fragmentActivity, String file,
                            Type type, Language language) {
@@ -39,6 +43,7 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
         this.file = file;
         this.type = type;
         this.language = language;
+        total=0;
         if (language == Language.RO) {
             if (type == Type.HYMN) {
                 internalPatch = context.getString(R.string.ro_internal_hymns_folder);
@@ -70,6 +75,7 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
         this.fragmentActivity = fragmentActivity;
         this.type = type;
         this.language = language;
+        total=0;
         if (language == Language.RO) {
             if (type == Type.HYMN) {
                 internalPatch = context.getString(R.string.ro_internal_hymns_folder);
@@ -128,7 +134,19 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
                     deleteFiles(subFiles);
                     ftpClient.logout();
                     ftpClient.disconnect();
+                    totalItems = subFiles.length - 2;
+                    procentPerHymn = 1 / (double) totalItems * 100;
+                    for (FTPFile ftpFile : subFiles) {
+                        if (ftpFile.getName().equals(".") || ftpFile.getName().equals("..")) {
+                            continue;
+                        }
+                        fileSize += ftpFile.getSize();
+                    }
                     downaldAll(ftpClient, ftpPatch, internalDir.getAbsolutePath());
+                    if (language == Language.RO)
+                        progressDialog.setMessage("Finisarea operatiei...");
+                    else if (language == Language.RU)
+                        progressDialog.setMessage("Finishing...");
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
@@ -145,8 +163,25 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
                     for (FTPFile fileFtp : subFiles) {
                         if (fileFtp.getName().equals(file)) {
                             exist = true;
-                            updateItem(fileFtp,
-                                    ftpPatch
+                            fileSize = fileFtp.getSize();
+                            if (language == Language.RO) {
+                                if (type == Type.HYMN) {
+                                    progressDialog.setMessage("Se descarcă imnul");
+                                } else if (type == Type.AUDIO) {
+                                    progressDialog.setMessage("Se descarcă fișierul audio");
+                                } else if (type == Type.PDF) {
+                                    progressDialog.setMessage("Se descarcă fișierul pdf");
+                                }
+                            } else if (language == Language.RU) {
+                                if (type == Type.HYMN) {
+                                    progressDialog.setMessage("Se descarcă imnul rus");
+                                } else if (type == Type.AUDIO) {
+                                    progressDialog.setMessage("Se descarcă fișierul audio rus");
+                                } else if (type == Type.PDF) {
+                                    progressDialog.setMessage("Se descarcă fișierul pdf rus");
+                                }
+                            }
+                            updateItem(ftpPatch
                                             + File.separator + fileFtp.getName(),
                                     internalDir.getAbsolutePath() + File.separator + fileFtp.getName());
                             break;
@@ -185,15 +220,58 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
                 if (fileFtp.getName().equals(".") || fileFtp.getName().equals("..")) {
                     continue;
                 }
+                if (type != Type.HYMN)
+                    curentItem++;
                 if (fileFtp.isDirectory()) {
+                    if (type == Type.HYMN) {
+                        curentItem++;
+                    }
+                    if (language == Language.RO) {
+                        if (type == Type.HYMN) {
+                            progressDialog.setMessage("Se descarcă imnul  " +
+                                    String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
+                        }
+                    } else if (language == Language.RU) {
+                        if (type == Type.HYMN) {
+                            progressDialog.setMessage("Se descarcă imnul rus  " +
+                                    String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
+                        }
+                    }
                     File newDir = new File(dirSave + File.separator + fileFtp.getName());
                     newDir.mkdirs();
                     downaldAll(ftpClient, dirToList + File.separator + fileFtp.getName(),
-                            newDir.getAbsolutePath());
+                            newDir.getAbsolutePath()); //because to can to set corectly the progress
+                    if (type == Type.HYMN) {
+                        int procent = (int) (curentItem * procentPerHymn);
+                        progressDialog.setProgress(procent);
+                    }
                 } else {
                     remoteFilePatch = dirToList + File.separator + fileFtp.getName();
                     savePatch = dirSave + File.separator + fileFtp.getName();
-                    updateItem(fileFtp, remoteFilePatch, savePatch);
+                    if (language == Language.RO) {
+                        if (type == Type.HYMN) {
+                            progressDialog.setMessage("Se descarcă imnul  " +
+                                    String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
+                        } else if (type == Type.AUDIO) {
+                            progressDialog.setMessage("Se descarcă audio  " +
+                                    String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
+                        } else if (type == Type.PDF) {
+                            progressDialog.setMessage("Se descarcă fișierul pdf  " +
+                                    String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
+                        }
+                    } else if (language == Language.RU) {
+                        if (type == Type.HYMN) {
+                            progressDialog.setMessage("Se descarcă imnul rus  " +
+                                    String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
+                        } else if (type == Type.AUDIO) {
+                            progressDialog.setMessage("Se descarcă audio rus  " +
+                                    String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
+                        } else if (type == Type.PDF) {
+                            progressDialog.setMessage("Se descarcă pdf rus  " +
+                                    String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
+                        }
+                    }
+                    updateItem(remoteFilePatch, savePatch);
                 }
             }
         } catch (Exception ex) {
@@ -201,15 +279,14 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
         }
     }
 
-    private void updateItem(FTPFile fileFTP, String remoteFilePatch, String savePatch) {
-        long fileSize = fileFTP.getSize();
+    private void updateItem(String remoteFilePatch, String savePatch) {
         FTPClient ftpClient = new FTPClient();
         try {
             ftpClient.connect(server, port);
             ftpClient.login(user, pass);
             ftpClient.enterLocalPassiveMode();
 
-            Utils.downloadSingleFile(ftpClient, remoteFilePatch, savePatch, progressDialog, fileSize);
+            Utils.downloadSingleFile(ftpClient, remoteFilePatch, savePatch, progressDialog, type);
 
             ftpClient.logout();
             ftpClient.disconnect();
@@ -232,6 +309,5 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
             if (!exist) Utils.DeleteRecursive(dirFile);
         }
     }
-
 
 }

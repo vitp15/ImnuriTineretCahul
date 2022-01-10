@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.List;
 
 import project.rew.imnuritineretcahul.R;
+import project.rew.imnuritineretcahul.enums.Type;
 import project.rew.imnuritineretcahul.items.hymns.Hymn;
 
 public class Utils {
@@ -31,7 +32,7 @@ public class Utils {
     public static List<Hymn> hymns_ro = new ArrayList<>();
 
 
-    public static void deleteFile(Context context, String forDelete,String folder) {
+    public static void deleteFile(Context context, String forDelete, String folder) {
 
         File internalDir = context.getDir(folder, Context.MODE_PRIVATE);
         File[] dirFiles = internalDir.listFiles();
@@ -61,7 +62,7 @@ public class Utils {
 
     public static boolean downloadSingleFile(FTPClient ftpClient,
                                              String remoteFilePath, String savePath,
-                                             ProgressDialog progressDialog, long fileSize) throws IOException {
+                                             ProgressDialog progressDialog, Type type) throws IOException {
         File downloadFile = new File(savePath);
         File parentDir = downloadFile.getParentFile();
         if (!parentDir.exists()) {
@@ -70,19 +71,17 @@ public class Utils {
         OutputStream outputStream = new BufferedOutputStream(
                 new FileOutputStream(downloadFile));
         InputStream input = new BufferedInputStream(ftpClient.retrieveFileStream(remoteFilePath));
-        int count;
+        int count = 0;
         try {
             ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
             byte data[] = new byte[1024];
-            long total = 0;
-            progressDialog.setMessage("Se descarcă");
             while ((count = input.read(data)) != -1) {
-                total += count;
-                progressDialog.setProgress('"' + (int) ((total * 100) / fileSize));
+                UpdateFilesTask.total += count;
+                int progres = (int) ((UpdateFilesTask.total * 100) / UpdateFilesTask.fileSize);
+                if (type != Type.HYMN)
+                    progressDialog.setProgress(progres);
                 outputStream.write(data, 0, count);
             }
-            System.out.println("Downalded the file: " + savePath);
-            progressDialog.setMessage("Finising...");
             return true;
         } catch (IOException ex) {
             throw ex;
@@ -154,9 +153,9 @@ public class Utils {
             }
         }
         Collections.sort(hymns_ro, Hymn.HymnComparator);
-        for (int i = 0; i< hymns_ro.size(); i++){
+        for (int i = 0; i < hymns_ro.size(); i++) {
             Hymn hymn = hymns_ro.get(i);
-            hymn.setNr(i+1);
+            hymn.setNr(i + 1);
         }
     }
 

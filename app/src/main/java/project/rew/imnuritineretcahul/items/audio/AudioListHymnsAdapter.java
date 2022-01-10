@@ -1,4 +1,4 @@
-package project.rew.imnuritineretcahul.ro.ui.audio;
+package project.rew.imnuritineretcahul.items.audio;
 
 import android.annotation.SuppressLint;
 import android.content.Context;;
@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit;
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.enums.Type;
-import project.rew.imnuritineretcahul.ro.hymns.Hymn;
+import project.rew.imnuritineretcahul.items.hymns.Hymn;
 import project.rew.imnuritineretcahul.utils.UpdateFilesTask;
 import project.rew.imnuritineretcahul.utils.Utils;
 
@@ -198,7 +198,7 @@ public class AudioListHymnsAdapter extends RecyclerView.Adapter<AudioListHymnsAd
                                 Toast.makeText(context, "Apăsați de două ori pentru a sterge", Toast.LENGTH_SHORT).show();
                             }
                             else if (i[0] ==2){
-                                Utils.deleteFile(context,String.valueOf(hymn.getId())+".mp3");
+                                Utils.deleteFile(context,String.valueOf(hymn.getId())+".mp3",context.getString(R.string.ro_internal_mp3_folder));
                                 holder.linearLayout.setVisibility(View.GONE);
                                 holder.linearLayout1.setVisibility(View.VISIBLE);
                                 holder.btnUpdSingle.setOnClickListener(new View.OnClickListener() {
