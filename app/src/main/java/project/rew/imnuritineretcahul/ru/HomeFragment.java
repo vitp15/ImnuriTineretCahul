@@ -22,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 import project.rew.imnuritineretcahul.R;
+import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.items.hymns.Hymn;
 import project.rew.imnuritineretcahul.items.hymns.HymnsAdapter;
 import project.rew.imnuritineretcahul.utils.Utils;
@@ -32,7 +33,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home_ru, container, false);
-        Utils.loadHymns(root.getContext(), getString(R.string.ro_internal_hymns_folder));
+        Utils.loadHymns(root.getContext(), Language.RU);
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
         all_hymns=Utils.hymns_ro;
         adapter=new HymnsAdapter(all_hymns);

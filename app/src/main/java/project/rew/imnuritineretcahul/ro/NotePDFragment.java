@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.jetbrains.annotations.NotNull;
 
 import project.rew.imnuritineretcahul.R;
+import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.items.note_pdf.HymnsPdfAdapter;
 import project.rew.imnuritineretcahul.items.note_pdf.SetPDF;
 import project.rew.imnuritineretcahul.utils.Utils;
@@ -31,7 +32,7 @@ public class NotePDFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_notepdf_ro, container, false);
-        Utils.loadHymns(root.getContext(), getString(R.string.ro_internal_hymns_folder));
+        Utils.loadHymns(root.getContext(), Language.RO);
 
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
         adapter=new HymnsPdfAdapter(Utils.hymns_ro,getActivity());

@@ -277,10 +277,10 @@ public class HymnCanvas extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (switchCompat.isChecked()) {
-                    content = Utils.readContent(id, true, getApplicationContext());
+                    content = Utils.readContent(id, true, getApplicationContext(),Language.RO);
                     SetWebView(webView, seekvalue, content);
                 } else {
-                    content = Utils.readContent(id, false, getApplicationContext());
+                    content = Utils.readContent(id, false, getApplicationContext(),Language.RO);
                     SetWebView(webView, seekvalue, content);
                 }
             }
@@ -289,7 +289,7 @@ public class HymnCanvas extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(hymn.getTitle());
         getSupportActionBar().setHideOnContentScrollEnabled(true);
-        content = Utils.readContent(id, false, getApplicationContext());
+        content = Utils.readContent(id, false, getApplicationContext(),Language.RO);
         SetWebView(webView, seekvalue, content);
         SeekBar seekBar = (SeekBar) findViewById(R.id.seekbar);
         seekBar.setProgress(seekvalue);

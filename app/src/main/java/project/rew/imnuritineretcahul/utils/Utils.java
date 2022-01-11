@@ -24,12 +24,14 @@ import java.util.Collections;
 import java.util.List;
 
 import project.rew.imnuritineretcahul.R;
+import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.enums.Type;
 import project.rew.imnuritineretcahul.items.hymns.Hymn;
 
 public class Utils {
 
     public static List<Hymn> hymns_ro = new ArrayList<>();
+    public static List<Hymn> hymns_ru = new ArrayList<>();
 
 
     public static void deleteFile(Context context, String forDelete, String folder) {
@@ -107,15 +109,19 @@ public class Utils {
     /**
      * @param nr         Numarul imnului
      * @param chordsFlag Flag daca sa caute cantarea cu acorduri
-     * @param context    De unde se apeleaza metoda {@link #readContent(int, boolean, Context)}
+     * @param context    De unde se apeleaza metoda {@link #readContent(int, boolean, Context, Language)}
      * @return Continutul cantarii din fisier local.
      */
-    public static String readContent(int nr, boolean chordsFlag, Context context) {
+    public static String readContent(int nr, boolean chordsFlag, Context context, Language lang) {
         StringBuilder contentBuilder = new StringBuilder();
         String filename = "";
 
         try {
-            File internalDir = context.getDir(context.getString(R.string.ro_internal_hymns_folder), Context.MODE_PRIVATE);
+            File internalDir = null;
+            if (lang == Language.RO)
+                internalDir = context.getDir(context.getString(R.string.ro_internal_hymns_folder), Context.MODE_PRIVATE);
+            else if (lang == Language.RU)
+                internalDir = context.getDir(context.getString(R.string.ru_internal_hymns_folder), Context.MODE_PRIVATE);
             File[] dirFiles = internalDir.listFiles();
             assert dirFiles != null;
             if (dirFiles.length != 0) {
@@ -128,34 +134,68 @@ public class Utils {
                     }
                 }
             }
-            BufferedReader in = new BufferedReader(new FileReader(filename));
-            String str;
-            while ((str = in.readLine()) != null) {
-                contentBuilder.append(str);
+            File file = new File(filename);
+            if (!file.exists()) {
+                if (lang == Language.RO)
+                    if (chordsFlag)
+                        contentBuilder.append("<p>Acordurile pentru această cântare nu sunt disponibile momentan</p>");
+                    else
+                        contentBuilder.append("<p>Cuvintele la imn nu sunt disponibile momenatan</p>");
+                else if (lang == Language.RU)
+                    if (chordsFlag)
+                        contentBuilder.append("<p>Acordurile pentru această cântare nu sunt disponibile momentan rus</p>");
+                    else
+                        contentBuilder.append("<p>Cuvintele la imn nu sunt disponibile momenatan rus</p>");
+            } else {
+                BufferedReader in = new BufferedReader(new FileReader(filename));
+                String str;
+                while ((str = in.readLine()) != null) {
+                    contentBuilder.append(str);
+                }
+                in.close();
             }
-            in.close();
         } catch (IOException e) {
             Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
         }
         return contentBuilder.toString();
     }
 
-    public static void loadHymns(@NotNull Context context, String internalFolder) {
-        File internalDir = context.getDir(internalFolder, Context.MODE_PRIVATE);
+    public static void loadHymns(@NotNull Context context, Language language) {
+        File internalDir = null;
+        if (language == Language.RO)
+            internalDir = context.getDir(context.getString(R.string.ro_internal_hymns_folder), Context.MODE_PRIVATE);
+        else if (language == Language.RU)
+            internalDir = context.getDir(context.getString(R.string.ru_internal_hymns_folder), Context.MODE_PRIVATE);
         File[] dirFiles = internalDir.listFiles();
         assert dirFiles != null;
         Arrays.sort(dirFiles);
-        if (dirFiles.length != 0) {
-            hymns_ro.clear();
-            for (File dirFile : dirFiles) {
-                String[] hymn = dirFile.getName().split(" - ");
-                hymns_ro.add(new Hymn(Integer.parseInt(hymn[0]), hymn[1]));
+        if (language==Language.RO) {
+            if (dirFiles.length != 0) {
+                hymns_ro.clear();
+                for (File dirFile : dirFiles) {
+                    String[] hymn = dirFile.getName().split(" - ");
+                    hymns_ro.add(new Hymn(Integer.parseInt(hymn[0]), hymn[1]));
+                }
+            }
+            Collections.sort(hymns_ro, Hymn.HymnComparator);
+            for (int i = 0; i < hymns_ro.size(); i++) {
+                Hymn hymn = hymns_ro.get(i);
+                hymn.setNr(i + 1);
             }
         }
-        Collections.sort(hymns_ro, Hymn.HymnComparator);
-        for (int i = 0; i < hymns_ro.size(); i++) {
-            Hymn hymn = hymns_ro.get(i);
-            hymn.setNr(i + 1);
+        else if (language==Language.RU){
+            if (dirFiles.length != 0) {
+                hymns_ru.clear();
+                for (File dirFile : dirFiles) {
+                    String[] hymn = dirFile.getName().split(" - ");
+                    hymns_ru.add(new Hymn(Integer.parseInt(hymn[0]), hymn[1]));
+                }
+            }
+            Collections.sort(hymns_ru, Hymn.HymnComparator);
+            for (int i = 0; i < hymns_ru.size(); i++) {
+                Hymn hymn = hymns_ru.get(i);
+                hymn.setNr(i + 1);
+            }
         }
     }
 

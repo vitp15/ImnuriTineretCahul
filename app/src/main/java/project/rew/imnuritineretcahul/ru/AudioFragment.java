@@ -22,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 import project.rew.imnuritineretcahul.R;
+import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.items.audio.AudioListHymnsAdapter;
 import project.rew.imnuritineretcahul.items.audio.SetMediaPlayer;
 import project.rew.imnuritineretcahul.items.hymns.Hymn;
@@ -34,7 +35,7 @@ public class AudioFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_audio_ru, container, false);
-        Utils.loadHymns(root.getContext(), getString(R.string.ro_internal_hymns_folder));
+        Utils.loadHymns(root.getContext(), Language.RU);
         SetMediaPlayer.setMediaPlayer(root.getContext());
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
         all_hymns = Utils.hymns_ro;
