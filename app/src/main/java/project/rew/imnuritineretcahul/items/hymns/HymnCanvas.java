@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -48,7 +49,7 @@ public class HymnCanvas extends AppCompatActivity {
     String content;
     Dialog dialog;
     ImageView btPlay, btPause, btFf, btRew;
-    SeekBar playerTrack;
+    SeekBar playerTrack,seekBar;
     TextView playerDuration, playerPosition, delete;
     LinearLayout audioElements, audioMiss, notePDF, pdfMiss;
     Button downald, downaldPdf;
@@ -77,6 +78,7 @@ public class HymnCanvas extends AppCompatActivity {
         WebView webView = findViewById(R.id.wvCanvas);
         webView.getSettings().setJavaScriptEnabled(true);
 
+        seekBar = (SeekBar) findViewById(R.id.seekbar);
         btPlay = dialog.findViewById(R.id.player_btn);
         btPause = dialog.findViewById(R.id.player_btn_pause);
         btRew = dialog.findViewById(R.id.fast_rewind);
@@ -111,6 +113,12 @@ public class HymnCanvas extends AppCompatActivity {
                         String.valueOf(hymn.getId()) + ".pdf", Type.PDF, Language.RO).execute();
             });
         }
+
+        playerTrack.getProgressDrawable().setColorFilter(this.getColor(R.color.seekbar_hymn),PorterDuff.Mode.MULTIPLY);
+        playerTrack.getThumb().setColorFilter(this.getColor(R.color.thumb_dialog),PorterDuff.Mode.SRC_ATOP);
+
+        seekBar.getProgressDrawable().setColorFilter(this.getColor(R.color.seekbar_text),PorterDuff.Mode.MULTIPLY);
+        seekBar.getThumb().setColorFilter(this.getColor(R.color.thumb_text),PorterDuff.Mode.SRC_ATOP);
 
         if (mediaPlayer != null) {
             audioMiss.setVisibility(View.GONE);
@@ -291,7 +299,6 @@ public class HymnCanvas extends AppCompatActivity {
         getSupportActionBar().setHideOnContentScrollEnabled(true);
         content = Utils.readContent(id, false, getApplicationContext(),Language.RO);
         SetWebView(webView, seekvalue, content);
-        SeekBar seekBar = (SeekBar) findViewById(R.id.seekbar);
         seekBar.setProgress(seekvalue);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override

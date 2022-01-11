@@ -40,7 +40,7 @@ public class HymnsAdapter extends RecyclerView.Adapter<HymnsAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Hymn hymn = hymns.get(position);
-        holder.textView.setText(hymn.getNr()+" "+hymn.getTitle());
+        holder.textView.setText(hymn.getNr()+"  "+hymn.getTitle());
         holder.relativeLayout.setOnClickListener(view -> {
 
             Intent startHymn = new Intent(context, HymnCanvas.class);

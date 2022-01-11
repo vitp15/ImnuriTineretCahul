@@ -2,9 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="3dp">
 
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textViewLay">
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
@@ -14,15 +18,28 @@
         android:paddingLeft="10dp"
         android:textSize="18sp"
         android:text="Imn"
+        android:clickable="true"
+        android:background="@drawable/simple_press"
         />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="0.5dp"
+        android:background="@color/white"
+        android:id="@+id/linear3"
+        android:layout_below="@+id/textViewLay"
+        android:orientation="vertical" />
     <LinearLayout
         android:id="@+id/linearLayoutAll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/linear3"
         >
     <LinearLayout
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="5dp"
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,16 +56,17 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="5dp"
-                android:text="Stergeți"
-                android:textSize="15dp" />
+                android:text=" Stergeți "
+                android:background="@drawable/delete_audio"
+                android:textSize="18sp" />
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_fast_rewind"
+                android:src="@drawable/ic_fast_rewind_list"
                 android:id="@+id/fast_rewind"
                 android:layout_alignParentStart="true"
                 android:layout_marginTop="23dp"
-                android:layout_marginStart="80dp"
+                android:layout_marginStart="50dp"
                 />
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -57,7 +75,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_play_circle"
+                android:src="@drawable/ic_play_circle_list"
                 android:layout_gravity="center"
                 android:id="@+id/player_btn"
                 />
@@ -69,7 +87,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_pause_circle"
+                android:src="@drawable/ic_pause_circle_list"
                 android:id="@+id/player_btn_pause"
                 android:visibility="gone"/>
         </RelativeLayout>
@@ -79,8 +97,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="23dp"
-                android:layout_marginEnd="80dp"
-                android:src="@drawable/ic_fast_forward" />
+                android:layout_marginEnd="50dp"
+                android:src="@drawable/ic_fast_forward_list" />
         </RelativeLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -114,15 +132,24 @@
         android:layout_below="@+id/linearLayout"
         android:orientation="vertical"
         >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="0.5dp"
+            android:background="@color/white"
+            android:id="@+id/linear4"
+            android:orientation="horizontal" />
         <Button
             android:id="@+id/btnAudioUpdateone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
             android:text="Descarcă audio"
+            android:textSize="18sp"
+            android:textAllCaps="false"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             />
     </LinearLayout>
     </LinearLayout>

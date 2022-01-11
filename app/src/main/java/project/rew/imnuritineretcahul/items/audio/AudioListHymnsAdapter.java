@@ -2,6 +2,7 @@ package project.rew.imnuritineretcahul.items.audio;
 
 import android.annotation.SuppressLint;
 import android.content.Context;;
+import android.graphics.PorterDuff;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -56,7 +57,7 @@ public class AudioListHymnsAdapter extends RecyclerView.Adapter<AudioListHymnsAd
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Hymn hymn = hymns.get(position);
-        holder.textView.setText(hymn.getNr() + " " + hymn.getTitle());
+        holder.textView.setText(hymn.getNr() + "  " + hymn.getTitle());
         holder.textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,6 +74,10 @@ public class AudioListHymnsAdapter extends RecyclerView.Adapter<AudioListHymnsAd
         if (mediaPlayer != null) {
             holder.linearLayout.setVisibility(View.VISIBLE);
             holder.linearLayout1.setVisibility(View.GONE);
+            holder.title.setBackgroundColor(context.getColor(R.color.audio_exist_title));
+            holder.linearAll.setBackgroundColor(context.getColor(R.color.audio_exist_background));
+            holder.playerTrack.getProgressDrawable().setColorFilter(context.getColor(R.color.seekbar_list), PorterDuff.Mode.MULTIPLY);
+            holder.playerTrack.getThumb().setColorFilter(context.getColor(R.color.thumb_list),PorterDuff.Mode.SRC_ATOP);
             runnable = new Runnable() {
                 @Override
                 public void run() {
@@ -190,15 +195,14 @@ public class AudioListHymnsAdapter extends RecyclerView.Adapter<AudioListHymnsAd
                 @Override
                 public void onClick(View view) {
                     i[0]++;
-                    Handler handlerDelete=new Handler();
+                    Handler handlerDelete = new Handler();
                     handlerDelete.postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            if(i[0] ==1){
+                            if (i[0] == 1) {
                                 Toast.makeText(context, "Apăsați de două ori pentru a sterge", Toast.LENGTH_SHORT).show();
-                            }
-                            else if (i[0] ==2){
-                                Utils.deleteFile(context,String.valueOf(hymn.getId())+".mp3",context.getString(R.string.ro_internal_mp3_folder));
+                            } else if (i[0] == 2) {
+                                Utils.deleteFile(context, String.valueOf(hymn.getId()) + ".mp3", context.getString(R.string.ro_internal_mp3_folder));
                                 holder.linearLayout.setVisibility(View.GONE);
                                 holder.linearLayout1.setVisibility(View.VISIBLE);
                                 holder.btnUpdSingle.setOnClickListener(new View.OnClickListener() {
@@ -209,18 +213,21 @@ public class AudioListHymnsAdapter extends RecyclerView.Adapter<AudioListHymnsAd
                                     }
                                 });
                             }
-                            i[0] =0;  }
-                    },800);
+                            i[0] = 0;
+                        }
+                    }, 800);
                 }
             });
         } else {
+            holder.linearAll.setBackgroundColor(context.getColor(R.color.audio_miss));
+            holder.title.setBackgroundColor(context.getColor(R.color.audio_miss));
             holder.linearLayout.setVisibility(View.GONE);
             holder.linearLayout1.setVisibility(View.VISIBLE);
             holder.btnUpdSingle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     new UpdateFilesTask(context, fragment, String.valueOf(hymn.getId()) + ".mp3",
-                            Type.AUDIO,Language.RO).execute();
+                            Type.AUDIO, Language.RO).execute();
                 }
             });
         }
@@ -278,7 +285,7 @@ public class AudioListHymnsAdapter extends RecyclerView.Adapter<AudioListHymnsAd
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView textView, delete;
         public RelativeLayout relativeLayout;
-        public LinearLayout linearLayout, linearLayout1, linearAll;
+        public LinearLayout linearLayout, linearLayout1, linearAll, title;
         public ImageView btPlay, btPause, btRew, btFf;
         public TextView playerPosition, playerDuration;
         public SeekBar playerTrack;
@@ -300,6 +307,7 @@ public class AudioListHymnsAdapter extends RecyclerView.Adapter<AudioListHymnsAd
             playerTrack = itemView.findViewById(R.id.player_track);
             btnUpdSingle = itemView.findViewById(R.id.btnAudioUpdateone);
             delete = itemView.findViewById(R.id.delete);
+            title = itemView.findViewById(R.id.textViewLay);
         }
     }
 }

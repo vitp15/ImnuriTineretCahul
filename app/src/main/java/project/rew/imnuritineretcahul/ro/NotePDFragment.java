@@ -31,7 +31,7 @@ public class NotePDFragment extends Fragment {
     HymnsPdfAdapter adapter;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_notepdf_ro, container, false);
+        View root = inflater.inflate(R.layout.fragment_notepdf, container, false);
         Utils.loadHymns(root.getContext(), Language.RO);
 
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);

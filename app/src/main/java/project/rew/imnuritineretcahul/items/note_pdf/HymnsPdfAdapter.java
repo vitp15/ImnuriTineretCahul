@@ -49,9 +49,10 @@ public class HymnsPdfAdapter extends RecyclerView.Adapter<HymnsPdfAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Hymn hymn = hymns.get(position);
-        holder.textView.setText(hymn.getNr() + " " + hymn.getTitle());
+        holder.textView.setText(hymn.getNr() + "  " + hymn.getTitle());
         holder.linearLayout.setVisibility(View.GONE);
         if (hymn.getPdfView() != null) {
+            holder.relativeLayout.setBackgroundColor(context.getColor(R.color.pdf_exist));
             holder.linearLayout.setVisibility(View.GONE);
             holder.textView.setOnClickListener(view -> {
 
@@ -61,6 +62,7 @@ public class HymnsPdfAdapter extends RecyclerView.Adapter<HymnsPdfAdapter.ViewHo
                 context.startActivity(startHymn);
             });
         } else {
+            holder.relativeLayout.setBackgroundColor(context.getColor(R.color.pdf_miss));
             holder.textView.setOnClickListener(view -> {
                 if (holder.linearLayout.getVisibility() == View.GONE) {
                     holder.linearLayout.setVisibility(View.VISIBLE);

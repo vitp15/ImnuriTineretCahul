@@ -31,7 +31,7 @@ public class HomeFragment extends Fragment {
     private HymnsAdapter adapter;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_home_ro, container, false);
+        View root = inflater.inflate(R.layout.fragment_home, container, false);
         Utils.loadHymns(root.getContext(), Language.RO);
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
         all_hymns=Utils.hymns_ro;

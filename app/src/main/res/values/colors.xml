@@ -1,10 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="appBar_light">#0036C3</color>
+    <color name="appBarTop_light">#00195A</color>
+
+    <color name="appBar_night">#094200</color>
+    <color name="appBarTop_night">#041B00</color>
+
+    <color name="backgrounf_dialog_box">#3CAEFB</color>
+    <color name="player_btns">#043995</color>
+    <color name="seekbar_hymn">#0E35C5</color>
+    <color name="thumb_dialog">#1443ED</color>
+    <color name="seekbar_text">#0E91C5</color>
+    <color name="thumb_text">#0FA0CC</color>
+
+    <color name="delete_nonpress_background">#15000000</color>
+    <color name="delete_nonpress_stroke">#2E2E2E</color>
+    <color name="delete_pressed_background">#50000000</color>
+    <color name="delete_pressed_stroke">#191919</color>
+
+    <color name="pdf_exist">#41286EF6</color>
+    <color name="pdf_miss">#41E32929</color>
+
+    <color name="audio_exist_title">#B0DFC831</color>
+    <color name="audio_exist_background">#BFFFEB3B</color>
+    <color name="audio_miss">#41E32929</color>
+    <color name="player_btns_list">#38393A</color>
+    <color name="seekbar_list">#BF7301</color>
+    <color name="thumb_list">#FF9800</color>
+
+    <color name="nonpressed_contur">#2E2E2E</color>
+    <color name="pressed_contur">#151515</color>
+    <color name="background_press">#19000000</color>
+
+
 </resources>
