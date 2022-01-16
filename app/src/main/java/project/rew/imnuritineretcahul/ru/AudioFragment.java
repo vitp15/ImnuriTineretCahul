@@ -36,10 +36,10 @@ public class AudioFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_audio, container, false);
         Utils.loadHymns(root.getContext(), Language.RU);
-        SetMediaPlayer.setMediaPlayer(root.getContext());
+        SetMediaPlayer.setMediaPlayer(root.getContext(),Language.RU);
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
-        all_hymns = Utils.hymns_ro;
-        adapter = new AudioListHymnsAdapter(all_hymns, getActivity());
+        all_hymns = Utils.hymns_ru;
+        adapter = new AudioListHymnsAdapter(all_hymns, getActivity(),Language.RU);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         TextView textView = root.findViewById(R.id.textView);
@@ -47,7 +47,7 @@ public class AudioFragment extends Fragment {
 
         // Loading Hymns from local storage
 
-        if (Utils.hymns_ro.isEmpty()) {
+        if (Utils.hymns_ru.isEmpty()) {
             textView.setVisibility(View.VISIBLE);
         } else {
             textView.setVisibility(View.GONE);

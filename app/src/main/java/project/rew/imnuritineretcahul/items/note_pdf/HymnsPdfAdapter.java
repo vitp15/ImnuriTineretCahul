@@ -30,12 +30,14 @@ public class HymnsPdfAdapter extends RecyclerView.Adapter<HymnsPdfAdapter.ViewHo
     private List<Hymn> all_hymns;
     private Context context;
     private FragmentActivity fragment;
+    private Language language;
 
     // RecyclerView recyclerView;
-    public HymnsPdfAdapter(List<Hymn> hymns, FragmentActivity ft) {
+    public HymnsPdfAdapter(List<Hymn> hymns, FragmentActivity ft, Language language) {
         this.hymns = new ArrayList<>(hymns);
         all_hymns = hymns;
         fragment = ft;
+        this.language = language;
     }
 
     @Override
@@ -59,6 +61,10 @@ public class HymnsPdfAdapter extends RecyclerView.Adapter<HymnsPdfAdapter.ViewHo
                 Intent startHymn = new Intent(context, PDFCanvas.class);
                 startHymn.putExtra("id", hymn.getId());
                 startHymn.putExtra("nr", hymn.getNr());
+                if (language == Language.RO)
+                    startHymn.putExtra("language", 1);
+                else if (language == Language.RU)
+                    startHymn.putExtra("language", 0);
                 context.startActivity(startHymn);
             });
         } else {
@@ -68,7 +74,7 @@ public class HymnsPdfAdapter extends RecyclerView.Adapter<HymnsPdfAdapter.ViewHo
                     holder.linearLayout.setVisibility(View.VISIBLE);
                     holder.pdfUpdate.setOnClickListener(v -> {
                         new UpdateFilesTask(context, fragment,
-                                String.valueOf(hymn.getId()) + ".pdf", Type.PDF, Language.RO).execute();
+                                String.valueOf(hymn.getId()) + ".pdf", Type.PDF, language).execute();
                     });
                 } else {
                     holder.linearLayout.setVisibility(View.GONE);

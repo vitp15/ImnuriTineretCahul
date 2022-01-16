@@ -35,11 +35,11 @@ public class NotePDFragment extends Fragment {
         Utils.loadHymns(root.getContext(), Language.RO);
 
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
-        adapter=new HymnsPdfAdapter(Utils.hymns_ro,getActivity());
+        adapter=new HymnsPdfAdapter(Utils.hymns_ro,getActivity(),Language.RO);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         TextView textView=root.findViewById(R.id.textView);
-        SetPDF.setPDF(root.getContext());
+        SetPDF.setPDF(root.getContext(),Language.RO);
         // Loading Hymns from local storage
 
         if (Utils.hymns_ro.isEmpty()) {

@@ -35,7 +35,7 @@ public class HomeFragment extends Fragment {
         Utils.loadHymns(root.getContext(), Language.RO);
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
         all_hymns=Utils.hymns_ro;
-        adapter=new HymnsAdapter(all_hymns);
+        adapter=new HymnsAdapter(all_hymns,Language.RO);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         TextView textView=root.findViewById(R.id.textView);

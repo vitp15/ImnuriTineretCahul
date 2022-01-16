@@ -38,12 +38,14 @@ public class AudioListHymnsAdapter extends RecyclerView.Adapter<AudioListHymnsAd
     private List<Hymn> all_hymns;
     private Context context;
     private FragmentActivity fragment;
+    private Language language;
 
     // RecyclerView recyclerView;
-    public AudioListHymnsAdapter(List<Hymn> hymns, FragmentActivity frag) {
+    public AudioListHymnsAdapter(List<Hymn> hymns, FragmentActivity frag, Language language) {
         this.hymns = new ArrayList<>(hymns);
         all_hymns = hymns;
         this.fragment = frag;
+        this.language = language;
     }
 
     @Override
@@ -77,7 +79,7 @@ public class AudioListHymnsAdapter extends RecyclerView.Adapter<AudioListHymnsAd
             holder.title.setBackgroundColor(context.getColor(R.color.audio_exist_title));
             holder.linearAll.setBackgroundColor(context.getColor(R.color.audio_exist_background));
             holder.playerTrack.getProgressDrawable().setColorFilter(context.getColor(R.color.seekbar_list), PorterDuff.Mode.MULTIPLY);
-            holder.playerTrack.getThumb().setColorFilter(context.getColor(R.color.thumb_list),PorterDuff.Mode.SRC_ATOP);
+            holder.playerTrack.getThumb().setColorFilter(context.getColor(R.color.thumb_list), PorterDuff.Mode.SRC_ATOP);
             runnable = new Runnable() {
                 @Override
                 public void run() {
@@ -202,14 +204,16 @@ public class AudioListHymnsAdapter extends RecyclerView.Adapter<AudioListHymnsAd
                             if (i[0] == 1) {
                                 Toast.makeText(context, "Apăsați de două ori pentru a sterge", Toast.LENGTH_SHORT).show();
                             } else if (i[0] == 2) {
-                                Utils.deleteFile(context, String.valueOf(hymn.getId()) + ".mp3", context.getString(R.string.ro_internal_mp3_folder));
+                                Utils.deleteFile(context, String.valueOf(hymn.getId()) + ".mp3", language,Type.AUDIO);
+                                holder.linearAll.setBackgroundColor(context.getColor(R.color.audio_miss));
+                                holder.title.setBackgroundColor(context.getColor(R.color.audio_miss));
                                 holder.linearLayout.setVisibility(View.GONE);
                                 holder.linearLayout1.setVisibility(View.VISIBLE);
                                 holder.btnUpdSingle.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
                                         new UpdateFilesTask(context, fragment, String.valueOf(hymn.getId()) + ".mp3",
-                                                Type.AUDIO, Language.RO).execute();
+                                                Type.AUDIO, language).execute();
                                     }
                                 });
                             }
@@ -227,7 +231,7 @@ public class AudioListHymnsAdapter extends RecyclerView.Adapter<AudioListHymnsAd
                 @Override
                 public void onClick(View view) {
                     new UpdateFilesTask(context, fragment, String.valueOf(hymn.getId()) + ".mp3",
-                            Type.AUDIO, Language.RO).execute();
+                            Type.AUDIO, language).execute();
                 }
             });
         }

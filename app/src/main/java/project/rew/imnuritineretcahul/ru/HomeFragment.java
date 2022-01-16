@@ -35,14 +35,14 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         Utils.loadHymns(root.getContext(), Language.RU);
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
-        all_hymns=Utils.hymns_ro;
-        adapter=new HymnsAdapter(all_hymns);
+        all_hymns=Utils.hymns_ru;
+        adapter=new HymnsAdapter(all_hymns,Language.RU);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         TextView textView=root.findViewById(R.id.textView);
         // Loading Hymns from local storage
 
-        if (Utils.hymns_ro.isEmpty()) {
+        if (Utils.hymns_ru.isEmpty()) {
             textView.setVisibility(View.VISIBLE);
         } else {
             textView.setVisibility(View.GONE);

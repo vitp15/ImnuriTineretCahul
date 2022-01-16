@@ -34,8 +34,23 @@ public class Utils {
     public static List<Hymn> hymns_ru = new ArrayList<>();
 
 
-    public static void deleteFile(Context context, String forDelete, String folder) {
-
+    public static void deleteFile(Context context, String forDelete, Language language, Type type) {
+        String folder = null;
+        if (language == Language.RO) {
+            if (type == Type.AUDIO)
+                folder = context.getString(R.string.ro_internal_mp3_folder);
+            else if (type == Type.PDF)
+                folder = context.getString(R.string.ro_internal_pdf_folder);
+            else if (type == Type.HYMN)
+                folder = context.getString(R.string.ro_internal_hymns_folder);
+        } else if (language == Language.RU) {
+            if (type == Type.AUDIO)
+                folder = context.getString(R.string.ru_internal_mp3_folder);
+            else if (type == Type.PDF)
+                folder = context.getString(R.string.ru_internal_pdf_folder);
+            else if (type == Type.HYMN)
+                folder = context.getString(R.string.ru_internal_hymns_folder);
+        }
         File internalDir = context.getDir(folder, Context.MODE_PRIVATE);
         File[] dirFiles = internalDir.listFiles();
         for (File dirFile : dirFiles) {
@@ -169,7 +184,7 @@ public class Utils {
         File[] dirFiles = internalDir.listFiles();
         assert dirFiles != null;
         Arrays.sort(dirFiles);
-        if (language==Language.RO) {
+        if (language == Language.RO) {
             if (dirFiles.length != 0) {
                 hymns_ro.clear();
                 for (File dirFile : dirFiles) {
@@ -182,8 +197,7 @@ public class Utils {
                 Hymn hymn = hymns_ro.get(i);
                 hymn.setNr(i + 1);
             }
-        }
-        else if (language==Language.RU){
+        } else if (language == Language.RU) {
             if (dirFiles.length != 0) {
                 hymns_ru.clear();
                 for (File dirFile : dirFiles) {

@@ -16,17 +16,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 import project.rew.imnuritineretcahul.R;
+import project.rew.imnuritineretcahul.enums.Language;
 
 
 public class HymnsAdapter extends RecyclerView.Adapter<HymnsAdapter.ViewHolder> implements Filterable {
     private List<Hymn> hymns;
     private List<Hymn> all_hymns;
     private Context context;
+    Language language;
 
     // RecyclerView recyclerView;
-    public HymnsAdapter(List<Hymn> hymns) {
+    public HymnsAdapter(List<Hymn> hymns, Language language) {
         this.hymns = new ArrayList<>(hymns);
-        all_hymns=hymns;
+        all_hymns = hymns;
+        this.language=language;
     }
 
     @Override
@@ -40,12 +43,16 @@ public class HymnsAdapter extends RecyclerView.Adapter<HymnsAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Hymn hymn = hymns.get(position);
-        holder.textView.setText(hymn.getNr()+"  "+hymn.getTitle());
+        holder.textView.setText(hymn.getNr() + "  " + hymn.getTitle());
         holder.relativeLayout.setOnClickListener(view -> {
 
             Intent startHymn = new Intent(context, HymnCanvas.class);
             startHymn.putExtra("id", hymn.getId());
-            startHymn.putExtra("nr",hymn.getNr());
+            startHymn.putExtra("nr", hymn.getNr());
+            if (language == Language.RO)
+                startHymn.putExtra("language", 1);
+            else if (language == Language.RU)
+                startHymn.putExtra("language", 0);
             context.startActivity(startHymn);
         });
     }
@@ -70,9 +77,9 @@ public class HymnsAdapter extends RecyclerView.Adapter<HymnsAdapter.ViewHolder> 
             } else {
                 String filterPattern = charSequence.toString().toLowerCase();
                 for (Hymn hymn : all_hymns) {
-                    if (hymn.toString().toLowerCase().replaceAll("ă","a").replaceAll("â","a").replaceAll("î","i").replaceAll("ș","s").replaceAll("ț","t").contains(filterPattern)||hymn.toString().toLowerCase().contains(filterPattern)||
-                            hymn.toString().toLowerCase().replaceAll("ă","a").replaceAll("â","a").replaceAll("î","i").replaceAll("ș","s").replaceAll("ț","t").replaceAll("\\,","").replaceAll("\\.","").replaceAll("\\-","").replaceAll("\\?","").replaceAll("\\!","").contains(filterPattern)||
-                            hymn.toString().toLowerCase().replaceAll("\\,","").replaceAll("\\.","").replaceAll("\\-","").replaceAll("\\?","").replaceAll("\\!","").contains(filterPattern)) {
+                    if (hymn.toString().toLowerCase().replaceAll("ă", "a").replaceAll("â", "a").replaceAll("î", "i").replaceAll("ș", "s").replaceAll("ț", "t").contains(filterPattern) || hymn.toString().toLowerCase().contains(filterPattern) ||
+                            hymn.toString().toLowerCase().replaceAll("ă", "a").replaceAll("â", "a").replaceAll("î", "i").replaceAll("ș", "s").replaceAll("ț", "t").replaceAll("\\,", "").replaceAll("\\.", "").replaceAll("\\-", "").replaceAll("\\?", "").replaceAll("\\!", "").contains(filterPattern) ||
+                            hymn.toString().toLowerCase().replaceAll("\\,", "").replaceAll("\\.", "").replaceAll("\\-", "").replaceAll("\\?", "").replaceAll("\\!", "").contains(filterPattern)) {
                         filteredList.add(hymn);
                     }
                 }
