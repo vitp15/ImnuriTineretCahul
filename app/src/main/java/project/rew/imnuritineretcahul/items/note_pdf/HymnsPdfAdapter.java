@@ -53,6 +53,11 @@ public class HymnsPdfAdapter extends RecyclerView.Adapter<HymnsPdfAdapter.ViewHo
         final Hymn hymn = hymns.get(position);
         holder.textView.setText(hymn.getNr() + "  " + hymn.getTitle());
         holder.linearLayout.setVisibility(View.GONE);
+        if (language == Language.RO) {
+            holder.pdfUpdate.setText(R.string.downald_single_pdf_ro);
+        } else if (language == Language.RU) {
+            holder.pdfUpdate.setText(R.string.downald_single_pdf_ru);
+        }
         if (hymn.getPdfView() != null) {
             holder.relativeLayout.setBackgroundColor(context.getColor(R.color.pdf_exist));
             holder.linearLayout.setVisibility(View.GONE);

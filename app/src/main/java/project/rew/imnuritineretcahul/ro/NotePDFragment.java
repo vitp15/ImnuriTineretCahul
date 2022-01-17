@@ -41,6 +41,7 @@ public class NotePDFragment extends Fragment {
         TextView textView=root.findViewById(R.id.textView);
         SetPDF.setPDF(root.getContext(),Language.RO);
         // Loading Hymns from local storage
+        textView.setText(R.string.imns_not_found_ro);
 
         if (Utils.hymns_ro.isEmpty()) {
             textView.setVisibility(View.VISIBLE);

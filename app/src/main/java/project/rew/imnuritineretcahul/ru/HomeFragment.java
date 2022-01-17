@@ -41,6 +41,7 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         TextView textView=root.findViewById(R.id.textView);
         // Loading Hymns from local storage
+        textView.setText(R.string.imns_not_found_ru);
 
         if (Utils.hymns_ru.isEmpty()) {
             textView.setVisibility(View.VISIBLE);

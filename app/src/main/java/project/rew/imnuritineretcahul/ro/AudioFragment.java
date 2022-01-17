@@ -46,6 +46,8 @@ public class AudioFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         TextView textView = root.findViewById(R.id.textView);
 
+        textView.setText(R.string.imns_not_found_ro);
+
 
         // Loading Hymns from local storage
 

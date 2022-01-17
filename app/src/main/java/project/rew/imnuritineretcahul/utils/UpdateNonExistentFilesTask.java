@@ -2,9 +2,14 @@ package project.rew.imnuritineretcahul.utils;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
 import org.apache.commons.net.ftp.FTPClient;
@@ -29,7 +34,7 @@ public class UpdateNonExistentFilesTask extends AsyncTask<String, String, String
     private String pass = "wiejPSD0VHtsYx";
     private String ftpPatch;
     private String internalPatch;
-    private int totalItems = 0, curentItem = 0;
+    private int totalItems = 0, curentItem;
     private double procentPerHymn;
 
 
@@ -39,6 +44,7 @@ public class UpdateNonExistentFilesTask extends AsyncTask<String, String, String
         this.fragmentActivity = fragmentActivity;
         this.type = type;
         this.language = language;
+        curentItem = 0;
         UpdateFilesTask.total = 0;
         UpdateFilesTask.fileSize = 0;
         if (language == Language.RO) {
@@ -73,13 +79,23 @@ public class UpdateNonExistentFilesTask extends AsyncTask<String, String, String
         progressDialog.setCancelable(false);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.setMax(100);
-        progressDialog.setMessage("Se pregăteștete");
-        /*progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Anulare", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });*/
+        if (language == Language.RO) {
+            progressDialog.setMessage(fragmentActivity.getString(R.string.ready_ro));
+            /*progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, fragmentActivity.getString(R.string.cancel_ro), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    progressDialog.setMessage(fragmentActivity.getString(R.string.canceling_msg_ro));
+                }
+            });*/
+        } else if (language == Language.RU) {
+            progressDialog.setMessage(fragmentActivity.getString(R.string.ready_ru));
+            /*progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, fragmentActivity.getString(R.string.cancel_ru), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    progressDialog.setMessage(fragmentActivity.getString(R.string.canceling_msg_ru));
+                }
+            });*/
+        }
         progressDialog.show();
     }
 
@@ -87,7 +103,10 @@ public class UpdateNonExistentFilesTask extends AsyncTask<String, String, String
     protected String doInBackground(String... args) {
         FTPClient ftpClient = new FTPClient();
         if (!NetworkUtils.hasActiveNetworkConnection(context)) {
-            fragmentActivity.runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.settings_connect_to_internet), Toast.LENGTH_SHORT).show());
+            if (language == Language.RO)
+                fragmentActivity.runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.settings_connect_to_internet_ro), Toast.LENGTH_SHORT).show());
+            if (language == Language.RU)
+                fragmentActivity.runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.settings_connect_to_internet_ru), Toast.LENGTH_SHORT).show());
         } else {
             File internalDir = context.getDir(internalPatch, Context.MODE_PRIVATE);
             File[] dirFiles = internalDir.listFiles();
@@ -116,29 +135,56 @@ public class UpdateNonExistentFilesTask extends AsyncTask<String, String, String
                     }
                 }
                 totalItems = i;
-                procentPerHymn = 1 / (double) totalItems * 100;
                 FTPFile[] subFilesforDownald = new FTPFile[i];
-                int j = 0;
-                for (FTPFile ftpFile : subFiles) {
-                    if (ftpFile.getName().equals(".") || ftpFile.getName().equals("..")) {
-                        continue;
-                    }
-                    boolean exist = false;
-                    for (File fileDir : dirFiles) {
-                        if (ftpFile.getName().equals(fileDir.getName())) {
-                            exist = true;
+                if (totalItems != 0) {
+                    procentPerHymn = 1 / (double) totalItems * 100;
+                    int j = 0;
+                    for (FTPFile ftpFile : subFiles) {
+                        if (ftpFile.getName().equals(".") || ftpFile.getName().equals("..")) {
+                            continue;
+                        }
+                        boolean exist = false;
+                        for (File fileDir : dirFiles) {
+                            if (ftpFile.getName().equals(fileDir.getName())) {
+                                exist = true;
+                            }
+                        }
+                        if (!exist) {
+                            subFilesforDownald[j] = ftpFile;
+                            j++;
                         }
                     }
-                    if (!exist) {
-                        subFilesforDownald[j] = ftpFile;
-                        j++;
-                    }
                 }
-                downaldAll(ftpClient, subFilesforDownald, true, ftpPatch, internalDir.getAbsolutePath());
+                if (totalItems == 0) {
+                    Thread thread = new Thread() {
+                        public void run() {
+                            Looper.prepare();
+                            if (language == Language.RO) {
+                                if (type == Type.HYMN)
+                                    Toast.makeText(context, R.string.all_hymns_are_updated_ro, Toast.LENGTH_SHORT).show();
+                                if (type == Type.AUDIO)
+                                    Toast.makeText(context, R.string.all_audio_are_updated_ro, Toast.LENGTH_SHORT).show();
+                                if (type == Type.PDF)
+                                    Toast.makeText(context, R.string.all_pdf_are_updated_ro, Toast.LENGTH_SHORT).show();
+                            } else if (language == Language.RU) {
+                                if (type == Type.HYMN)
+                                    Toast.makeText(context, R.string.all_hymns_are_updated_ru, Toast.LENGTH_SHORT).show();
+                                if (type == Type.AUDIO)
+                                    Toast.makeText(context, R.string.all_audio_are_updated_ru, Toast.LENGTH_SHORT).show();
+                                if (type == Type.PDF)
+                                    Toast.makeText(context, R.string.all_pdf_are_updated_ru, Toast.LENGTH_SHORT).show();
+                            }
+                            Looper.loop();
+                        }
+                    };
+                    thread.start();
+                }
+                if (totalItems != 0)
+                    downaldAll(ftpClient, subFilesforDownald, true, ftpPatch, internalDir.getAbsolutePath());
                 if (language == Language.RO)
-                    progressDialog.setMessage("Finisarea operatiei...");
+                    progressDialog.setMessage(fragmentActivity.getString(R.string.cancel_operation_update_ro));
                 else if (language == Language.RU)
-                    progressDialog.setMessage("Finishing...");
+                    progressDialog.setMessage(fragmentActivity.getString(R.string.cancel_operation_update_ru));
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -179,12 +225,12 @@ public class UpdateNonExistentFilesTask extends AsyncTask<String, String, String
                     }
                     if (language == Language.RO) {
                         if (type == Type.HYMN) {
-                            progressDialog.setMessage("Se descarcă imnul  " +
+                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ro) +
                                     String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
                         }
                     } else if (language == Language.RU) {
                         if (type == Type.HYMN) {
-                            progressDialog.setMessage("Se descarcă imnul rus  " +
+                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ru) +
                                     String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
                         }
                     }
@@ -201,24 +247,24 @@ public class UpdateNonExistentFilesTask extends AsyncTask<String, String, String
                     savePatch = dirSave + File.separator + fileFtp.getName();
                     if (language == Language.RO) {
                         if (type == Type.HYMN) {
-                            progressDialog.setMessage("Se descarcă imnul  " +
+                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ro) +
                                     String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
                         } else if (type == Type.AUDIO) {
-                            progressDialog.setMessage("Se descarcă audio  " +
+                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_audio_ro) +
                                     String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
                         } else if (type == Type.PDF) {
-                            progressDialog.setMessage("Se descarcă fișierul pdf  " +
+                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_pdf_ro) +
                                     String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
                         }
                     } else if (language == Language.RU) {
                         if (type == Type.HYMN) {
-                            progressDialog.setMessage("Se descarcă imnul rus  " +
+                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ru) +
                                     String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
                         } else if (type == Type.AUDIO) {
-                            progressDialog.setMessage("Se descarcă audio rus  " +
+                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_audio_ru) +
                                     String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
                         } else if (type == Type.PDF) {
-                            progressDialog.setMessage("Se descarcă pdf rus  " +
+                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_pdf_ru) +
                                     String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
                         }
                     }

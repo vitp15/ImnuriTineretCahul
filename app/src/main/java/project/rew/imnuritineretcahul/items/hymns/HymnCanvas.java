@@ -50,7 +50,7 @@ public class HymnCanvas extends AppCompatActivity {
     Dialog dialog;
     ImageView btPlay, btPause, btFf, btRew;
     SeekBar playerTrack, seekBar;
-    TextView playerDuration, playerPosition, delete;
+    TextView playerDuration, playerPosition, delete, textNotePdf;
     LinearLayout audioElements, audioMiss, notePDF, pdfMiss;
     Button downald, downaldPdf;
     MediaPlayer mediaPlayer;
@@ -72,7 +72,7 @@ public class HymnCanvas extends AppCompatActivity {
             hymn = Utils.hymns_ru.get(nr - 1);
         }
         seekvalue = PrefConfig.load_saved_progress(this);
-        SetMediaPlayer.setMediaPlayer(this,language);
+        SetMediaPlayer.setMediaPlayer(this, language);
 
         dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -103,7 +103,25 @@ public class HymnCanvas extends AppCompatActivity {
         notePDF = dialog.findViewById(R.id.linear_notePdf);
         pdfMiss = dialog.findViewById(R.id.pdfMiss);
         downaldPdf = dialog.findViewById(R.id.btnPDFUpdate);
-        SetPDF.setPDF(this,language);
+        textNotePdf = dialog.findViewById(R.id.text_notePdf);
+        switchCompat = dialog.findViewById(R.id.switch1);
+
+        SetPDF.setPDF(this, language);
+
+
+        if (language == Language.RO) {
+            switchCompat.setText(R.string.see_chords_ro);
+            delete.setText(R.string.delete_ro);
+            downald.setText(R.string.downald_single_audio_ro);
+            downaldPdf.setText(R.string.downald_single_pdf_ro);
+            textNotePdf.setText(R.string.open_pdfs_ro);
+        } else if (language == Language.RU) {
+            switchCompat.setText(R.string.see_chords_ru);
+            delete.setText(R.string.delete_ru);
+            downald.setText(R.string.downald_single_audio_ru);
+            downaldPdf.setText(R.string.downald_single_pdf_ru);
+            textNotePdf.setText(R.string.open_pdfs_ru);
+        }
 
         if (hymn.getPdfView() != null) {
             pdfMiss.setVisibility(View.GONE);
@@ -150,7 +168,10 @@ public class HymnCanvas extends AppCompatActivity {
                         @Override
                         public void run() {
                             if (i[0] == 1) {
-                                Toast.makeText(HymnCanvas.this, "Apăsați de două ori pentru a reda", Toast.LENGTH_SHORT).show();
+                                if (language == Language.RO)
+                                    Toast.makeText(HymnCanvas.this, R.string.play_ro, Toast.LENGTH_SHORT).show();
+                                else if (language == Language.RO)
+                                    Toast.makeText(HymnCanvas.this, R.string.play_ru, Toast.LENGTH_SHORT).show();
                             } else if (i[0] == 2) {
                                 btPlay.setVisibility(View.GONE);
                                 btPause.setVisibility(View.VISIBLE);
@@ -257,9 +278,12 @@ public class HymnCanvas extends AppCompatActivity {
                         @Override
                         public void run() {
                             if (j[0] == 1) {
-                                Toast.makeText(HymnCanvas.this, "Apăsați de două ori pentru a sterge", Toast.LENGTH_SHORT).show();
+                                if (language == Language.RO)
+                                    Toast.makeText(HymnCanvas.this, R.string.delete_audio_ro, Toast.LENGTH_SHORT).show();
+                                else if (language == Language.RU)
+                                    Toast.makeText(HymnCanvas.this, R.string.delete_audio_ru, Toast.LENGTH_SHORT).show();
                             } else if (j[0] == 2) {
-                                Utils.deleteFile(HymnCanvas.this, String.valueOf(hymn.getId()) + ".mp3", language,Type.AUDIO);
+                                Utils.deleteFile(HymnCanvas.this, String.valueOf(hymn.getId()) + ".mp3", language, Type.AUDIO);
                                 audioElements.setVisibility(View.GONE);
                                 btFf.setVisibility(View.GONE);
                                 btRew.setVisibility(View.GONE);
@@ -293,7 +317,6 @@ public class HymnCanvas extends AppCompatActivity {
             });
         }
 
-        switchCompat = dialog.findViewById(R.id.switch1);
         switchCompat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

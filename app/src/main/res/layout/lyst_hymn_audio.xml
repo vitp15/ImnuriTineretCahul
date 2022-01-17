@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="5dp"
-                android:text=" Stergeți "
+                android:text="@string/delete_ro"
                 android:background="@drawable/delete_audio"
                 android:textSize="18sp" />
             <ImageView
@@ -143,7 +143,7 @@
             android:id="@+id/btnAudioUpdateone"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:text="Descarcă audio"
+            android:text="@string/downald_single_audio_ro"
             android:textSize="18sp"
             android:textAllCaps="false"
             android:layout_marginLeft="20dp"

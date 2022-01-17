@@ -1,11 +1,5 @@
 <resources>
     <string name="app_name">Imnuri Tineret Cahul</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
 
     <string name="hymns_ro">Imnuri</string>
     <string name="menu_audio_ro">Audio</string>
@@ -14,6 +8,9 @@
     <string name="menu_audio_ru">Audio ruse</string>
     <string name="menu_notspdf_ru">Note PDF ruse</string>
     <string name="menu_updates">Actualizare</string>
+
+    <string name="imns_not_found_ro">Actualizati lista de imnuri din <b>Actualizare</b></string>
+    <string name="imns_not_found_ru">Actualizati lista de imnuri din <b>Actualizare</b> rus</string>
 
     <string name="ro_internal_hymns_folder">ro_hymns</string>
     <string name="ro_internal_mp3_folder">ro_audio</string>
@@ -32,9 +29,64 @@
     <string name="ru_external_mp3_folder">/htdocs/ru/audio</string>
     <string name="ru_external_pdf_folder">/htdocs/ru/note_pdf</string>
 
-    <string name="settings_connect_to_internet">Please connect to Internet</string>
+    <string name="settings_connect_to_internet_ro">Please connect to Internet romana</string>
+    <string name="settings_connect_to_internet_ru">Please connect to Internet rusa</string>
     <string name="settings_hymn_extension">.txt</string>
-    <string name="updating">Actualizare</string>
-    <string name="hymns_message_updating">Se actualizeaza lista de cantari, va rugam asteptati</string>
-    <string name="imns_not_found">Vă rugăm să actualizați lista de cântări din <b>Actualizare</b></string>
+
+    <string name="ready_ro">Se pregăteștete</string>
+    <string name="ready_ru">Se pregăteștete rus</string>
+    <string name="cancel_ro">Anulare</string>
+    <string name="cancel_ru">Anulare rusa</string>
+    <string name="canceling_msg_ro">Vom incheia dupa actualizarea ultimului element deja inceput</string>
+    <string name="canceling_msg_ru">Vom incheia dupa actualizarea ultimului element deja inceput rus</string>
+    <string name="cancel_operation_update_ro">Finisarea operatiei...</string>
+    <string name="cancel_operation_update_ru">Finisarea operatiei... rusa</string>
+    <string name="dont_exist_ro">Ne pare rău, fișierul nu există pe server</string>
+    <string name="dont_exist_ru">Ne pare rău, fișierul nu există pe server rusa</string>
+    <string name="downald_hymn_ro">Se descarcă imnul  </string>
+    <string name="downald_hymn_ru">Se descarcă imnul rus  </string>
+    <string name="downald_audio_ro">Se descarcă audio  </string>
+    <string name="downald_pdf_ro">Se descarcă fișierul pdf  </string>
+    <string name="downald_audio_ru">Se descarcă audio rus  </string>
+    <string name="downald_pdf_ru">Se descarcă pdf rus  </string>
+    <string name="all_hymns_are_updated_ro">Aveti deja toate imnurile actualizate</string>
+    <string name="all_audio_are_updated_ro">Aveti deja toate audiourile actualizate</string>
+    <string name="all_pdf_are_updated_ro">Aveti deja toate notele pdf actualizate</string>
+    <string name="all_hymns_are_updated_ru">Aveti deja toate imnurile actualizate rusa</string>
+    <string name="all_audio_are_updated_ru">Aveti deja toate audiourile actualizate rusa</string>
+    <string name="all_pdf_are_updated_ru">Aveti deja toate notele pdf actualizate rusa</string>
+    <string name="delete_audio_ro">Apăsați de două ori pentru a sterge</string>
+    <string name="delete_audio_ru">Apăsați de două ori pentru a sterge rusa</string>
+    <string name="play_ro">Apăsați de două ori pentru a reda</string>
+    <string name="play_ru">Apăsați de două ori pentru a reda rusa</string>
+    <string name="chords_absent_ro">Acordurile pentru această cântare nu sunt disponibile momentan</string>
+    <string name="hymn_words_absent_ro">Cuvintele la imn nu sunt disponibile momenatan</string>
+    <string name="chords_absent_ru">Acordurile pentru această cântare nu sunt disponibile momentan rus</string>
+    <string name="hymn_words_absent_ru">Cuvintele la imn nu sunt disponibile momenatan rus</string>
+    <string name="delete_ro">" Ștergeți "</string>
+    <string name="delete_ru">" Ștergeți rus "</string>
+    <string name="downald_single_audio_ro">Descarcă audio</string>
+    <string name="downald_single_audio_ru">Descarcă audio rus</string>
+    <string name="downald_single_pdf_ro">Descarcă PDF</string>
+    <string name="downald_single_pdf_ru">Descarcă PDF rus</string>
+    <string name="see_chords_ro">Arată acordurile</string>
+    <string name="see_chords_ru">Arată acordurile rus</string>
+    <string name="open_pdfs_ro">Note Pdf</string>
+    <string name="open_pdfs_ru">Note Pdf rus</string>
+    <string name="dwnld_hymn_ro">Actualizează imnurile</string>
+    <string name="dwnld_hymn_ru">Actualizează imnurile ruse</string>
+    <string name="dwnld_audio_ro">Descarcă toate audiourile</string>
+    <string name="dwnld_audio_ru">Descarcă toate audiourile ruse</string>
+    <string name="dwnld_pdf_ro">Descarcă PDF</string>
+    <string name="dwnld_pdf_ru">Descarcă PDF rus</string>
+    <string name="explication_ro">Se recomandă să actualizați toate elementele ,deoarece cand actualizati doar cele care inca nau fost descarcate ,cele prezente in memoria telefonului nu vor primi modificari chiar daca pe server au fost facute</string>
+    <string name="explication_ru">Se recomandă să actualizați toate elementele ,deoarece cand actualizati doar cele care inca nau fost descarcate ,cele prezente in memoria telefonului nu vor primi modificari chiar daca pe server au fost facute rus</string>
+    <string name="dwnldN_hymn_ro">Actualizează doar imnurile care inca nu exista</string>
+    <string name="dwnldN_hymn_ru">Actualizează doar imnurile care nu există rus</string>
+    <string name="dwnldN_audio_ro">Descarcă toate doar audiourile care nu există</string>
+    <string name="dwnldN_audio_ru">Descarcă daor audiourile care nu există rus</string>
+    <string name="dwnldN_pdf_ro">Descarcă doar pdfurile care nu există</string>
+    <string name="dwnldN_pdf_ru">Descarcă doar pdf-urile care nu există rus</string>
+
+
 </resources>

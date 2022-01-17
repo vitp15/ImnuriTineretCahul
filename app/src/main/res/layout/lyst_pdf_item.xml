@@ -32,7 +32,7 @@
             android:id="@+id/btnPDFUpdate"
             android:layout_width="match_parent"
             android:layout_height="55dp"
-            android:text="Descarcă PDF"
+            android:text="@string/downald_single_pdf_ro"
             android:textSize="18sp"
             android:textAllCaps="false"
             android:layout_marginLeft="20dp"

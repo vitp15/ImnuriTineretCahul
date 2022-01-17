@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_hymns_ro,R.id.nav_hymns_ru,
+                R.id.nav_hymns_ro, R.id.nav_hymns_ru,
                 R.id.nav_audio_ro, R.id.nav_pdfs_ro,
                 R.id.nav_audio_ru, R.id.nav_pdfs_ru,
                 R.id.nav_updates)
@@ -50,11 +50,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        MenuItem.OnActionExpandListener onActionExpandListener=new MenuItem.OnActionExpandListener() {
+        MenuItem.OnActionExpandListener onActionExpandListener = new MenuItem.OnActionExpandListener() {
             @Override
             public boolean onMenuItemActionExpand(MenuItem menuItem) {
                 return false;
             }
+
             @Override
             public boolean onMenuItemActionCollapse(MenuItem menuItem) {
                 return false;

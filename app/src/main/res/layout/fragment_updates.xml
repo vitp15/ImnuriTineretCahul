@@ -1,178 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ro.AudioFragment">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:id="@+id/linear">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1">
-    <Button
-        android:id="@+id/btnHymnsUpdate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Actualizează imnurile"
-        android:textSize="15sp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-         />
-    <Button
-        android:id="@+id/btnAudioUpdate"
-        android:layout_below="@id/btnHymnsUpdate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Descarcă toate audiourile"
-        android:textSize="15sp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        />
-    <Button
-        android:id="@+id/btnPdfUpdate"
-        android:layout_below="@id/btnAudioUpdate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Descarcă PDF"
-        android:textSize="15sp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1">
-    <Button
-        android:id="@+id/btnHymnsUpdate_ru"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnPdfUpdate"
-        android:text="Actualizează imnurile ruse"
-        android:textSize="15sp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        />
-    <Button
-        android:id="@+id/btnAudioUpdate_ru"
-        android:layout_below="@id/btnHymnsUpdate_ru"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Descarcă toate audiourile ruse"
-        android:textSize="15sp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        />
-    <Button
-        android:id="@+id/btnPdfUpdate_ru"
-        android:layout_below="@id/btnAudioUpdate_ru"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Descarcă PDF rus"
-        android:textSize="15sp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        />
-    </LinearLayout>
-    </LinearLayout>
-
 
     <LinearLayout
+        android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:layout_below="@+id/linear">
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/btnHymnsUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:text="@string/dwnld_hymn_ro"
+                android:textAllCaps="false"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/btnHymnsUpdate_ru"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:text="@string/dwnld_hymn_ru"
+                android:textAllCaps="false"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/btnAudioUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:text="@string/dwnld_audio_ro"
+                android:textAllCaps="false"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/btnAudioUpdate_ru"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:text="@string/dwnld_audio_ru"
+                android:textAllCaps="false"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/btnPdfUpdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:text="@string/dwnld_pdf_ro"
+                android:textAllCaps="false"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/btnPdfUpdate_ru"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:text="@string/dwnld_pdf_ru"
+                android:textAllCaps="false"
+                android:textSize="15sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/explication_ro"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="14sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/explication_ru"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
             <Button
                 android:id="@+id/btnHymnsUpdateN"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Actualizează imnurile N"
-                android:textSize="15sp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
                 android:layout_marginTop="20dp"
-                />
-            <Button
-                android:id="@+id/btnAudioUpdateN"
-                android:layout_below="@id/btnHymnsUpdateN"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Descarcă toate audiourile N"
-                android:textSize="15sp"
-                android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp"
-                />
-            <Button
-                android:id="@+id/btnPdfUpdateN"
-                android:layout_below="@id/btnAudioUpdateN"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Descarcă PDF N"
-                android:textSize="15sp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="20dp"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_weight="1">
+                android:layout_weight="1"
+                android:text="@string/dwnldN_hymn_ro"
+                android:textAllCaps="false"
+                android:textSize="15sp" />
+
             <Button
                 android:id="@+id/btnHymnsUpdate_ruN"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/btnPdfUpdateN"
-                android:text="Actualizează imnurile ruse N"
-                android:textSize="15sp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
                 android:layout_marginTop="20dp"
-                />
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:text="@string/dwnldN_hymn_ru"
+                android:textAllCaps="false"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/btnAudioUpdateN"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:text="@string/dwnldN_audio_ro"
+                android:textAllCaps="false"
+                android:textSize="15sp" />
+
             <Button
                 android:id="@+id/btnAudioUpdate_ruN"
-                android:layout_below="@id/btnHymnsUpdate_ruN"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Descarcă toate audiourile ruse N"
-                android:textSize="15sp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
                 android:layout_marginTop="20dp"
-                />
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:text="@string/dwnldN_audio_ru"
+                android:textAllCaps="false"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <Button
+                android:id="@+id/btnPdfUpdateN"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:text="@string/dwnldN_pdf_ro"
+                android:textAllCaps="false"
+                android:textSize="15sp" />
+
             <Button
                 android:id="@+id/btnPdfUpdate_ruN"
-                android:layout_below="@id/btnAudioUpdate_ruN"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Descarcă PDF rus N"
-                android:textSize="15sp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
                 android:layout_marginTop="20dp"
-                />
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                android:text="@string/dwnldN_pdf_ru"
+                android:textAllCaps="false"
+                android:textSize="15sp" />
         </LinearLayout>
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

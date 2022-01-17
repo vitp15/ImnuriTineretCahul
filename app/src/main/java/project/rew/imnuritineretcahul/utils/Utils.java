@@ -153,14 +153,14 @@ public class Utils {
             if (!file.exists()) {
                 if (lang == Language.RO)
                     if (chordsFlag)
-                        contentBuilder.append("<p>Acordurile pentru această cântare nu sunt disponibile momentan</p>");
+                        contentBuilder.append("<p>"+context.getString(R.string.chords_absent_ro)+"</p>");
                     else
-                        contentBuilder.append("<p>Cuvintele la imn nu sunt disponibile momenatan</p>");
+                        contentBuilder.append("<p>"+context.getString(R.string.hymn_words_absent_ro)+"</p>");
                 else if (lang == Language.RU)
                     if (chordsFlag)
-                        contentBuilder.append("<p>Acordurile pentru această cântare nu sunt disponibile momentan rus</p>");
+                        contentBuilder.append("<p>"+context.getString(R.string.chords_absent_ru)+"</p>");
                     else
-                        contentBuilder.append("<p>Cuvintele la imn nu sunt disponibile momenatan rus</p>");
+                        contentBuilder.append("<p>"+context.getString(R.string.hymn_words_absent_ru)+"</p>");
             } else {
                 BufferedReader in = new BufferedReader(new FileReader(filename));
                 String str;

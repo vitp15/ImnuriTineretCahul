@@ -72,7 +72,13 @@ public class AudioListHymnsAdapter extends RecyclerView.Adapter<AudioListHymnsAd
         MediaPlayer mediaPlayer = hymn.getMediaPlayer();
         Handler handler = new Handler();
         Runnable runnable;
-
+        if (language == Language.RO) {
+            holder.delete.setText(R.string.delete_ro);
+            holder.btnUpdSingle.setText(R.string.downald_single_audio_ro);
+        } else if (language == Language.RU) {
+            holder.delete.setText(R.string.delete_ru);
+            holder.btnUpdSingle.setText(R.string.downald_single_audio_ru);
+        }
         if (mediaPlayer != null) {
             holder.linearLayout.setVisibility(View.VISIBLE);
             holder.linearLayout1.setVisibility(View.GONE);
@@ -202,9 +208,12 @@ public class AudioListHymnsAdapter extends RecyclerView.Adapter<AudioListHymnsAd
                         @Override
                         public void run() {
                             if (i[0] == 1) {
-                                Toast.makeText(context, "Apăsați de două ori pentru a sterge", Toast.LENGTH_SHORT).show();
+                                if (language == Language.RO)
+                                    Toast.makeText(context, R.string.delete_audio_ro, Toast.LENGTH_SHORT).show();
+                                else if (language == Language.RU)
+                                    Toast.makeText(context, R.string.delete_audio_ru, Toast.LENGTH_SHORT).show();
                             } else if (i[0] == 2) {
-                                Utils.deleteFile(context, String.valueOf(hymn.getId()) + ".mp3", language,Type.AUDIO);
+                                Utils.deleteFile(context, String.valueOf(hymn.getId()) + ".mp3", language, Type.AUDIO);
                                 holder.linearAll.setBackgroundColor(context.getColor(R.color.audio_miss));
                                 holder.title.setBackgroundColor(context.getColor(R.color.audio_miss));
                                 holder.linearLayout.setVisibility(View.GONE);

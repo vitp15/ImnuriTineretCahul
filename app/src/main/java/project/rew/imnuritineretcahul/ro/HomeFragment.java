@@ -31,7 +31,7 @@ public class HomeFragment extends Fragment {
     private HymnsAdapter adapter;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+        View root = inflater.inflate(R.layout.fragment_home,container,false);
         Utils.loadHymns(root.getContext(), Language.RO);
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
         all_hymns=Utils.hymns_ro;
@@ -40,6 +40,7 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         TextView textView=root.findViewById(R.id.textView);
         // Loading Hymns from local storage
+        textView.setText(R.string.imns_not_found_ro);
 
         if (Utils.hymns_ro.isEmpty()) {
             textView.setVisibility(View.VISIBLE);
