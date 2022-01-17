@@ -9,31 +9,78 @@
     <color name="appBar_night">#094200</color>
     <color name="appBarTop_night">#041B00</color>
 
+    <color name="delete_nonpress_background">#15000000</color>
+    <color name="delete_nonpress_stroke">#2E2E2E</color>
+    <color name="delete_pressed_background">#50000000</color>
+    <color name="delete_pressed_stroke">#191919</color>
+
+    <!--navigation drawer-->
+    <color name="drawer_background">@color/white</color>
+    <color name="text_drawer">@color/black</color>
+    <color name="icons_drawer">@color/black</color>
+    <color name="start">#4DA6B6</color>
+    <color name="center">#008496</color>
+    <color name="end">#003869</color>
+    <color name="drawer_title">@color/white</color>
+
+    <!--home fragment-->
+    <color name="background_home">@color/white</color>
+    <color name="text_color">@color/black</color>
+    <color name="txt_lyst_not_found">#373737</color>
+
+    <color name="nonpressed_contur">#2E2E2E</color>
+    <color name="pressed_contur">#151515</color>
+    <color name="background_press">#19000000</color>
+
+    <!--hymn canvas-->
+    <string name="text_color_hc">#000000</string>
+    <color name="background_hymn_canvas">@color/white</color>
     <color name="backgrounf_dialog_box">#3CAEFB</color>
     <color name="player_btns">#043995</color>
     <color name="seekbar_hymn">#0E35C5</color>
     <color name="thumb_dialog">#1443ED</color>
     <color name="seekbar_text">#0E91C5</color>
     <color name="thumb_text">#0FA0CC</color>
+    <color name="chords">@color/black</color>
+    <color name="delete">#2B2B2B</color>
+    <color name="time">#2B2B2B</color>
+    <color name="separate_line">#000000</color>
+    <color name="btn_aud">@color/appBar_light</color>
+    <color name="btn_pdf">@color/appBar_light</color>
+    <color name="btn_aud_text">@color/white</color>
+    <color name="btn_pdf_text">@color/white</color>
+    <color name="pdf_open">#3A3A3A</color>
 
-    <color name="delete_nonpress_background">#15000000</color>
-    <color name="delete_nonpress_stroke">#2E2E2E</color>
-    <color name="delete_pressed_background">#50000000</color>
-    <color name="delete_pressed_stroke">#191919</color>
-
-    <color name="pdf_exist">#41286EF6</color>
-    <color name="pdf_miss">#41E32929</color>
-
+    <!--audio fragmnet-->
+    <color name="backround_audio">@color/white</color>
+    <color name="text_color_aud">@color/black</color>
+    <color name="line_separate_aud">@color/white</color>
+    <color name="btn_color_aud">@color/appBar_light</color>
+    <color name="tetx_btn_aud">@color/white</color>//
+    <color name="txt_lyst_not_found_audio">@color/txt_lyst_not_found</color>
     <color name="audio_exist_title">#B0DFC831</color>
     <color name="audio_exist_background">#BFFFEB3B</color>
     <color name="audio_miss">#41E32929</color>
     <color name="player_btns_list">#38393A</color>
     <color name="seekbar_list">#BF7301</color>
     <color name="thumb_list">#FF9800</color>
+    <color name="time_aud">#2B2B2B</color>
+    <color name="delete_aud">#2B2B2B</color>
 
-    <color name="nonpressed_contur">#2E2E2E</color>
-    <color name="pressed_contur">#151515</color>
-    <color name="background_press">#19000000</color>
+    <!--pdf fragmnet-->
+    <color name="backround_pdf">@color/white</color>
+    <color name="txt_lyst_not_found_pdf">@color/txt_lyst_not_found</color>
+    <color name="text_color_pdf">@color/black</color>
+    <color name="line_separate_pdf">@color/white</color>
+    <color name="btn_color_pdf">@color/appBar_light</color>
+    <color name="text_btn_pdf">@color/white</color>
+    <color name="pdf_exist">#41286EF6</color>
+    <color name="pdf_miss">#41E32929</color>
 
+    <!--updates fargment-->
+    <color name="background_updates">@color/white</color>
+    <color name="text_color_updt">#2B2B2B</color>
+    <color name="btn_color_updt">@color/appBar_light</color>
+    <color name="btn_text_color_updt">@color/white</color>
 
 </resources>

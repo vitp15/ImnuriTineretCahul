@@ -248,12 +248,12 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
                     }
                     if (language == Language.RO) {
                         if (type == Type.HYMN) {
-                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ro) +
+                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ro) + "   " +
                                     String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
                         }
                     } else if (language == Language.RU) {
                         if (type == Type.HYMN) {
-                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ru) +
+                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ru) + "   " +
                                     String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
                         }
                     }
@@ -270,24 +270,24 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
                     savePatch = dirSave + File.separator + fileFtp.getName();
                     if (language == Language.RO) {
                         if (type == Type.HYMN) {
-                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ro) +
+                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ro) + "   " +
                                     String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
                         } else if (type == Type.AUDIO) {
-                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_audio_ro) +
+                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_audio_ro) + "   " +
                                     String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
                         } else if (type == Type.PDF) {
-                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_pdf_ro) +
+                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_pdf_ro) + "   " +
                                     String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
                         }
                     } else if (language == Language.RU) {
                         if (type == Type.HYMN) {
-                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ru) +
+                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ru) + "   " +
                                     String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
                         } else if (type == Type.AUDIO) {
-                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_audio_ru) +
+                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_audio_ru) + "   " +
                                     String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
                         } else if (type == Type.PDF) {
-                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_pdf_ru) +
+                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_pdf_ru) + "   " +
                                     String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
                         }
                     }

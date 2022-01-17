@@ -1,6 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+
     <style name="Theme.ImnuriTineretCahul" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="android:forceDarkAllowed">false</item>
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/appBar_night</item>
         <item name="colorPrimaryVariant">@color/appBarTop_night</item>
@@ -14,4 +16,5 @@
         <!-- Customize your theme here. -->
         <item name="windowActionBarOverlay">true</item>
     </style>
+
 </resources>

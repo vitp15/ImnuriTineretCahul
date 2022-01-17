@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_home"
     tools:context=".ro.HomeFragment"
     android:orientation="vertical">
 
@@ -12,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
+        android:textColor="@color/txt_lyst_not_found"
         android:textSize="23sp"
         android:text="@string/imns_not_found_ro"
         android:layout_marginTop="30dp"

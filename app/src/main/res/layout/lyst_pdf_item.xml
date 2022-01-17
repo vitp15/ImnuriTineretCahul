@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center_vertical"
-        android:textColor="@color/black"
+        android:textColor="@color/text_color_pdf"
         android:paddingLeft="10dp"
         android:textSize="18sp"
         android:clickable="true"
@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="0.5dp"
-            android:background="@color/white"
+            android:background="@color/line_separate_pdf"
             android:id="@+id/linear4"
             android:orientation="horizontal" />
         <Button
@@ -33,6 +33,8 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:text="@string/downald_single_pdf_ro"
+            android:textColor="@color/text_btn_pdf"
+            android:background="@color/btn_color_pdf"
             android:textSize="18sp"
             android:textAllCaps="false"
             android:layout_marginLeft="20dp"

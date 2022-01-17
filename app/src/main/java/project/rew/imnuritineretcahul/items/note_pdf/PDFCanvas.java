@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.github.barteksc.pdfviewer.PDFView;
 

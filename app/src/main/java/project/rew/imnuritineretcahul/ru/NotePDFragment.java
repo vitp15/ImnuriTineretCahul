@@ -34,6 +34,7 @@ public class NotePDFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_notepdf, container, false);
         Utils.loadHymns(root.getContext(), Language.RU);
 
+
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
         adapter=new HymnsPdfAdapter(Utils.hymns_ru,getActivity(),Language.RU);
         recyclerView.setHasFixedSize(true);

@@ -61,6 +61,7 @@ public class HymnCanvas extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hymn_canvas);
+
         int id = getIntent().getIntExtra("id", 0);
         int nr = getIntent().getIntExtra("nr", 0);
         int languageInt = getIntent().getIntExtra("language", 0);

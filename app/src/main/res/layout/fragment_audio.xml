@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ro.AudioFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/backround_audio">
 
     <TextView
         android:id="@+id/textView"
@@ -17,6 +18,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
+        android:textColor="@color/txt_lyst_not_found_audio"
         />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvHymns"

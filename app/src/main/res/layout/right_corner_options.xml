@@ -19,6 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textColor="@color/chords"
             android:text="@string/see_chords_ro"
             android:textSize="20sp"/>
     </LinearLayout>
@@ -26,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="1dp"
-        android:background="#000000"
+        android:background="@color/separate_line"
         android:layout_below="@+id/linearlay"
         android:id="@+id/linear"
         android:orientation="horizontal" />
@@ -71,6 +72,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/player_position"
                 android:layout_marginLeft="5dp"
+                android:textColor="@color/time"
                 android:text="00:00" />
             <SeekBar
                 android:layout_width="0dp"
@@ -83,14 +85,15 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/player_duration"
                 android:layout_marginRight="5dp"
-                android:text="00:00" />
+                android:text="00:00"
+                android:textColor="@color/time"/>
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="1dp"
-        android:background="#000000"
+        android:background="@color/separate_line"
         android:layout_below="@+id/audioMiss"
         android:id="@+id/linear4"
         android:orientation="horizontal" />
@@ -102,6 +105,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="5dp"
         android:layout_marginTop="5dp"
+        android:textColor="@color/delete"
         android:text="@string/delete_ro"
         android:textSize="15sp"
         android:background="@drawable/delete_audio"/>
@@ -137,6 +141,8 @@
             android:text="@string/downald_single_audio_ro"
             android:textAllCaps="false"
             android:textSize="16sp"
+            android:background="@color/btn_aud"
+            android:textColor="@color/btn_aud_text"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="10dp"
@@ -153,8 +159,9 @@
                 android:id="@+id/text_notePdf"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
+                android:textSize="20sp"
                 android:text="@string/open_pdfs_ro"
+                android:textColor="@color/pdf_open"
                 android:textAlignment="center"
                 android:layout_margin="10dp"/>
         </LinearLayout>
@@ -168,6 +175,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/downald_single_pdf_ro"
+            android:background="@color/btn_pdf"
+            android:textColor="@color/btn_pdf_text"
             android:textAllCaps="false"
             android:textSize="16sp"
             android:layout_marginLeft="20dp"

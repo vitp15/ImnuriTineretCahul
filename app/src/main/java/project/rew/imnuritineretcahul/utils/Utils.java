@@ -153,14 +153,14 @@ public class Utils {
             if (!file.exists()) {
                 if (lang == Language.RO)
                     if (chordsFlag)
-                        contentBuilder.append("<p>"+context.getString(R.string.chords_absent_ro)+"</p>");
+                        contentBuilder.append("<p>" + context.getString(R.string.chords_absent_ro) + "</p>");
                     else
-                        contentBuilder.append("<p>"+context.getString(R.string.hymn_words_absent_ro)+"</p>");
+                        contentBuilder.append("<p>" + context.getString(R.string.hymn_words_absent_ro) + "</p>");
                 else if (lang == Language.RU)
                     if (chordsFlag)
-                        contentBuilder.append("<p>"+context.getString(R.string.chords_absent_ru)+"</p>");
+                        contentBuilder.append("<p>" + context.getString(R.string.chords_absent_ru) + "</p>");
                     else
-                        contentBuilder.append("<p>"+context.getString(R.string.hymn_words_absent_ru)+"</p>");
+                        contentBuilder.append("<p>" + context.getString(R.string.hymn_words_absent_ru) + "</p>");
             } else {
                 BufferedReader in = new BufferedReader(new FileReader(filename));
                 String str;
@@ -172,7 +172,8 @@ public class Utils {
         } catch (IOException e) {
             Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
         }
-        return contentBuilder.toString();
+        String color = context.getString(R.string.text_color_hc);
+        return "<font color=\"" + color + "\">" + contentBuilder.toString() + "</font>";
     }
 
     public static void loadHymns(@NotNull Context context, Language language) {
