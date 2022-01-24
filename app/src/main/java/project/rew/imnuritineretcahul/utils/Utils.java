@@ -173,7 +173,8 @@ public class Utils {
             Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
         }
         String color = context.getString(R.string.text_color_hc);
-        return "<font color=\"" + color + "\">" + contentBuilder.toString() + "</font>";
+        String background = context.getString(R.string.background_hmn_canvas);
+        return "<body bgcolor=\"" + background + "\" text=\"" + color + "\">" + contentBuilder.toString() + "</body>";
     }
 
     public static void loadHymns(@NotNull Context context, Language language) {

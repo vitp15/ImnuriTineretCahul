@@ -9,6 +9,7 @@
     android:background="@color/background_updates">
 
     <ScrollView
+        android:layout_marginTop="10dp"
         android:id="@+id/scrool"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -25,6 +26,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/downald_all_elements"
+                    android:textSize="18sp"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_color_updt"
+                    />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -40,7 +51,7 @@
                         android:layout_marginRight="20dp"
                         android:layout_weight="1"
                         android:text="@string/dwnld_hymn_ro"
-                        android:background="@color/btn_color_updt"
+                        android:backgroundTint="@color/btn_color_updt"
                         android:textColor="@color/btn_text_color_updt"
                         android:textAllCaps="false"
                         android:textSize="15sp" />
@@ -53,7 +64,7 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginRight="20dp"
                         android:layout_weight="1"
-                        android:background="@color/btn_color_updt"
+                        android:backgroundTint="@color/btn_color_updt"
                         android:textColor="@color/btn_text_color_updt"
                         android:text="@string/dwnld_hymn_ru"
                         android:textAllCaps="false"
@@ -74,7 +85,7 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginRight="20dp"
                         android:layout_weight="1"
-                        android:background="@color/btn_color_updt"
+                        android:backgroundTint="@color/btn_color_updt"
                         android:textColor="@color/btn_text_color_updt"
                         android:text="@string/dwnld_audio_ro"
                         android:textAllCaps="false"
@@ -87,7 +98,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="20dp"
                         android:layout_marginRight="20dp"
-                        android:background="@color/btn_color_updt"
+                        android:backgroundTint="@color/btn_color_updt"
                         android:textColor="@color/btn_text_color_updt"
                         android:layout_weight="1"
                         android:text="@string/dwnld_audio_ru"
@@ -109,7 +120,7 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginRight="20dp"
                         android:layout_weight="1"
-                        android:background="@color/btn_color_updt"
+                        android:backgroundTint="@color/btn_color_updt"
                         android:textColor="@color/btn_text_color_updt"
                         android:text="@string/dwnld_pdf_ro"
                         android:textAllCaps="false"
@@ -122,7 +133,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="20dp"
                         android:layout_marginRight="20dp"
-                        android:background="@color/btn_color_updt"
+                        android:backgroundTint="@color/btn_color_updt"
                         android:textColor="@color/btn_text_color_updt"
                         android:layout_weight="1"
                         android:text="@string/dwnld_pdf_ru"
@@ -131,32 +142,20 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:textColor="@color/text_color_updt"
-                android:text="@string/explication_ro"
-                android:textAlignment="center"
-                android:textAllCaps="false"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:textColor="@color/text_color_updt"
-                android:text="@string/explication_ru"
-                android:textAlignment="center"
-                android:textAllCaps="false"
-                android:textSize="14sp" />
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+                <TextView
+                    android:layout_marginTop="70dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/downald_only_nonexist"
+                    android:textSize="18sp"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    android:textColor="@color/text_color_updt"
+                    />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -170,7 +169,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="20dp"
-                        android:background="@color/btn_color_updt"
+                        android:backgroundTint="@color/btn_color_updt"
                         android:textColor="@color/btn_text_color_updt"
                         android:layout_marginRight="20dp"
                         android:layout_weight="1"
@@ -184,7 +183,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="20dp"
-                        android:background="@color/btn_color_updt"
+                        android:backgroundTint="@color/btn_color_updt"
                         android:textColor="@color/btn_text_color_updt"
                         android:layout_marginRight="20dp"
                         android:layout_weight="1"
@@ -205,7 +204,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="20dp"
-                        android:background="@color/btn_color_updt"
+                        android:backgroundTint="@color/btn_color_updt"
                         android:textColor="@color/btn_text_color_updt"
                         android:layout_marginRight="20dp"
                         android:layout_weight="1"
@@ -220,7 +219,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="20dp"
                         android:layout_marginRight="20dp"
-                        android:background="@color/btn_color_updt"
+                        android:backgroundTint="@color/btn_color_updt"
                         android:textColor="@color/btn_text_color_updt"
                         android:layout_weight="1"
                         android:text="@string/dwnldN_audio_ru"
@@ -242,7 +241,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="20dp"
                         android:layout_marginRight="20dp"
-                        android:background="@color/btn_color_updt"
+                        android:backgroundTint="@color/btn_color_updt"
                         android:textColor="@color/btn_text_color_updt"
                         android:layout_weight="1"
                         android:text="@string/dwnldN_pdf_ro"
@@ -256,7 +255,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="20dp"
                         android:layout_marginRight="20dp"
-                        android:background="@color/btn_color_updt"
+                        android:backgroundTint="@color/btn_color_updt"
                         android:textColor="@color/btn_text_color_updt"
                         android:layout_weight="1"
                         android:text="@string/dwnldN_pdf_ru"

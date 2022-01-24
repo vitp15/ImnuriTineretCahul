@@ -1,30 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
 
-    <color name="backgrounf_dialog_box">#75FB3C</color>
-    <color name="player_btns">#004703</color>
-    <color name="seekbar_hymn">#0E35C5</color>
-    <color name="thumb_dialog">#F2FF3B</color>
-    <color name="seekbar_text">#0E91C5</color>
-    <color name="thumb_text">#0FA0CC</color>
+    <color name="appBar_light">#0036C3</color>
+    <color name="appBarTop_light">#00195A</color>
+
+    <color name="appBar_night">#0D3C06</color>
+    <color name="appBarTop_night">#041B00</color>
 
     <color name="delete_nonpress_background">#15000000</color>
     <color name="delete_nonpress_stroke">#2E2E2E</color>
     <color name="delete_pressed_background">#50000000</color>
     <color name="delete_pressed_stroke">#191919</color>
 
-    <color name="pdf_exist">#41286EF6</color>
-    <color name="pdf_miss">#41E32929</color>
+    <!--navigation drawer-->
+    <color name="drawer_background">#232323</color>
+    <color name="text_drawer">#A1A1A1</color>
+    <color name="icons_drawer">#A1A1A1</color>
+    <color name="start">#D8175A1D</color>
+    <color name="center">#9E175A1D</color>
+    <color name="end">#BA0A4010</color>
+    <color name="drawer_title">@color/white</color>
 
-    <color name="audio_exist_title">#B0DFC831</color>
-    <color name="audio_exist_background">#BFFFEB3B</color>
-    <color name="audio_miss">#41E32929</color>
-    <color name="player_btns_list">#38393A</color>
-    <color name="seekbar_list">#BF7301</color>
-    <color name="thumb_list">#FF9800</color>
+    <!--home fragment-->
+    <color name="background_home">#292929</color>
+    <color name="text_color">#FDFCFC</color>
+    <color name="txt_lyst_not_found">#FFFFFF</color>
 
-    <color name="nonpressed_contur">#2E2E2E</color>
-    <color name="pressed_contur">#151515</color>
+    <color name="nonpressed_contur">#555555</color>
+    <color name="pressed_contur">#434343</color>
     <color name="background_press">#19000000</color>
+
+    <!--hymn canvas-->
+    <string name="text_color_hc">#C5C5C5</string>
+    <string name="background_hmn_canvas">#202020</string>
+    <color name="background_hymn_canvas">#202020</color>
+    <color name="backgrounf_dialog_box">#378C45</color>
+    <color name="player_btns">#014307</color>
+    <color name="seekbar_hymn">#127523</color>
+    <color name="thumb_dialog">#06680B</color>
+    <color name="seekbar_text">#434343</color>
+    <color name="thumb_text">#353535</color>
+    <color name="chords">@color/black</color>
+    <color name="delete">#2B2B2B</color>
+    <color name="time">#2B2B2B</color>
+    <color name="separate_line">#000000</color>
+    <color name="btn_aud">@color/appBar_night</color>
+    <color name="btn_pdf">@color/appBar_night</color>
+    <color name="btn_aud_text">@color/white</color>
+    <color name="btn_pdf_text">@color/white</color>
+    <color name="pdf_open">#272727</color>
+
+    <!--audio fragmnet-->
+    <color name="backround_audio">#3E3E3E</color>
+    <color name="text_color_aud">#C5C5C5</color>
+    <color name="line_separate_aud">#3E3E3E</color>
+    <color name="btn_color_aud">#1E1E1E</color>
+    <color name="tetx_btn_aud">@color/white</color>//
+    <color name="txt_lyst_not_found_audio">@color/txt_lyst_not_found</color>
+    <color name="audio_exist_title">#755A82F4</color>
+    <color name="audio_exist_background">#AE4D78FA</color>
+    <color name="audio_miss">#6DFF4B4B</color>
+    <color name="player_btns_list">#38393A</color>
+    <color name="seekbar_list">#494949</color>
+    <color name="thumb_list">#373737</color>
+    <color name="time_aud">#2B2B2B</color>
+    <color name="delete_aud">#2B2B2B</color>
+
+    <!--pdf fragmnet-->
+    <color name="backround_pdf">#202020</color>
+    <color name="txt_lyst_not_found_pdf">@color/txt_lyst_not_found</color>
+    <color name="text_color_pdf">#C5C5C5</color>
+    <color name="line_separate_pdf">#202020</color>
+    <color name="btn_color_pdf">#303030</color>
+    <color name="text_btn_pdf">@color/white</color>
+    <color name="pdf_exist">#5944A639</color>
+    <color name="pdf_miss">#83FB6565</color>
+
+    <!--updates fargment-->
+    <color name="background_updates">#202020</color>
+    <color name="text_color_updt">#9C9C9C</color>
+    <color name="btn_color_updt">@color/appBar_night</color>
+    <color name="btn_text_color_updt">@color/white</color>
 
 </resources>

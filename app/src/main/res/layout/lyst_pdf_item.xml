@@ -34,7 +34,7 @@
             android:layout_height="55dp"
             android:text="@string/downald_single_pdf_ro"
             android:textColor="@color/text_btn_pdf"
-            android:background="@color/btn_color_pdf"
+            android:backgroundTint="@color/btn_color_pdf"
             android:textSize="18sp"
             android:textAllCaps="false"
             android:layout_marginLeft="20dp"

@@ -6,7 +6,7 @@
     <color name="appBar_light">#0036C3</color>
     <color name="appBarTop_light">#00195A</color>
 
-    <color name="appBar_night">#094200</color>
+    <color name="appBar_night">#0D3C06</color>
     <color name="appBarTop_night">#041B00</color>
 
     <color name="delete_nonpress_background">#15000000</color>
@@ -34,6 +34,7 @@
 
     <!--hymn canvas-->
     <string name="text_color_hc">#000000</string>
+    <string name="background_hmn_canvas">#ffffff</string>
     <color name="background_hymn_canvas">@color/white</color>
     <color name="backgrounf_dialog_box">#3CAEFB</color>
     <color name="player_btns">#043995</color>
@@ -56,14 +57,14 @@
     <color name="text_color_aud">@color/black</color>
     <color name="line_separate_aud">@color/white</color>
     <color name="btn_color_aud">@color/appBar_light</color>
-    <color name="tetx_btn_aud">@color/white</color>//
+    <color name="tetx_btn_aud">@color/white</color>
     <color name="txt_lyst_not_found_audio">@color/txt_lyst_not_found</color>
-    <color name="audio_exist_title">#B0DFC831</color>
-    <color name="audio_exist_background">#BFFFEB3B</color>
-    <color name="audio_miss">#41E32929</color>
+    <color name="audio_exist_title">#6537E1A6</color>
+    <color name="audio_exist_background">#635AFFBD</color>
+    <color name="audio_miss">#41FF4B4B</color>
     <color name="player_btns_list">#38393A</color>
-    <color name="seekbar_list">#BF7301</color>
-    <color name="thumb_list">#FF9800</color>
+    <color name="seekbar_list">#01BF99</color>
+    <color name="thumb_list">#00A181</color>
     <color name="time_aud">#2B2B2B</color>
     <color name="delete_aud">#2B2B2B</color>
 

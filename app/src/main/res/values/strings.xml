@@ -75,18 +75,22 @@
     <string name="open_pdfs_ru">Note Pdf rus</string>
     <string name="dwnld_hymn_ro">Actualizează imnurile</string>
     <string name="dwnld_hymn_ru">Actualizează imnurile ruse</string>
-    <string name="dwnld_audio_ro">Descarcă toate audiourile</string>
-    <string name="dwnld_audio_ru">Descarcă toate audiourile ruse</string>
-    <string name="dwnld_pdf_ro">Descarcă PDF</string>
-    <string name="dwnld_pdf_ru">Descarcă PDF rus</string>
-    <string name="explication_ro">Se recomandă să actualizați toate elementele ,deoarece cand actualizati doar cele care inca nau fost descarcate ,cele prezente in memoria telefonului nu vor primi modificari chiar daca pe server au fost facute</string>
-    <string name="explication_ru">Se recomandă să actualizați toate elementele ,deoarece cand actualizati doar cele care inca nau fost descarcate ,cele prezente in memoria telefonului nu vor primi modificari chiar daca pe server au fost facute rus</string>
-    <string name="dwnldN_hymn_ro">Actualizează doar imnurile care inca nu exista</string>
-    <string name="dwnldN_hymn_ru">Actualizează doar imnurile care nu există rus</string>
-    <string name="dwnldN_audio_ro">Descarcă toate doar audiourile care nu există</string>
-    <string name="dwnldN_audio_ru">Descarcă daor audiourile care nu există rus</string>
-    <string name="dwnldN_pdf_ro">Descarcă doar pdfurile care nu există</string>
-    <string name="dwnldN_pdf_ru">Descarcă doar pdf-urile care nu există rus</string>
+    <string name="dwnld_audio_ro">Actualizează audiourile</string>
+    <string name="dwnld_audio_ru">Actualizează audiourile ruse</string>
+    <string name="dwnld_pdf_ro">Actualizează PDF</string>
+    <string name="dwnld_pdf_ru">Actualizează PDF ruse</string>
+    <string name="dwnldN_hymn_ro">Descarcă imnurile</string>
+    <string name="dwnldN_hymn_ru">Descarcă imnurile ruse</string>
+    <string name="dwnldN_audio_ro">Descarcă audio</string>
+    <string name="dwnldN_audio_ru">Descarcă audio ruse</string>
+    <string name="dwnldN_pdf_ro">Descarcă PDF</string>
+    <string name="dwnldN_pdf_ru">Descarcă PDF ruse</string>
 
+    <string name="downald_all_elements">Descarcă toate elementele</string>
+    <!-- Daca descarci doar elementele care nu exista cele deja existente nu vor primi modificari
+    chiar daca ele au fost facute pe server,de aceea se recomanda sa actualizam pe toate,
+     doar in cazul in care sa uitat si nu este mult timp sau de pe date mobile se poate de folosit optiunea
+     pentru a descarca doar elementele inexistente-->
+    <string name="downald_only_nonexist">Descarcă doar elementele care încă nu sunt descarcate</string>
 
 </resources>

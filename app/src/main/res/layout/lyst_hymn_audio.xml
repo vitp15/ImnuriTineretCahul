@@ -150,7 +150,7 @@
                 android:id="@+id/linear4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@color/line_separate_aud"
                 android:orientation="horizontal"
                 android:padding="0.5dp" />
 
@@ -162,7 +162,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="5dp"
-                android:background="@color/btn_color_aud"
+                android:backgroundTint="@color/btn_color_aud"
                 android:text="@string/downald_single_audio_ro"
                 android:textAllCaps="false"
                 android:textColor="@color/tetx_btn_aud"
