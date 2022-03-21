@@ -28,10 +28,10 @@ public class UpdateNonExistentFilesTask extends AsyncTask<String, String, String
     private Language language;
     private ProgressDialog progressDialog;
     private FragmentActivity fragmentActivity;
-    private String server = "ftpupload.net";
-    private int port = 21;
-    private String user = "epiz_30672048";
-    private String pass = "wiejPSD0VHtsYx";
+    private String server;
+    private int port;
+    private String user;
+    private String pass;
     private String ftpPatch;
     private String internalPatch;
     private int totalItems = 0, curentItem;
@@ -44,6 +44,10 @@ public class UpdateNonExistentFilesTask extends AsyncTask<String, String, String
         this.fragmentActivity = fragmentActivity;
         this.type = type;
         this.language = language;
+        port = Integer.parseInt(context.getString(R.string.port));
+        server = context.getString(R.string.server);
+        user = context.getString(R.string.user);
+        pass = context.getString(R.string.password);
         curentItem = 0;
         UpdateFilesTask.total = 0;
         UpdateFilesTask.fileSize = 0;

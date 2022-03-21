@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:clickable="true"
     android:background="@drawable/hymn_list_press"
-    >
+    android:clickable="true">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
-        android:textColor="@color/text_color"
         android:paddingLeft="10dp"
-        android:textSize="18sp"/>
+        android:textColor="@color/text_color"
+        android:textSize="18sp" />
 
 </RelativeLayout>

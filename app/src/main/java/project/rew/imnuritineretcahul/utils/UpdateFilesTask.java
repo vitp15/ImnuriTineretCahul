@@ -25,10 +25,10 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
     private ProgressDialog progressDialog;
     private FragmentActivity fragmentActivity;
     private String file = "all";
-    private String server = "ftpupload.net";
-    private int port = 21;
-    private String user = "epiz_30672048";
-    private String pass = "wiejPSD0VHtsYx";
+    private String server;
+    private int port;
+    private String user;
+    private String pass;
     private String ftpPatch;
     private String internalPatch;
     public static long fileSize, total;
@@ -39,6 +39,10 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
     public UpdateFilesTask(Context context, FragmentActivity fragmentActivity, String file,
                            Type type, Language language) {
         this.context = context;
+        port = Integer.parseInt(context.getString(R.string.port));
+        server = context.getString(R.string.server);
+        user = context.getString(R.string.user);
+        pass = context.getString(R.string.password);
         this.fragmentActivity = fragmentActivity;
         this.file = file;
         this.type = type;
@@ -76,6 +80,10 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
         this.fragmentActivity = fragmentActivity;
         this.type = type;
         this.language = language;
+        port = Integer.parseInt(context.getString(R.string.port));
+        server = context.getString(R.string.server);
+        user = context.getString(R.string.user);
+        pass = context.getString(R.string.password);
         total = 0;
         fileSize = 0;
         if (language == Language.RO) {

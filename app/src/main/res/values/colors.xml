@@ -3,7 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="appBar_light">#0036C3</color>
+    <color name="appBar_light">#0552C5</color>
     <color name="appBarTop_light">#00195A</color>
 
     <color name="appBar_night">#0D3C06</color>
@@ -59,12 +59,12 @@
     <color name="btn_color_aud">@color/appBar_light</color>
     <color name="tetx_btn_aud">@color/white</color>
     <color name="txt_lyst_not_found_audio">@color/txt_lyst_not_found</color>
-    <color name="audio_exist_title">#6537E1A6</color>
-    <color name="audio_exist_background">#635AFFBD</color>
-    <color name="audio_miss">#41FF4B4B</color>
-    <color name="player_btns_list">#38393A</color>
-    <color name="seekbar_list">#01BF99</color>
-    <color name="thumb_list">#00A181</color>
+    <color name="audio_exist_title">#193B70F6</color>
+    <color name="audio_exist_background">#221D69EA</color>
+    <color name="audio_miss">#17FB4A4A</color>
+    <color name="player_btns_list">#2C2D2E</color>
+    <color name="seekbar_list">#1D7EC8</color>
+    <color name="thumb_list">#023691</color>
     <color name="time_aud">#2B2B2B</color>
     <color name="delete_aud">#2B2B2B</color>
 
@@ -75,8 +75,8 @@
     <color name="line_separate_pdf">@color/white</color>
     <color name="btn_color_pdf">@color/appBar_light</color>
     <color name="text_btn_pdf">@color/white</color>
-    <color name="pdf_exist">#41286EF6</color>
-    <color name="pdf_miss">#41E32929</color>
+    <color name="pdf_exist">#221D69EA</color>
+    <color name="pdf_miss">#17FB4A4A</color>
 
     <!--updates fargment-->
     <color name="background_updates">@color/white</color>
