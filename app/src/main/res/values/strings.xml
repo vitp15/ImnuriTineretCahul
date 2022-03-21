@@ -15,7 +15,7 @@
     <string name="menu_updates">Actualizare</string>
 
     <string name="imns_not_found_ro">Actualizati lista de imnuri din <b>Actualizare</b></string>
-    <string name="imns_not_found_ru">Обновите список гимнов в <b>Обновление</b></string>
+    <string name="imns_not_found_ru">Обновите список гимнов в <b>Actualizare</b></string>
 
     <string name="ro_internal_hymns_folder">ro_hymns</string>
     <string name="ro_internal_mp3_folder">ro_audio</string>
