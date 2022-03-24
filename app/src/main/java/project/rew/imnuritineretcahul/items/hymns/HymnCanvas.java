@@ -171,7 +171,7 @@ public class HymnCanvas extends AppCompatActivity {
                             if (i[0] == 1) {
                                 if (language == Language.RO)
                                     Toast.makeText(HymnCanvas.this, R.string.play_ro, Toast.LENGTH_SHORT).show();
-                                else if (language == Language.RO)
+                                else if (language == Language.RU)
                                     Toast.makeText(HymnCanvas.this, R.string.play_ru, Toast.LENGTH_SHORT).show();
                             } else if (i[0] == 2) {
                                 btPlay.setVisibility(View.GONE);

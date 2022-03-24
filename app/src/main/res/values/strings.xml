@@ -6,6 +6,8 @@
     <string name="port">21</string>
     <string name="password">1p15xcq2r4tEe</string>
 
+    <string name="hymn_font">Georgia,serif</string>
+
     <string name="hymns_ro">Imnuri</string>
     <string name="menu_audio_ro">Audio</string>
     <string name="menu_notspdf_ro">Note PDF</string>

@@ -153,14 +153,26 @@ public class Utils {
             if (!file.exists()) {
                 if (lang == Language.RO)
                     if (chordsFlag)
-                        contentBuilder.append("<p>" + context.getString(R.string.chords_absent_ro) + "</p>");
+                        contentBuilder.append("<body bgcolor=\\\"\" + background + \"\\\" text=\\\"\" + color + \"\\\">" +
+                                "<span style=\"font-family:"
+                                +context.getResources().getString(R.string.hymn_font)+"\">" +
+                                "<p>" + context.getString(R.string.chords_absent_ro) + "</p></span></body>");
                     else
-                        contentBuilder.append("<p>" + context.getString(R.string.hymn_words_absent_ro) + "</p>");
+                        contentBuilder.append("<body bgcolor=\\\"\" + background + \"\\\" text=\\\"\" + color + \"\\\">" +
+                                "<span style=\"font-family:"
+                                +context.getResources().getString(R.string.hymn_font)+"\">" +
+                                "<p>" + context.getString(R.string.hymn_words_absent_ro) + "</p></span></body>");
                 else if (lang == Language.RU)
                     if (chordsFlag)
-                        contentBuilder.append("<p>" + context.getString(R.string.chords_absent_ru) + "</p>");
+                        contentBuilder.append("<body bgcolor=\\\"\" + background + \"\\\" text=\\\"\" + color + \"\\\">" +
+                                "<span style=\"font-family:"
+                                +context.getResources().getString(R.string.hymn_font)+"\">" +
+                                "<p>" + context.getString(R.string.chords_absent_ru) + "</p></span></body>");
                     else
-                        contentBuilder.append("<p>" + context.getString(R.string.hymn_words_absent_ru) + "</p>");
+                        contentBuilder.append("<body bgcolor=\\\"\" + background + \"\\\" text=\\\"\" + color + \"\\\">" +
+                                "<span style=\"font-family:"
+                                +context.getResources().getString(R.string.hymn_font)+"\">" +
+                                "<p>" + context.getString(R.string.hymn_words_absent_ru) + "</p></sapn></body>");
             } else {
                 BufferedReader in = new BufferedReader(new FileReader(filename));
                 String str;
@@ -174,7 +186,10 @@ public class Utils {
         }
         String color = context.getString(R.string.text_color_hc);
         String background = context.getString(R.string.background_hmn_canvas);
-        return "<body bgcolor=\"" + background + "\" text=\"" + color + "\">" + contentBuilder.toString() + "</body>";
+        return "<body bgcolor=\"" + background + "\" text=\"" + color + "\">" +
+                "<span style=\"font-family:"
+                +context.getResources().getString(R.string.hymn_font)+"\">" +
+                contentBuilder.toString() + "</span></body>";
     }
 
     public static void loadHymns(@NotNull Context context, Language language) {
