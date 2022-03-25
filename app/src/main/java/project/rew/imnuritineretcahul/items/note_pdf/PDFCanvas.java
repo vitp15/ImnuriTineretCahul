@@ -1,15 +1,20 @@
 package project.rew.imnuritineretcahul.items.note_pdf;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.github.barteksc.pdfviewer.PDFView;
 
@@ -23,6 +28,7 @@ import project.rew.imnuritineretcahul.utils.Utils;
 public class PDFCanvas extends AppCompatActivity {
     Hymn hymn;
     Language language;
+    LinearLayout linearLayout;
 
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -39,11 +45,32 @@ public class PDFCanvas extends AppCompatActivity {
             hymn = Utils.hymns_ru.get(nr - 1);
         }
         PDFView pdfView = findViewById(R.id.pdfView);
+        linearLayout = findViewById(R.id.linear);
         pdfView.fromFile(hymn.getPdfView()).load();
         getSupportActionBar().setTitle(hymn.getTitle());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHideOnContentScrollEnabled(true);
+
+        pdfView.setOnClickListener(view -> {
+            if(getSupportActionBar().isShowing()) getSupportActionBar().hide();
+            else  getSupportActionBar().show();
+        });
+
+        /*LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+        );
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            getSupportActionBar().hide();
+            params.setMargins(0, 0, 0, 0);
+            linearLayout.setLayoutParams(params);
+        } else {
+            getSupportActionBar().show();
+            params.setMargins(0, 50, 0, 0);
+            linearLayout.setLayoutParams(params);
+        }*/
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
