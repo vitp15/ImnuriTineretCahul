@@ -199,7 +199,7 @@ public class HymnCanvas extends AppCompatActivity {
                 @Override
                 public void run() {
                     playerTrack.setProgress(mediaPlayer.getCurrentPosition());
-                    handler.postDelayed(this, 500);
+                    handler.postDelayed(this, 0);//500 delayMillis ?
                 }
             };
 

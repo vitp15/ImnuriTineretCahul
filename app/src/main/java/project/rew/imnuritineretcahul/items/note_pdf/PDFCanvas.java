@@ -3,6 +3,7 @@ package project.rew.imnuritineretcahul.items.note_pdf;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 import androidx.annotation.NonNull;
@@ -42,7 +43,6 @@ public class PDFCanvas extends AppCompatActivity {
         getSupportActionBar().setTitle(hymn.getTitle());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHideOnContentScrollEnabled(true);
-
     }
 
     @Override
