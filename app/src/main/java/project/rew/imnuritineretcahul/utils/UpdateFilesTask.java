@@ -2,8 +2,8 @@ package project.rew.imnuritineretcahul.utils;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.os.Looper;
 import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
@@ -24,55 +24,15 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
     private Language language;
     private ProgressDialog progressDialog;
     private FragmentActivity fragmentActivity;
-    private String file = "all";
     private String server;
     private int port;
     private String user;
     private String pass;
     private String ftpPatch;
     private String internalPatch;
-    public static long fileSize, total;
-    private int totalItems = 0, curentItem = 0;
+    private int totalItems = 0, curentItem;
     private double procentPerHymn;
-
-
-    public UpdateFilesTask(Context context, FragmentActivity fragmentActivity, String file,
-                           Type type, Language language) {
-        this.context = context;
-        port = Integer.parseInt(context.getString(R.string.port));
-        server = context.getString(R.string.server);
-        user = context.getString(R.string.user);
-        pass = context.getString(R.string.password);
-        this.fragmentActivity = fragmentActivity;
-        this.file = file;
-        this.type = type;
-        this.language = language;
-        total = 0;
-        fileSize = 0;
-        if (language == Language.RO) {
-            if (type == Type.HYMN) {
-                internalPatch = context.getString(R.string.ro_internal_hymns_folder);
-                ftpPatch = fragmentActivity.getString(R.string.ro_external_hymns_folder);
-            } else if (type == Type.AUDIO) {
-                internalPatch = context.getString(R.string.ro_internal_mp3_folder);
-                ftpPatch = fragmentActivity.getString(R.string.ro_external_mp3_folder);
-            } else if (type == Type.PDF) {
-                internalPatch = context.getString(R.string.ro_internal_pdf_folder);
-                ftpPatch = fragmentActivity.getString(R.string.ro_external_pdf_folder);
-            }
-        } else if (language == Language.RU) {
-            if (type == Type.HYMN) {
-                internalPatch = context.getString(R.string.ru_internal_hymns_folder);
-                ftpPatch = fragmentActivity.getString(R.string.ru_external_hymns_folder);
-            } else if (type == Type.AUDIO) {
-                internalPatch = context.getString(R.string.ru_internal_mp3_folder);
-                ftpPatch = fragmentActivity.getString(R.string.ru_external_mp3_folder);
-            } else if (type == Type.PDF) {
-                internalPatch = context.getString(R.string.ru_internal_pdf_folder);
-                ftpPatch = fragmentActivity.getString(R.string.ru_external_pdf_folder);
-            }
-        }
-    }
+    public static long fileSize, total;
 
     public UpdateFilesTask(Context context, FragmentActivity fragmentActivity,
                            Type type, Language language) {
@@ -84,6 +44,7 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
         server = context.getString(R.string.server);
         user = context.getString(R.string.user);
         pass = context.getString(R.string.password);
+        curentItem = 0;
         total = 0;
         fileSize = 0;
         if (language == Language.RO) {
@@ -135,7 +96,6 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
                 }
             });*/
         }
-
         progressDialog.show();
     }
 
@@ -149,77 +109,90 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
                 fragmentActivity.runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.settings_connect_to_internet_ru), Toast.LENGTH_SHORT).show());
         } else {
             File internalDir = context.getDir(internalPatch, Context.MODE_PRIVATE);
-            if (file.equals("all")) {
-                try {
-                    ftpClient.connect(server, port);
-                    ftpClient.login(user, pass);
-                    ftpClient.enterLocalPassiveMode();
-                    FTPFile[] subFiles = Utils.getDirectoryFiles(ftpClient, ftpPatch);
-                    deleteFiles(subFiles);
-                    ftpClient.logout();
-                    ftpClient.disconnect();
-                    totalItems = subFiles.length - 2;
+            File[] dirFiles = internalDir.listFiles();
+            try {
+                ftpClient.connect(server, port);
+                ftpClient.login(user, pass);
+                ftpClient.enterLocalPassiveMode();
+                FTPFile[] subFiles = Utils.getDirectoryFiles(ftpClient, ftpPatch);
+                deleteFiles(subFiles);
+                ftpClient.logout();
+                ftpClient.disconnect();
+                int i = 0, a = 0;
+                for (FTPFile ftpFile : subFiles) {
+                    if (ftpFile.getName().equals(".") || ftpFile.getName().equals("..")) {
+                        continue;
+                    }
+                    boolean exist = false;
+                    for (File fileDir : dirFiles) {
+                        if (ftpFile.getName().equals(fileDir.getName())) {
+                            exist = true;
+                        }
+                    }
+                    if (!exist) {
+                        fileSize += ftpFile.getSize();
+                        if (type != Type.AUDIO || ftpFile.getName().split("\\.")[2].equals("mp3"))
+                            i++;
+                        else a++;
+                    }
+                }
+                totalItems = i;
+                if (totalItems == 0 && a != 0 && type == Type.AUDIO)
+                    totalItems = a;
+                FTPFile[] subFilesforDownald = new FTPFile[i+a];
+                if (totalItems != 0) {
                     procentPerHymn = 1 / (double) totalItems * 100;
+                    int j = 0;
                     for (FTPFile ftpFile : subFiles) {
                         if (ftpFile.getName().equals(".") || ftpFile.getName().equals("..")) {
                             continue;
                         }
-                        fileSize += ftpFile.getSize();
-                    }
-                    downaldAll(ftpClient, ftpPatch, internalDir.getAbsolutePath());
-                    if (language == Language.RO)
-                        progressDialog.setMessage(fragmentActivity.getString(R.string.cancel_operation_update_ro));
-                    else if (language == Language.RU)
-                        progressDialog.setMessage(fragmentActivity.getString(R.string.cancel_operation_update_ru));
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            } else {
-                try {
-                    ftpClient.connect(server, port);
-                    ftpClient.login(user, pass);
-                    ftpClient.enterLocalPassiveMode();
-                    FTPFile[] subFiles = Utils.getDirectoryFiles(ftpClient, ftpPatch);
-                    deleteFiles(subFiles);
-                    ftpClient.logout();
-                    ftpClient.disconnect();
-                    boolean exist = false;
-                    for (FTPFile fileFtp : subFiles) {
-                        if (fileFtp.getName().equals(file)) {
-                            exist = true;
-                            fileSize = fileFtp.getSize();
-                            if (language == Language.RO) {
-                                if (type == Type.HYMN) {
-                                    progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ro));
-                                } else if (type == Type.AUDIO) {
-                                    progressDialog.setMessage(fragmentActivity.getString(R.string.downald_audio_ro));
-                                } else if (type == Type.PDF) {
-                                    progressDialog.setMessage(fragmentActivity.getString(R.string.downald_pdf_ro));
-                                }
-                            } else if (language == Language.RU) {
-                                if (type == Type.HYMN) {
-                                    progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ru));
-                                } else if (type == Type.AUDIO) {
-                                    progressDialog.setMessage(fragmentActivity.getString(R.string.downald_audio_ru));
-                                } else if (type == Type.PDF) {
-                                    progressDialog.setMessage(fragmentActivity.getString(R.string.downald_pdf_ru));
-                                }
+                        boolean exist = false;
+                        for (File fileDir : dirFiles) {
+                            if (ftpFile.getName().equals(fileDir.getName())) {
+                                exist = true;
                             }
-                            updateItem(ftpPatch
-                                            + File.separator + fileFtp.getName(),
-                                    internalDir.getAbsolutePath() + File.separator + fileFtp.getName());
-                            break;
+                        }
+                        if (!exist) {
+                            subFilesforDownald[j] = ftpFile;
+                            j++;
                         }
                     }
-                    if (!exist) {
-                        if (language == Language.RO)
-                            fragmentActivity.runOnUiThread(() -> Toast.makeText(context, R.string.dont_exist_ro, Toast.LENGTH_SHORT).show());
-                        if (language == Language.RU)
-                            fragmentActivity.runOnUiThread(() -> Toast.makeText(context, R.string.dont_exist_ru, Toast.LENGTH_SHORT).show());
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
                 }
+                if (totalItems == 0) {
+                    Thread thread = new Thread() {
+                        public void run() {
+                            Looper.prepare();
+                            if (language == Language.RO) {
+                                if (type == Type.HYMN)
+                                    Toast.makeText(context, R.string.all_hymns_are_updated_ro, Toast.LENGTH_SHORT).show();
+                                if (type == Type.AUDIO)
+                                    Toast.makeText(context, R.string.all_audio_are_updated_ro, Toast.LENGTH_SHORT).show();
+                                if (type == Type.PDF)
+                                    Toast.makeText(context, R.string.all_pdf_are_updated_ro, Toast.LENGTH_SHORT).show();
+                            } else if (language == Language.RU) {
+                                if (type == Type.HYMN)
+                                    Toast.makeText(context, R.string.all_hymns_are_updated_ru, Toast.LENGTH_SHORT).show();
+                                if (type == Type.AUDIO)
+                                    Toast.makeText(context, R.string.all_audio_are_updated_ru, Toast.LENGTH_SHORT).show();
+                                if (type == Type.PDF)
+                                    Toast.makeText(context, R.string.all_pdf_are_updated_ru, Toast.LENGTH_SHORT).show();
+                            }
+                            Looper.loop();
+                        }
+                    };
+                    thread.start();
+                }
+                if (totalItems != 0)
+                    downaldAll(ftpClient, subFilesforDownald, true, ftpPatch, internalDir.getAbsolutePath());
+                if (language == Language.RO)
+                    progressDialog.setMessage(fragmentActivity.getString(R.string.cancel_operation_update_ro));
+                else if (language == Language.RU)
+                    progressDialog.setMessage(fragmentActivity.getString(R.string.cancel_operation_update_ru));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                fragmentActivity.runOnUiThread(() -> Toast.makeText(context, "Failed: " + ex.getLocalizedMessage(), Toast.LENGTH_LONG).show());
+                progressDialog.dismiss();
             }
         }
         return null;
@@ -235,20 +208,24 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
         fragmentActivity.recreate();
     }
 
-    private void downaldAll(FTPClient ftpClient, String dirToList, String dirSave) {
+    private void downaldAll(FTPClient ftpClient, FTPFile[] subFiles, boolean main, String dirToList, String dirSave) {
         try {
-            ftpClient.connect(server, port);
-            ftpClient.login(user, pass);
-            ftpClient.enterLocalPassiveMode();
-            FTPFile[] subFiles = Utils.getDirectoryFiles(ftpClient, dirToList);
-            ftpClient.logout();
-            ftpClient.disconnect();
+            if (!main) {
+                ftpClient.connect(server, port);
+                ftpClient.login(user, pass);
+                ftpClient.enterLocalPassiveMode();
+                subFiles = Utils.getDirectoryFiles(ftpClient, dirToList);
+                ftpClient.logout();
+                ftpClient.disconnect();
+            }
             String remoteFilePatch, savePatch;
             for (FTPFile fileFtp : subFiles) {
                 if (fileFtp.getName().equals(".") || fileFtp.getName().equals("..")) {
                     continue;
                 }
-                if (type != Type.HYMN)
+                if (type == Type.PDF)
+                    curentItem++;
+                if (type == Type.AUDIO && fileFtp.getName().split("\\.")[2].equals("mp3"))
                     curentItem++;
                 if (fileFtp.isDirectory()) {
                     if (type == Type.HYMN) {
@@ -267,7 +244,7 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
                     }
                     File newDir = new File(dirSave + File.separator + fileFtp.getName());
                     newDir.mkdirs();
-                    downaldAll(ftpClient, dirToList + File.separator + fileFtp.getName(),
+                    downaldAll(ftpClient, subFiles, false, dirToList + File.separator + fileFtp.getName(),
                             newDir.getAbsolutePath()); //because to can to set corectly the progress
                     if (type == Type.HYMN) {
                         int procent = (int) (curentItem * procentPerHymn);
@@ -304,6 +281,8 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+            fragmentActivity.runOnUiThread(() -> Toast.makeText(context, "Failed: " + ex.getLocalizedMessage(), Toast.LENGTH_LONG).show());
+            progressDialog.dismiss();
         }
     }
 

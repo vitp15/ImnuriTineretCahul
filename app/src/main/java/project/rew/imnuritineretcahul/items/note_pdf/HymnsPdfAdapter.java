@@ -22,7 +22,7 @@ import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.enums.Type;
 import project.rew.imnuritineretcahul.items.hymns.Hymn;
-import project.rew.imnuritineretcahul.utils.UpdateFilesTask;
+import project.rew.imnuritineretcahul.utils.DownloadSingleFileTask;
 
 
 public class HymnsPdfAdapter extends RecyclerView.Adapter<HymnsPdfAdapter.ViewHolder> implements Filterable {
@@ -78,7 +78,7 @@ public class HymnsPdfAdapter extends RecyclerView.Adapter<HymnsPdfAdapter.ViewHo
                 if (holder.linearLayout.getVisibility() == View.GONE) {
                     holder.linearLayout.setVisibility(View.VISIBLE);
                     holder.pdfUpdate.setOnClickListener(v -> {
-                        new UpdateFilesTask(context, fragment,
+                        new DownloadSingleFileTask(context, fragment,
                                 String.valueOf(hymn.getId()) + ".pdf", Type.PDF, language).execute();
                     });
                 } else {

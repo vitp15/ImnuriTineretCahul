@@ -35,7 +35,7 @@ import project.rew.imnuritineretcahul.enums.Type;
 import project.rew.imnuritineretcahul.items.audio.SetMediaPlayer;
 import project.rew.imnuritineretcahul.items.note_pdf.PDFCanvas;
 import project.rew.imnuritineretcahul.items.note_pdf.SetPDF;
-import project.rew.imnuritineretcahul.utils.UpdateFilesTask;
+import project.rew.imnuritineretcahul.utils.DownloadSingleFileTask;
 import project.rew.imnuritineretcahul.utils.PrefConfig;
 import project.rew.imnuritineretcahul.utils.Utils;
 
@@ -141,7 +141,7 @@ public class HymnCanvas extends AppCompatActivity {
             notePDF.setVisibility(View.GONE);
             pdfMiss.setVisibility(View.VISIBLE);
             downaldPdf.setOnClickListener(view -> {
-                new UpdateFilesTask(this, this,
+                new DownloadSingleFileTask(this, this,
                         String.valueOf(hymn.getId()) + ".pdf", Type.PDF, language).execute();
             });
         }
@@ -293,7 +293,7 @@ public class HymnCanvas extends AppCompatActivity {
                                 downald.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        new UpdateFilesTask(HymnCanvas.this, HymnCanvas.this, String.valueOf(hymn.getId()) + ".mp3",
+                                        new DownloadSingleFileTask(HymnCanvas.this, HymnCanvas.this, String.valueOf(hymn.getId()) + ".mp3",
                                                 Type.AUDIO, language).execute();
                                     }
                                 });
@@ -312,7 +312,7 @@ public class HymnCanvas extends AppCompatActivity {
             downald.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    new UpdateFilesTask(HymnCanvas.this, HymnCanvas.this, String.valueOf(hymn.getId()) + ".mp3",
+                    new DownloadSingleFileTask(HymnCanvas.this, HymnCanvas.this, String.valueOf(hymn.getId()) + ".mp3",
                             Type.AUDIO, language).execute();
                 }
             });

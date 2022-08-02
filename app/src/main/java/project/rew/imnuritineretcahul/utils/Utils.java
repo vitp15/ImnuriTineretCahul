@@ -142,7 +142,8 @@ public class Utils {
             if (dirFiles.length != 0) {
                 for (File dirFile : dirFiles) {
                     String[] hymn = dirFile.getName().split(" - ");
-                    if (nr == Integer.parseInt(hymn[0])) {
+                    String[] hymnIdAndCategory = hymn[0].split("\\.");
+                    if (nr == Integer.parseInt(hymnIdAndCategory[0])) {
                         filename = chordsFlag ?
                                 dirFile.getAbsolutePath() + File.separator + "_" + nr + context.getString(R.string.settings_hymn_extension) :
                                 dirFile.getAbsolutePath() + File.separator + nr + context.getString(R.string.settings_hymn_extension);
@@ -206,7 +207,8 @@ public class Utils {
                 hymns_ro.clear();
                 for (File dirFile : dirFiles) {
                     String[] hymn = dirFile.getName().split(" - ");
-                    hymns_ro.add(new Hymn(Integer.parseInt(hymn[0]), hymn[1]));
+                    String[] id = hymn[0].split("\\.");
+                    hymns_ro.add(new Hymn(Integer.parseInt(id[0]), hymn[2]));
                 }
             }
             Collections.sort(hymns_ro, Hymn.HymnComparator);

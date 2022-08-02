@@ -29,7 +29,7 @@ import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.enums.Type;
 import project.rew.imnuritineretcahul.items.hymns.Hymn;
-import project.rew.imnuritineretcahul.utils.UpdateFilesTask;
+import project.rew.imnuritineretcahul.utils.DownloadSingleFileTask;
 import project.rew.imnuritineretcahul.utils.Utils;
 
 
@@ -221,7 +221,7 @@ public class AudioListHymnsAdapter extends RecyclerView.Adapter<AudioListHymnsAd
                                 holder.btnUpdSingle.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        new UpdateFilesTask(context, fragment, String.valueOf(hymn.getId()) + ".mp3",
+                                        new DownloadSingleFileTask(context, fragment, String.valueOf(hymn.getId()) + ".mp3",
                                                 Type.AUDIO, language).execute();
                                     }
                                 });
@@ -239,7 +239,7 @@ public class AudioListHymnsAdapter extends RecyclerView.Adapter<AudioListHymnsAd
             holder.btnUpdSingle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    new UpdateFilesTask(context, fragment, String.valueOf(hymn.getId()) + ".mp3",
+                    new DownloadSingleFileTask(context, fragment, String.valueOf(hymn.getId()) + ".mp3",
                             Type.AUDIO, language).execute();
                 }
             });

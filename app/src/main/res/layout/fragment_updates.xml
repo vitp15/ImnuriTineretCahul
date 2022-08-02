@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_updates"
     android:orientation="vertical"
-    tools:context=".ro.AudioFragment"
-    android:background="@color/background_updates">
+    tools:context=".ro.AudioFragment">
 
     <ScrollView
-        android:layout_marginTop="10dp"
         android:id="@+id/scrool"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
 
         <LinearLayout
             android:id="@+id/all"
@@ -30,11 +30,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/downald_all_elements"
-                    android:textSize="18sp"
                     android:textAlignment="center"
-                    android:textStyle="bold"
                     android:textColor="@color/text_color_updt"
-                    />
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -50,10 +49,10 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginRight="20dp"
                         android:layout_weight="1"
-                        android:text="@string/dwnld_hymn_ro"
                         android:backgroundTint="@color/btn_color_updt"
-                        android:textColor="@color/btn_text_color_updt"
+                        android:text="@string/dwnld_hymn_ro"
                         android:textAllCaps="false"
+                        android:textColor="@color/btn_text_color_updt"
                         android:textSize="15sp" />
 
                     <Button
@@ -65,9 +64,9 @@
                         android:layout_marginRight="20dp"
                         android:layout_weight="1"
                         android:backgroundTint="@color/btn_color_updt"
-                        android:textColor="@color/btn_text_color_updt"
                         android:text="@string/dwnld_hymn_ru"
                         android:textAllCaps="false"
+                        android:textColor="@color/btn_text_color_updt"
                         android:textSize="15sp" />
                 </LinearLayout>
 
@@ -86,9 +85,9 @@
                         android:layout_marginRight="20dp"
                         android:layout_weight="1"
                         android:backgroundTint="@color/btn_color_updt"
-                        android:textColor="@color/btn_text_color_updt"
                         android:text="@string/dwnld_audio_ro"
                         android:textAllCaps="false"
+                        android:textColor="@color/btn_text_color_updt"
                         android:textSize="15sp" />
 
                     <Button
@@ -98,11 +97,11 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="20dp"
                         android:layout_marginRight="20dp"
-                        android:backgroundTint="@color/btn_color_updt"
-                        android:textColor="@color/btn_text_color_updt"
                         android:layout_weight="1"
+                        android:backgroundTint="@color/btn_color_updt"
                         android:text="@string/dwnld_audio_ru"
                         android:textAllCaps="false"
+                        android:textColor="@color/btn_text_color_updt"
                         android:textSize="15sp" />
                 </LinearLayout>
 
@@ -121,9 +120,9 @@
                         android:layout_marginRight="20dp"
                         android:layout_weight="1"
                         android:backgroundTint="@color/btn_color_updt"
-                        android:textColor="@color/btn_text_color_updt"
                         android:text="@string/dwnld_pdf_ro"
                         android:textAllCaps="false"
+                        android:textColor="@color/btn_text_color_updt"
                         android:textSize="15sp" />
 
                     <Button
@@ -133,136 +132,15 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="20dp"
                         android:layout_marginRight="20dp"
-                        android:backgroundTint="@color/btn_color_updt"
-                        android:textColor="@color/btn_text_color_updt"
                         android:layout_weight="1"
+                        android:backgroundTint="@color/btn_color_updt"
                         android:text="@string/dwnld_pdf_ru"
                         android:textAllCaps="false"
-                        android:textSize="15sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_marginTop="70dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/downald_only_nonexist"
-                    android:textSize="18sp"
-                    android:textAlignment="center"
-                    android:textStyle="bold"
-                    android:textColor="@color/text_color_updt"
-                    />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <Button
-                        android:id="@+id/btnHymnsUpdateN"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="20dp"
-                        android:backgroundTint="@color/btn_color_updt"
                         android:textColor="@color/btn_text_color_updt"
-                        android:layout_marginRight="20dp"
-                        android:layout_weight="1"
-                        android:text="@string/dwnldN_hymn_ro"
-                        android:textAllCaps="false"
-                        android:textSize="15sp" />
-
-                    <Button
-                        android:id="@+id/btnHymnsUpdate_ruN"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="20dp"
-                        android:backgroundTint="@color/btn_color_updt"
-                        android:textColor="@color/btn_text_color_updt"
-                        android:layout_marginRight="20dp"
-                        android:layout_weight="1"
-                        android:text="@string/dwnldN_hymn_ru"
-                        android:textAllCaps="false"
-                        android:textSize="15sp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <Button
-                        android:id="@+id/btnAudioUpdateN"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="20dp"
-                        android:backgroundTint="@color/btn_color_updt"
-                        android:textColor="@color/btn_text_color_updt"
-                        android:layout_marginRight="20dp"
-                        android:layout_weight="1"
-                        android:text="@string/dwnldN_audio_ro"
-                        android:textAllCaps="false"
-                        android:textSize="15sp" />
-
-                    <Button
-                        android:id="@+id/btnAudioUpdate_ruN"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="20dp"
-                        android:backgroundTint="@color/btn_color_updt"
-                        android:textColor="@color/btn_text_color_updt"
-                        android:layout_weight="1"
-                        android:text="@string/dwnldN_audio_ru"
-                        android:textAllCaps="false"
-                        android:textSize="15sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <Button
-                        android:id="@+id/btnPdfUpdateN"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="20dp"
-                        android:backgroundTint="@color/btn_color_updt"
-                        android:textColor="@color/btn_text_color_updt"
-                        android:layout_weight="1"
-                        android:text="@string/dwnldN_pdf_ro"
-                        android:textAllCaps="false"
-                        android:textSize="15sp" />
-
-                    <Button
-                        android:id="@+id/btnPdfUpdate_ruN"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="20dp"
-                        android:backgroundTint="@color/btn_color_updt"
-                        android:textColor="@color/btn_text_color_updt"
-                        android:layout_weight="1"
-                        android:text="@string/dwnldN_pdf_ru"
-                        android:textAllCaps="false"
                         android:textSize="15sp" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+
     </ScrollView>
 </LinearLayout>
