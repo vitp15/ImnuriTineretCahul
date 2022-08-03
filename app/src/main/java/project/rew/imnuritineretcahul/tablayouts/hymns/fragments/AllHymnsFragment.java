@@ -1,6 +1,14 @@
-package project.rew.imnuritineretcahul.ru;
+package project.rew.imnuritineretcahul.tablayouts.hymns.fragments;
 
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -10,46 +18,35 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.enums.Language;
-import project.rew.imnuritineretcahul.items.audio.AudioListHymnsAdapter;
-import project.rew.imnuritineretcahul.items.audio.SetMediaPlayer;
 import project.rew.imnuritineretcahul.items.hymns.Hymn;
+import project.rew.imnuritineretcahul.items.hymns.HymnsAdapter;
 import project.rew.imnuritineretcahul.utils.Utils;
 
-public class AudioFragment extends Fragment {
+public class AllHymnsFragment extends Fragment {
     private List<Hymn> all_hymns;
-    private AudioListHymnsAdapter adapter;
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_audio, container, false);
-        Utils.loadHymns(root.getContext(), Language.RU);
-        SetMediaPlayer.setMediaPlayer(root.getContext(),Language.RU);
+    private HymnsAdapter adapter;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View root = inflater.inflate(R.layout.fragment_all_hymns_home, container, false);
+        Utils.loadHymns(root.getContext(), Language.RO);
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
-        all_hymns = Utils.hymns_ru;
-        adapter = new AudioListHymnsAdapter(all_hymns, getActivity(),Language.RU);
+        all_hymns=Utils.hymns_ro;
+        adapter=new HymnsAdapter(all_hymns,Language.RO);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
-        TextView textView = root.findViewById(R.id.textView);
-
-        textView.setText(R.string.imns_not_found_ru);
-
-
+        TextView textView=root.findViewById(R.id.textView);
         // Loading Hymns from local storage
+        textView.setText(R.string.imns_not_found_ro);
 
-        if (Utils.hymns_ru.isEmpty()) {
+        if (Utils.hymns_ro.isEmpty()) {
             textView.setVisibility(View.VISIBLE);
         } else {
             textView.setVisibility(View.GONE);
@@ -67,10 +64,10 @@ public class AudioFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull @NotNull Menu menu, @NonNull @NotNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater = getActivity().getMenuInflater();
-        inflater.inflate(R.menu.fragment_audio, menu);
+        inflater= getActivity().getMenuInflater();
+        inflater.inflate(R.menu.fragment_home,menu);
         MenuItem searchItem = menu.findItem(R.id.search);
-        SearchView searchView = (SearchView) searchItem.getActionView();
+        SearchView searchView=(SearchView) searchItem.getActionView();
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -81,7 +78,6 @@ public class AudioFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String s) {
                 adapter.getFilter().filter(s);
-
                 return false;
             }
         });
@@ -90,16 +86,5 @@ public class AudioFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        for (int i = 0; i < SetMediaPlayer.mediaPlayer.length; i++) {
-            if (SetMediaPlayer.mediaPlayer[i] != null) {
-                SetMediaPlayer.mediaPlayer[i].seekTo(0);
-                SetMediaPlayer.mediaPlayer[i].stop();
-            }
-        }
     }
 }

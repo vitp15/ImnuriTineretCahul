@@ -5,25 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_home"
-    tools:context=".ro.HomeFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".fragments.HomeFragment">
 
-    <TextView
-        android:id="@+id/textView"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textColor="@color/txt_lyst_not_found"
-        android:textSize="23sp"
-        android:text="@string/imns_not_found_ro"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        />
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvHymns"
+        android:background="#4D785B"
+        app:tabIndicatorColor="@color/black"
+        app:tabTextColor="@color/white" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent">
-    </androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="match_parent" />
+
 </LinearLayout>

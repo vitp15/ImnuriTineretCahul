@@ -3,8 +3,27 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.211" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/app_bar_main.xml" value="0.358695652173913" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/content_main.xml" value="0.358695652173913" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/fragment_all_hymns_audio.xml" value="0.3625" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/fragment_all_hymns_pdf.xml" value="0.3625" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/fragment_audio.xml" value="0.3625" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/fragment_categories_audio.xml" value="0.3625" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/fragment_categories_pdf.xml" value="0.3625" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/fragment_home.xml" value="0.358695652173913" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/fragment_home2.xml" value="0.3625" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/fragment_home3.xml" value="0.3625" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/fragment_home4.xml" value="0.3625" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/fragment_notepdf.xml" value="0.24954710144927536" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/fragment_saved_aduio.xml" value="0.3625" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/fragment_saved_pdf.xml" value="0.3625" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/fragment_updates.xml" value="0.33" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/nav_header_main.xml" value="0.358695652173913" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/menu/activity_main_drawer.xml" value="0.5" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/menu/main.xml" value="0.3625" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/menu/pdf_canvas.xml" value="0.34814814814814815" />
       </map>
     </option>
   </component>

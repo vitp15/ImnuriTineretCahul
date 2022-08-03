@@ -1,4 +1,4 @@
-package project.rew.imnuritineretcahul.ru;
+package project.rew.imnuritineretcahul.tablayouts.audio.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,32 +19,33 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.enums.Language;
-import project.rew.imnuritineretcahul.items.note_pdf.HymnsPdfAdapter;
-import project.rew.imnuritineretcahul.items.note_pdf.SetPDF;
+import project.rew.imnuritineretcahul.items.hymns.Hymn;
+import project.rew.imnuritineretcahul.items.hymns.HymnsAdapter;
 import project.rew.imnuritineretcahul.utils.Utils;
 
-
-public class NotePDFragment extends Fragment {
-
-    HymnsPdfAdapter adapter;
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_notepdf, container, false);
-        Utils.loadHymns(root.getContext(), Language.RU);
-
-
+public class SavedHymnsFragmentAudio extends Fragment {
+    private List<Hymn> all_hymns;
+    private HymnsAdapter adapter;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View root = inflater.inflate(R.layout.fragment_all_hymns_home, container, false);
+        Utils.loadHymns(root.getContext(), Language.RO);
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
-        adapter=new HymnsPdfAdapter(Utils.hymns_ru,getActivity(),Language.RU);
+        all_hymns=Utils.hymns_ro;
+        adapter=new HymnsAdapter(all_hymns,Language.RO);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         TextView textView=root.findViewById(R.id.textView);
-        SetPDF.setPDF(root.getContext(),Language.RU);
         // Loading Hymns from local storage
-        textView.setText(R.string.imns_not_found_ru);
+        textView.setText(R.string.imns_not_found_ro);
 
-        if (Utils.hymns_ru.isEmpty()) {
+        if (Utils.hymns_ro.isEmpty()) {
             textView.setVisibility(View.VISIBLE);
         } else {
             textView.setVisibility(View.GONE);

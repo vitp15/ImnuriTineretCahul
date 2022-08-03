@@ -1,9 +1,7 @@
-package project.rew.imnuritineretcahul.ro;
+package project.rew.imnuritineretcahul.tablayouts.pdf.fragments;
 
 import android.os.Bundle;
-
 import android.view.LayoutInflater;
-
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,27 +16,34 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
+
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.items.hymns.Hymn;
 import project.rew.imnuritineretcahul.items.hymns.HymnsAdapter;
+import project.rew.imnuritineretcahul.items.note_pdf.HymnsPdfAdapter;
+import project.rew.imnuritineretcahul.items.note_pdf.SetPDF;
 import project.rew.imnuritineretcahul.utils.Utils;
 
-public class HomeFragment extends Fragment {
-    private List<Hymn> all_hymns;
-    private HymnsAdapter adapter;
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_home,container,false);
+public class AllHymnsFragmentPDF extends Fragment {
+    HymnsPdfAdapter adapter;
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_all_hymns_pdf, container, false);
         Utils.loadHymns(root.getContext(), Language.RO);
+
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
-        all_hymns=Utils.hymns_ro;
-        adapter=new HymnsAdapter(all_hymns,Language.RO);
+        adapter = new HymnsPdfAdapter(Utils.hymns_ro, getActivity(), Language.RO);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
-        TextView textView=root.findViewById(R.id.textView);
+        TextView textView = root.findViewById(R.id.textView);
+        SetPDF.setPDF(root.getContext(), Language.RO);
         // Loading Hymns from local storage
         textView.setText(R.string.imns_not_found_ro);
 
@@ -60,10 +65,10 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull @NotNull Menu menu, @NonNull @NotNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater= getActivity().getMenuInflater();
-        inflater.inflate(R.menu.fragment_home,menu);
+        inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.fragment_home, menu);
         MenuItem searchItem = menu.findItem(R.id.search);
-        SearchView searchView=(SearchView) searchItem.getActionView();
+        SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

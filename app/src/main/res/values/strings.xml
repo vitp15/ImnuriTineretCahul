@@ -99,5 +99,7 @@
      doar in cazul in care sa uitat si nu este mult timp sau de pe date mobile se poate de folosit optiunea
      pentru a descarca doar elementele inexistente-->
     <string name="downald_only_nonexist">Descarcă doar elementele care încă nu sunt descarcate</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

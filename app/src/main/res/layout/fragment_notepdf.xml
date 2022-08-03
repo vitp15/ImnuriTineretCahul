@@ -4,26 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ro.NotePDFragment"
+    tools:context=".fragments.NotePDFragment"
     android:orientation="vertical"
     android:background="@color/backround_pdf">
 
-    <TextView
-        android:id="@+id/textView"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:textSize="23sp"
-        android:textColor="@color/txt_lyst_not_found_pdf"
-        android:text="@string/imns_not_found_ro"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        />
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvHymns"
+        android:background="#4D785B"
+        app:tabIndicatorColor="@color/black"
+        app:tabTextColor="@color/white" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintStart_toStartOf="parent">
-    </androidx.recyclerview.widget.RecyclerView>
+        android:layout_height="match_parent" />
 </LinearLayout>

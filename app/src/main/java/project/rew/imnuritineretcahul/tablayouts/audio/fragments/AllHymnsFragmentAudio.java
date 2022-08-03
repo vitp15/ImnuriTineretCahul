@@ -1,4 +1,4 @@
-package project.rew.imnuritineretcahul.ru;
+package project.rew.imnuritineretcahul.tablayouts.audio.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,27 +23,34 @@ import java.util.List;
 
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.enums.Language;
+import project.rew.imnuritineretcahul.items.audio.AudioListHymnsAdapter;
+import project.rew.imnuritineretcahul.items.audio.SetMediaPlayer;
 import project.rew.imnuritineretcahul.items.hymns.Hymn;
 import project.rew.imnuritineretcahul.items.hymns.HymnsAdapter;
 import project.rew.imnuritineretcahul.utils.Utils;
 
-public class HomeFragment extends Fragment {
+public class AllHymnsFragmentAudio extends Fragment {
     private List<Hymn> all_hymns;
-    private HymnsAdapter adapter;
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
-        Utils.loadHymns(root.getContext(), Language.RU);
+    private AudioListHymnsAdapter adapter;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_all_hymns_audio, container, false);
+        Utils.loadHymns(root.getContext(), Language.RO);
+        SetMediaPlayer.setMediaPlayer(root.getContext(),Language.RO);
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
-        all_hymns=Utils.hymns_ru;
-        adapter=new HymnsAdapter(all_hymns,Language.RU);
+        all_hymns = Utils.hymns_ro;
+        adapter = new AudioListHymnsAdapter(all_hymns, getActivity(),Language.RO);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
-        TextView textView=root.findViewById(R.id.textView);
-        // Loading Hymns from local storage
-        textView.setText(R.string.imns_not_found_ru);
+        TextView textView = root.findViewById(R.id.textView);
 
-        if (Utils.hymns_ru.isEmpty()) {
+        textView.setText(R.string.imns_not_found_ro);
+
+
+        // Loading Hymns from local storage
+
+        if (Utils.hymns_ro.isEmpty()) {
             textView.setVisibility(View.VISIBLE);
         } else {
             textView.setVisibility(View.GONE);
@@ -61,10 +68,10 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull @NotNull Menu menu, @NonNull @NotNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater= getActivity().getMenuInflater();
-        inflater.inflate(R.menu.fragment_home,menu);
+        inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.fragment_audio, menu);
         MenuItem searchItem = menu.findItem(R.id.search);
-        SearchView searchView=(SearchView) searchItem.getActionView();
+        SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -75,6 +82,7 @@ public class HomeFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String s) {
                 adapter.getFilter().filter(s);
+
                 return false;
             }
         });
@@ -83,5 +91,16 @@ public class HomeFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        for (int i = 0; i < SetMediaPlayer.mediaPlayer.length; i++) {
+            if (SetMediaPlayer.mediaPlayer[i] != null) {
+                SetMediaPlayer.mediaPlayer[i].seekTo(0);
+                SetMediaPlayer.mediaPlayer[i].stop();
+            }
+        }
     }
 }

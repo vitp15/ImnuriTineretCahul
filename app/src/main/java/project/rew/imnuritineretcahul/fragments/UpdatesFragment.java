@@ -1,4 +1,4 @@
-package project.rew.imnuritineretcahul.ui.updates;
+package project.rew.imnuritineretcahul.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

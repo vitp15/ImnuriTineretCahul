@@ -7,34 +7,34 @@
 
     <fragment
         android:id="@+id/nav_hymns_ro"
-        android:name="project.rew.imnuritineretcahul.ro.HomeFragment"
+        android:name="project.rew.imnuritineretcahul.fragments.HomeFragment"
         android:label="@string/hymns_ro"
         tools:layout="@layout/fragment_home" />
 
-    <fragment
+    <!--<fragment
         android:id="@+id/nav_hymns_ru"
         android:name="project.rew.imnuritineretcahul.ru.HomeFragment"
         android:label="@string/hymns_ru"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" />-->
 
     <fragment
         android:id="@+id/nav_audio_ro"
-        android:name="project.rew.imnuritineretcahul.ro.AudioFragment"
+        android:name="project.rew.imnuritineretcahul.fragments.AudioFragment"
         android:label="@string/menu_audio_ro"
         tools:layout="@layout/fragment_audio" />
 
     <fragment
         android:id="@+id/nav_pdfs_ro"
-        android:name="project.rew.imnuritineretcahul.ro.NotePDFragment"
+        android:name="project.rew.imnuritineretcahul.fragments.NotePDFragment"
         android:label="@string/menu_notspdf_ro"
         tools:layout="@layout/fragment_notepdf" />
     <fragment
         android:id="@+id/nav_updates"
-        android:name="project.rew.imnuritineretcahul.ui.updates.UpdatesFragment"
+        android:name="project.rew.imnuritineretcahul.fragments.UpdatesFragment"
         android:label="@string/menu_updates"
         tools:layout="@layout/fragment_updates" />
 
-    <fragment
+    <!--<fragment
         android:id="@+id/nav_audio_ru"
         android:name="project.rew.imnuritineretcahul.ru.AudioFragment"
         android:label="@string/menu_audio_ru"
@@ -44,6 +44,6 @@
         android:id="@+id/nav_pdfs_ru"
         android:name="project.rew.imnuritineretcahul.ru.NotePDFragment"
         android:label="@string/menu_notspdf_ru"
-        tools:layout="@layout/fragment_notepdf" />
+        tools:layout="@layout/fragment_notepdf" />-->
 
 </navigation>
