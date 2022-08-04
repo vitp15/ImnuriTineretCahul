@@ -16,6 +16,7 @@ import com.google.android.material.tabs.TabLayout;
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.tablayouts.audio.adapters.AudioTabsAdapter;
 import project.rew.imnuritineretcahul.tablayouts.hymns.adapters.HymnTabsAdapter;
+import project.rew.imnuritineretcahul.utils.Utils;
 
 public class AudioFragment extends Fragment implements TabLayout.OnTabSelectedListener {
     private TabLayout tabLayout;
@@ -48,7 +49,10 @@ public class AudioFragment extends Fragment implements TabLayout.OnTabSelectedLi
 
             @Override
             public void onPageSelected(int position) {
-                viewPager2.getAdapter().notifyItemChanged(position);
+                if (!Utils.isFirst)
+                    viewPager2.getAdapter().notifyItemChanged(position);
+                else
+                    Utils.isFirst = false;
                 super.onPageSelected(position);
             }
 
