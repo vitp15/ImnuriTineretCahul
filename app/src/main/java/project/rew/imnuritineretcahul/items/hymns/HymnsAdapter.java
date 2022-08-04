@@ -7,16 +7,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import project.rew.imnuritineretcahul.R;
+import project.rew.imnuritineretcahul.databinding.FragmentAllHymnsAudioBinding;
 import project.rew.imnuritineretcahul.enums.Language;
+import project.rew.imnuritineretcahul.utils.PrefConfig;
+import project.rew.imnuritineretcahul.utils.Utils;
 
 
 public class HymnsAdapter extends RecyclerView.Adapter<HymnsAdapter.ViewHolder> implements Filterable {
@@ -29,7 +35,7 @@ public class HymnsAdapter extends RecyclerView.Adapter<HymnsAdapter.ViewHolder> 
     public HymnsAdapter(List<Hymn> hymns, Language language) {
         this.hymns = new ArrayList<>(hymns);
         all_hymns = hymns;
-        this.language=language;
+        this.language = language;
     }
 
     @Override
@@ -44,7 +50,25 @@ public class HymnsAdapter extends RecyclerView.Adapter<HymnsAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Hymn hymn = hymns.get(position);
         holder.textView.setText(hymn.getNr() + "  " + hymn.getTitle());
-        holder.relativeLayout.setOnClickListener(view -> {
+        if(hymn.isSaved()) holder.saved.setImageDrawable(context.getResources().getDrawable(R.drawable.outline_turned_in_black_48dp));
+        else holder.saved.setImageDrawable(context.getResources().getDrawable(R.drawable.outline_turned_in_not_black_48dp));
+        holder.saved.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(hymn.isSaved()){
+                    Utils.deleteFromSaved(context,String.valueOf(hymn.getId()));
+                    hymn.setSaved(false);
+                    holder.saved.setImageDrawable(context.getResources().getDrawable(R.drawable.outline_turned_in_not_black_48dp));
+                }
+                else{
+                    Utils.addInSaved(context,String.valueOf(hymn.getId()));
+                    hymn.setSaved(true);
+                    holder.saved.setImageDrawable(context.getResources().getDrawable(R.drawable.outline_turned_in_black_48dp));
+                }
+            }
+
+        });
+        holder.constraintLayout.setOnClickListener(view -> {
 
             Intent startHymn = new Intent(context, HymnCanvas.class);
             startHymn.putExtra("id", hymn.getId());
@@ -81,7 +105,7 @@ public class HymnsAdapter extends RecyclerView.Adapter<HymnsAdapter.ViewHolder> 
                             hymn.toString().toLowerCase().contains(filterPattern) ||
                             hymn.toString().toLowerCase().replaceAll("ă", "a").replaceAll("â", "a").replaceAll("î", "i").replaceAll("ș", "s").replaceAll("ț", "t").replaceAll("\\,", "").replaceAll("\\.", "").replaceAll("\\-", "").replaceAll("\\?", "").replaceAll("\\!", "").contains(filterPattern) ||
                             hymn.toString().toLowerCase().replaceAll("\\,", "").replaceAll("\\.", "").replaceAll("\\-", "").replaceAll("\\?", "").replaceAll("\\!", "").contains(filterPattern) ||
-                            hymn.toString().toLowerCase().replaceAll("x", "х").replaceAll("\\,", "").replaceAll("\\.", "").replaceAll("\\-", "").replaceAll("\\?", "").replaceAll("\\!", "").contains(filterPattern)||
+                            hymn.toString().toLowerCase().replaceAll("x", "х").replaceAll("\\,", "").replaceAll("\\.", "").replaceAll("\\-", "").replaceAll("\\?", "").replaceAll("\\!", "").contains(filterPattern) ||
                             hymn.toString().toLowerCase().replaceAll("x", "х").contains(filterPattern)) {
                         filteredList.add(hymn);
                     }
@@ -103,12 +127,14 @@ public class HymnsAdapter extends RecyclerView.Adapter<HymnsAdapter.ViewHolder> 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView textView;
-        public RelativeLayout relativeLayout;
+        public ConstraintLayout constraintLayout;
+        public ImageView saved;
 
         public ViewHolder(View itemView) {
             super(itemView);
             this.textView = itemView.findViewById(R.id.textView);
-            relativeLayout = itemView.findViewById(R.id.relativeLayout);
+            saved = itemView.findViewById(R.id.saved);
+            constraintLayout = itemView.findViewById(R.id.constraintLayout);
         }
     }
 }

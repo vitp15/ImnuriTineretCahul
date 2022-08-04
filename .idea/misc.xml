@@ -8,6 +8,7 @@
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/app_bar_main.xml" value="0.358695652173913" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/content_main.xml" value="0.358695652173913" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/fragment_all_hymns_audio.xml" value="0.3625" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/fragment_all_hymns_home.xml" value="0.3625" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/fragment_all_hymns_pdf.xml" value="0.3625" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/fragment_audio.xml" value="0.3625" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/fragment_categories_audio.xml" value="0.3625" />
@@ -18,8 +19,10 @@
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/fragment_home4.xml" value="0.3625" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/fragment_notepdf.xml" value="0.24954710144927536" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/fragment_saved_aduio.xml" value="0.3625" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/fragment_saved_home.xml" value="0.1762917933130699" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/fragment_saved_pdf.xml" value="0.3625" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/fragment_updates.xml" value="0.33" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/lyst_item.xml" value="0.3625" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/nav_header_main.xml" value="0.358695652173913" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/menu/activity_main_drawer.xml" value="0.5" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/menu/main.xml" value="0.3625" />

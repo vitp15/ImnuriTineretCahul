@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,18 +31,19 @@ import project.rew.imnuritineretcahul.utils.Utils;
 public class SavedHymnsFragment extends Fragment {
     private List<Hymn> all_hymns;
     private HymnsAdapter adapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_all_hymns_home, container, false);
-        Utils.loadHymns(root.getContext(), Language.RO);
+        Utils.loadHymnsSaved(Language.RO);
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
-        all_hymns=Utils.hymns_ro;
-        adapter=new HymnsAdapter(all_hymns,Language.RO);
+        all_hymns=Utils.savedHymns_Ro;
+        adapter = new HymnsAdapter(all_hymns, Language.RO);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
-        TextView textView=root.findViewById(R.id.textView);
+        TextView textView = root.findViewById(R.id.textView);
         // Loading Hymns from local storage
         textView.setText(R.string.imns_not_found_ro);
 
@@ -63,10 +65,10 @@ public class SavedHymnsFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull @NotNull Menu menu, @NonNull @NotNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater= getActivity().getMenuInflater();
-        inflater.inflate(R.menu.fragment_home,menu);
+        inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.fragment_home, menu);
         MenuItem searchItem = menu.findItem(R.id.search);
-        SearchView searchView=(SearchView) searchItem.getActionView();
+        SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

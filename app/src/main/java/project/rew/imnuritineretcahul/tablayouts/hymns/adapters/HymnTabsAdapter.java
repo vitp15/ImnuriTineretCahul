@@ -33,4 +33,6 @@ public class HymnTabsAdapter extends FragmentStateAdapter {
     public int getItemCount() {
         return 3;
     }
+
+
 }

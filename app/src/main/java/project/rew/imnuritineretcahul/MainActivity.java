@@ -14,7 +14,12 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import project.rew.imnuritineretcahul.databinding.ActivityMainBinding;
+import project.rew.imnuritineretcahul.utils.PrefConfig;
+import project.rew.imnuritineretcahul.utils.Utils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
+
+        Utils.savedHymnsRo = PrefConfig.load_saved_list_of_hymns_ro(this);
+        if (Utils.savedHymnsRo == null) Utils.savedHymnsRo = new ArrayList<>();
+        Utils.savedHymnsRu = PrefConfig.load_saved_list_of_hymns_ru(this);
+        if (Utils.savedHymnsRu == null) Utils.savedHymnsRu = new ArrayList<>();
 
 
         DrawerLayout drawer = binding.drawerLayout;

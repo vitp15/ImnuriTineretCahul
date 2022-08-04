@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import project.rew.imnuritineretcahul.MainActivity;
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.enums.Type;
@@ -32,7 +33,10 @@ public class Utils {
 
     public static List<Hymn> hymns_ro = new ArrayList<>();
     public static List<Hymn> hymns_ru = new ArrayList<>();
-
+    public static List<String> savedHymnsRo;
+    public static List<String> savedHymnsRu;
+    public static List<Hymn> savedHymns_Ro = new ArrayList<>();
+    public static List<Hymn> savedHymns_Ru = new ArrayList<>();
 
     public static void deleteFile(Context context, String forDelete, Language language, Type type) {
         String folder = null;
@@ -156,23 +160,23 @@ public class Utils {
                     if (chordsFlag)
                         contentBuilder.append("<body bgcolor=\\\"\" + background + \"\\\" text=\\\"\" + color + \"\\\">" +
                                 "<span style=\"font-family:"
-                                +context.getResources().getString(R.string.hymn_font)+"\">" +
+                                + context.getResources().getString(R.string.hymn_font) + "\">" +
                                 "<p>" + context.getString(R.string.chords_absent_ro) + "</p></span></body>");
                     else
                         contentBuilder.append("<body bgcolor=\\\"\" + background + \"\\\" text=\\\"\" + color + \"\\\">" +
                                 "<span style=\"font-family:"
-                                +context.getResources().getString(R.string.hymn_font)+"\">" +
+                                + context.getResources().getString(R.string.hymn_font) + "\">" +
                                 "<p>" + context.getString(R.string.hymn_words_absent_ro) + "</p></span></body>");
                 else if (lang == Language.RU)
                     if (chordsFlag)
                         contentBuilder.append("<body bgcolor=\\\"\" + background + \"\\\" text=\\\"\" + color + \"\\\">" +
                                 "<span style=\"font-family:"
-                                +context.getResources().getString(R.string.hymn_font)+"\">" +
+                                + context.getResources().getString(R.string.hymn_font) + "\">" +
                                 "<p>" + context.getString(R.string.chords_absent_ru) + "</p></span></body>");
                     else
                         contentBuilder.append("<body bgcolor=\\\"\" + background + \"\\\" text=\\\"\" + color + \"\\\">" +
                                 "<span style=\"font-family:"
-                                +context.getResources().getString(R.string.hymn_font)+"\">" +
+                                + context.getResources().getString(R.string.hymn_font) + "\">" +
                                 "<p>" + context.getString(R.string.hymn_words_absent_ru) + "</p></sapn></body>");
             } else {
                 BufferedReader in = new BufferedReader(new FileReader(filename));
@@ -189,7 +193,7 @@ public class Utils {
         String background = context.getString(R.string.background_hmn_canvas);
         return "<body bgcolor=\"" + background + "\" text=\"" + color + "\">" +
                 "<span style=\"font-family:"
-                +context.getResources().getString(R.string.hymn_font)+"\">" +
+                + context.getResources().getString(R.string.hymn_font) + "\">" +
                 contentBuilder.toString() + "</span></body>";
     }
 
@@ -208,7 +212,16 @@ public class Utils {
                 for (File dirFile : dirFiles) {
                     String[] hymn = dirFile.getName().split(" - ");
                     String[] id = hymn[0].split("\\.");
-                    hymns_ro.add(new Hymn(Integer.parseInt(id[0]), hymn[2]));
+                    Hymn hymn_h = new Hymn(Integer.parseInt(id[0]), hymn[2]);
+                    hymn_h.setCategory(Integer.parseInt(hymn[1]));
+                    hymn_h.setSaved(false);
+                    for (String s : savedHymnsRo) {
+                        if (s.equals(id[0])) {
+                            hymn_h.setSaved(true);
+                            break;
+                        }
+                    }
+                    hymns_ro.add(hymn_h);
                 }
             }
             Collections.sort(hymns_ro, Hymn.HymnComparator);
@@ -221,7 +234,17 @@ public class Utils {
                 hymns_ru.clear();
                 for (File dirFile : dirFiles) {
                     String[] hymn = dirFile.getName().split(" - ");
-                    hymns_ru.add(new Hymn(Integer.parseInt(hymn[0]), hymn[1]));
+                    String[] id = hymn[0].split("\\.");
+                    Hymn hymn_h = new Hymn(Integer.parseInt(id[0]), hymn[2]);
+                    hymn_h.setCategory(Integer.parseInt(hymn[1]));
+                    hymn_h.setSaved(false);
+                    for (String s : savedHymnsRo) {
+                        if (s.equals(id[0])) {
+                            hymn_h.setSaved(true);
+                            break;
+                        }
+                    }
+                    hymns_ru.add(hymn_h);
                 }
             }
             Collections.sort(hymns_ru, Hymn.HymnComparator);
@@ -232,4 +255,47 @@ public class Utils {
         }
     }
 
+    public static void loadHymnsSaved(Language language) {
+        if (language == Language.RO) {
+            savedHymns_Ro.clear();
+            for (Hymn hymn : hymns_ro) {
+                if (hymn.isSaved()) savedHymns_Ro.add(hymn);
+            }
+        } else if (language == Language.RU) {
+            savedHymns_Ru.clear();
+            for (Hymn hymn : hymns_ru) {
+                if (hymn.isSaved()) savedHymns_Ru.add(hymn);
+            }
+        }
+    }
+
+    public static void addInSaved(Context context, String id) {
+        boolean exist = false;
+        for (String s : savedHymnsRo)
+            if (s.equals(id)) {
+                exist = true;
+                break;
+            }
+        if (!exist) {
+            savedHymnsRo.add(id);
+            for (Hymn hymn : hymns_ro) {
+                if (String.valueOf(hymn.getId()).equals(id)) savedHymns_Ro.add(hymn);
+            }
+            PrefConfig.saveHymnsinPreferedRo(context, Utils.savedHymnsRo);
+        }
+    }
+
+    public static void deleteFromSaved(Context context, String id) {
+        boolean exist = false;
+        for (String s : savedHymnsRo)
+            if (s.equals(id)) {
+                exist = true;
+                savedHymnsRo.remove(id);
+                for (Hymn hymn : hymns_ro) {
+                    if (String.valueOf(hymn.getId()).equals(id)) savedHymns_Ro.remove(hymn);
+                }
+                PrefConfig.saveHymnsinPreferedRo(context, Utils.savedHymnsRo);
+                break;
+            }
+    }
 }

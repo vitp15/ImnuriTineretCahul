@@ -8,15 +8,16 @@ import java.util.Comparator;
 
 
 public class Hymn {
-    private int id;
+    private int id, category;
     private int nr;
     private String title;
     private MediaPlayer mediaPlayer;
     private File pdfView;
+    private boolean saved;
 
     public Hymn(int id, String title) {
         byte[] bytes = title.getBytes(StandardCharsets.ISO_8859_1);
-        String decoding_title=new String(bytes, StandardCharsets.UTF_8);
+        String decoding_title = new String(bytes, StandardCharsets.UTF_8);
         this.id = id;
         this.title = decoding_title;
     }
@@ -61,6 +62,22 @@ public class Hymn {
         this.mediaPlayer = mediaPlayer;
     }
 
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
+    public boolean isSaved() {
+        return saved;
+    }
+
+    public void setSaved(boolean saved) {
+        this.saved = saved;
+    }
+
     public static final Comparator<Hymn> HymnComparator = new Comparator<Hymn>() {
         @Override
         public int compare(Hymn h1, Hymn h2) {
@@ -70,6 +87,6 @@ public class Hymn {
 
     @Override
     public String toString() {
-        return nr+" "+title;
+        return nr + " " + title;
     }
 }
