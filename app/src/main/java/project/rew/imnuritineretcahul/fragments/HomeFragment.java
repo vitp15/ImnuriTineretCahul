@@ -17,19 +17,21 @@ import com.google.android.material.tabs.TabLayout;
 
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.tablayouts.hymns.adapters.HymnTabsAdapter;
+import project.rew.imnuritineretcahul.utils.Utils;
 
 public class HomeFragment extends Fragment implements TabLayout.OnTabSelectedListener {
     private TabLayout tabLayout;
     private ViewPager2 viewPager2;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_home,container,false);
+        View root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        tabLayout=root.findViewById(R.id.tabLayout);
-        viewPager2=root.findViewById(R.id.viewPager);
+        tabLayout = root.findViewById(R.id.tabLayout);
+        viewPager2 = root.findViewById(R.id.viewPager);
 
-        FragmentManager manager=getChildFragmentManager();
-        HymnTabsAdapter adapter = new HymnTabsAdapter(manager,getLifecycle());
+        FragmentManager manager = getChildFragmentManager();
+        HymnTabsAdapter adapter = new HymnTabsAdapter(manager, getLifecycle());
         viewPager2.setAdapter(adapter);
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_baseline_home_24));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_baseline_language_24));
@@ -49,7 +51,10 @@ public class HomeFragment extends Fragment implements TabLayout.OnTabSelectedLis
 
             @Override
             public void onPageSelected(int position) {
-                viewPager2.getAdapter().notifyItemChanged(position);
+                if (!Utils.isFirst)
+                    viewPager2.getAdapter().notifyItemChanged(position);
+                else
+                    Utils.isFirst = false;
                 super.onPageSelected(position);
             }
 

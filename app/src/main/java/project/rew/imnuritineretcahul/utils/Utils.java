@@ -37,6 +37,8 @@ public class Utils {
     public static List<String> savedHymnsRu;
     public static List<Hymn> savedHymns_Ro = new ArrayList<>();
     public static List<Hymn> savedHymns_Ru = new ArrayList<>();
+    public static Language language;
+    public static boolean isFirst=true;
 
     public static void deleteFile(Context context, String forDelete, Language language, Type type) {
         String folder = null;
