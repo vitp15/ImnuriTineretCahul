@@ -21,6 +21,7 @@ import java.util.List;
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.databinding.FragmentAllHymnsAudioBinding;
 import project.rew.imnuritineretcahul.enums.Language;
+import project.rew.imnuritineretcahul.items.audio.HymnsAudioRealTime;
 import project.rew.imnuritineretcahul.utils.PrefConfig;
 import project.rew.imnuritineretcahul.utils.Utils;
 
@@ -48,18 +49,19 @@ public class HymnsAdapter extends RecyclerView.Adapter<HymnsAdapter.ViewHolder> 
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Hymn hymn = hymns.get(position);
         holder.textView.setText(hymn.getNr() + "  " + hymn.getTitle());
-        if(hymn.isSaved()) holder.saved.setImageDrawable(context.getResources().getDrawable(R.drawable.outline_turned_in_black_48dp));
-        else holder.saved.setImageDrawable(context.getResources().getDrawable(R.drawable.outline_turned_in_not_black_48dp));
+        if (hymn.isSaved())
+            holder.saved.setImageDrawable(context.getResources().getDrawable(R.drawable.outline_turned_in_black_48dp));
+        else
+            holder.saved.setImageDrawable(context.getResources().getDrawable(R.drawable.outline_turned_in_not_black_48dp));
         holder.saved.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(hymn.isSaved()){
-                    Utils.deleteFromSaved(context,String.valueOf(hymn.getId()));
+                if (hymn.isSaved()) {
+                    Utils.deleteFromSaved(context, String.valueOf(hymn.getId()));
                     hymn.setSaved(false);
                     holder.saved.setImageDrawable(context.getResources().getDrawable(R.drawable.outline_turned_in_not_black_48dp));
-                }
-                else{
-                    Utils.addInSaved(context,String.valueOf(hymn.getId()));
+                } else {
+                    Utils.addInSaved(context, String.valueOf(hymn.getId()));
                     hymn.setSaved(true);
                     holder.saved.setImageDrawable(context.getResources().getDrawable(R.drawable.outline_turned_in_black_48dp));
                 }
@@ -67,7 +69,7 @@ public class HymnsAdapter extends RecyclerView.Adapter<HymnsAdapter.ViewHolder> 
 
         });
         holder.constraintLayout.setOnClickListener(view -> {
-
+            HymnsAudioRealTime.setCurentPosition(position, all_hymns, hymn);
             Intent startHymn = new Intent(context, HymnCanvas.class);
             startHymn.putExtra("id", hymn.getId());
             startHymn.putExtra("nr", hymn.getNr());

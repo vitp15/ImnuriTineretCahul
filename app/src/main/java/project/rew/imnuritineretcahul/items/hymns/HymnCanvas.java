@@ -32,9 +32,7 @@ import java.util.concurrent.TimeUnit;
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.enums.Type;
-import project.rew.imnuritineretcahul.items.audio.SetMediaPlayer;
 import project.rew.imnuritineretcahul.items.note_pdf.PDFCanvas;
-import project.rew.imnuritineretcahul.items.note_pdf.SetPDF;
 import project.rew.imnuritineretcahul.utils.DownloadSingleFileTask;
 import project.rew.imnuritineretcahul.utils.PrefConfig;
 import project.rew.imnuritineretcahul.utils.Utils;
@@ -70,7 +68,6 @@ public class HymnCanvas extends AppCompatActivity {
             hymn = Utils.hymns_ru.get(nr - 1);
         }
         seekvalue = PrefConfig.load_saved_progress(this);
-        SetMediaPlayer.setMediaPlayer(this);
 
         dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -97,15 +94,12 @@ public class HymnCanvas extends AppCompatActivity {
         audioElements = dialog.findViewById(R.id.audioElements);
         audioMiss = dialog.findViewById(R.id.audioMiss);
         downald = dialog.findViewById(R.id.btnAudioUpdateone);
-        mediaPlayer = hymn.getMediaPlayer();
+        //mediaPlayer = hymn.getMediaPlayer();
         notePDF = dialog.findViewById(R.id.linear_notePdf);
         pdfMiss = dialog.findViewById(R.id.pdfMiss);
         downaldPdf = dialog.findViewById(R.id.btnPDFUpdate);
         textNotePdf = dialog.findViewById(R.id.text_notePdf);
         switchCompat = dialog.findViewById(R.id.switch1);
-
-        SetPDF.setPDF(this);
-
 
         if (Utils.language == Language.RO) {
             switchCompat.setText(R.string.see_chords_ro);

@@ -224,6 +224,10 @@ public class Utils {
                     Hymn hymn_h = new Hymn(Integer.parseInt(id[0]), hymn[2]);
                     hymn_h.setCategory(Integer.parseInt(hymn[1]));
                     hymn_h.setSaved(false);
+
+                    setAudio(context, hymn_h);
+                    setPDF(context, hymn_h);
+
                     for (String s : savedHymnsRo) {
                         if (s.equals(id[0])) {
                             hymn_h.setSaved(true);
@@ -260,6 +264,63 @@ public class Utils {
             for (int i = 0; i < hymns_ru.size(); i++) {
                 Hymn hymn = hymns_ru.get(i);
                 hymn.setNr(i + 1);
+            }
+        }
+    }
+
+    public static void setAudio(Context context, Hymn hymn_h) {
+        if (language == Language.RO) {
+            File internalDir = context.getDir(context.getString(R.string.ro_internal_mp3_folder), Context.MODE_PRIVATE);
+            File[] dirFilesm = internalDir.listFiles();
+            for (File dirFale : dirFilesm) {
+                String[] audio = dirFale.getName().split("\\.");
+                if (audio[0].equals(String.valueOf(hymn_h.getId())) && audio[2].equals("mp3")) {
+                    hymn_h.setUriForMediaPlayer(dirFale.toURI().toString());
+                }
+                if (audio[0].equals(String.valueOf(hymn_h.getId())) &&
+                        (audio[2].equals("png") || audio[2].equals("jpg") || audio[2].equals("jpeg"))) {
+                    hymn_h.setUriForImgInAudio(dirFale.toURI().toString());
+                }
+                if (hymn_h.getUriForImgInAudio() != null && hymn_h.getUriForMediaPlayer() != null)
+                    break;
+            }
+        } else if (language == Language.RU) {
+            File internalDir = context.getDir(context.getString(R.string.ru_internal_mp3_folder), Context.MODE_PRIVATE);
+            File[] dirFilesm = internalDir.listFiles();
+            for (File dirFale : dirFilesm) {
+                String[] audio = dirFale.getName().split("\\.");
+                if (audio[0].equals(String.valueOf(hymn_h.getId())) && audio[2].equals("mp3")) {
+                    hymn_h.setUriForMediaPlayer(dirFale.toURI().toString());
+                    break;
+                } else if (audio[0].equals(String.valueOf(hymn_h.getId())) &&
+                        (audio[2].equals("png") || audio[2].equals("jpg") || audio[2].equals("jpeg"))) {
+                    hymn_h.setUriForImgInAudio(dirFale.toURI().toString());
+                    break;
+                }
+            }
+        }
+    }
+
+    public static void setPDF(Context context, Hymn hymn_h) {
+        if (language == Language.RO) {
+            File internalDir = context.getDir(context.getString(R.string.ro_internal_pdf_folder), Context.MODE_PRIVATE);
+            File[] dirFilesm = internalDir.listFiles();
+            for (File dirFale : dirFilesm) {
+                String[] pdf = dirFale.getName().split("\\.");
+                if (pdf[0].equals(String.valueOf(hymn_h.getId()))) {
+                    hymn_h.setPdfView(dirFale);
+                    break;
+                }
+            }
+        } else if (language == Language.RU) {
+            File internalDir = context.getDir(context.getString(R.string.ru_internal_pdf_folder), Context.MODE_PRIVATE);
+            File[] dirFilesm = internalDir.listFiles();
+            for (File dirFale : dirFilesm) {
+                String[] pdf = dirFale.getName().split("\\.");
+                if (pdf[0].equals(String.valueOf(hymn_h.getId()))) {
+                    hymn_h.setPdfView(dirFale);
+                    break;
+                }
             }
         }
     }

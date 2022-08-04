@@ -22,24 +22,20 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 import project.rew.imnuritineretcahul.R;
-import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.items.audio.AudioListHymnsAdapter;
-import project.rew.imnuritineretcahul.items.audio.SetMediaPlayer;
 import project.rew.imnuritineretcahul.items.hymns.Hymn;
-import project.rew.imnuritineretcahul.items.hymns.HymnsAdapter;
 import project.rew.imnuritineretcahul.utils.Utils;
 
 public class AllHymnsFragmentAudio extends Fragment {
-    private List<Hymn> all_hymns;
+
     private AudioListHymnsAdapter adapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_all_hymns_audio, container, false);
-        SetMediaPlayer.setMediaPlayer(root.getContext());
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
-        all_hymns = Utils.hymns_ro;
-        adapter = new AudioListHymnsAdapter(all_hymns, getActivity());
+        adapter = new AudioListHymnsAdapter(Utils.hymns_ro, getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         TextView textView = root.findViewById(R.id.textView);
@@ -95,11 +91,5 @@ public class AllHymnsFragmentAudio extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        for (int i = 0; i < SetMediaPlayer.mediaPlayer.length; i++) {
-            if (SetMediaPlayer.mediaPlayer[i] != null) {
-                SetMediaPlayer.mediaPlayer[i].seekTo(0);
-                SetMediaPlayer.mediaPlayer[i].stop();
-            }
-        }
     }
 }

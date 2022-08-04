@@ -1,7 +1,5 @@
 package project.rew.imnuritineretcahul.items.hymns;
 
-import android.media.MediaPlayer;
-
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.Comparator;
@@ -11,7 +9,8 @@ public class Hymn {
     private int id, category;
     private int nr;
     private String title;
-    private MediaPlayer mediaPlayer;
+    private String UriForMediaPlayer;
+    private String UriForImgInAudio;
     private File pdfView;
     private boolean saved;
 
@@ -54,14 +53,6 @@ public class Hymn {
         this.title = title;
     }
 
-    public MediaPlayer getMediaPlayer() {
-        return mediaPlayer;
-    }
-
-    public void setMediaPlayer(MediaPlayer mediaPlayer) {
-        this.mediaPlayer = mediaPlayer;
-    }
-
     public int getCategory() {
         return category;
     }
@@ -76,6 +67,22 @@ public class Hymn {
 
     public void setSaved(boolean saved) {
         this.saved = saved;
+    }
+
+    public String getUriForMediaPlayer() {
+        return UriForMediaPlayer;
+    }
+
+    public void setUriForMediaPlayer(String uriForMediaPlayer) {
+        UriForMediaPlayer = uriForMediaPlayer;
+    }
+
+    public String getUriForImgInAudio() {
+        return UriForImgInAudio;
+    }
+
+    public void setUriForImgInAudio(String uriForImgInAudio) {
+        UriForImgInAudio = uriForImgInAudio;
     }
 
     public static final Comparator<Hymn> HymnComparator = new Comparator<Hymn>() {

@@ -22,23 +22,22 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 import project.rew.imnuritineretcahul.R;
-import project.rew.imnuritineretcahul.enums.Language;
+import project.rew.imnuritineretcahul.items.audio.AudioListHymnsAdapter;
 import project.rew.imnuritineretcahul.items.hymns.Hymn;
-import project.rew.imnuritineretcahul.items.hymns.HymnsAdapter;
 import project.rew.imnuritineretcahul.utils.Utils;
 
 public class SavedHymnsFragmentAudio extends Fragment {
     private List<Hymn> all_hymns;
-    private HymnsAdapter adapter;
+    private AudioListHymnsAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_all_hymns_home, container, false);
+        View root = inflater.inflate(R.layout.fragment_all_hymns_audio, container, false);
         Utils.loadHymnsSaved();
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
-        all_hymns=Utils.hymns_ro;
-        adapter=new HymnsAdapter(all_hymns);
+        all_hymns=Utils.savedHymns_Ro;
+        adapter=new AudioListHymnsAdapter(all_hymns,getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         TextView textView=root.findViewById(R.id.textView);

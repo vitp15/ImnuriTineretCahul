@@ -22,11 +22,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 import project.rew.imnuritineretcahul.R;
-import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.items.hymns.Hymn;
-import project.rew.imnuritineretcahul.items.hymns.HymnsAdapter;
 import project.rew.imnuritineretcahul.items.note_pdf.HymnsPdfAdapter;
-import project.rew.imnuritineretcahul.items.note_pdf.SetPDF;
 import project.rew.imnuritineretcahul.utils.Utils;
 
 public class SavedHymnsFragmentPDF extends Fragment {
@@ -43,7 +40,6 @@ public class SavedHymnsFragmentPDF extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         TextView textView = root.findViewById(R.id.textView);
-        SetPDF.setPDF(root.getContext());
         // Loading Hymns from local storage
         textView.setText(R.string.imns_not_found_ro);
 
