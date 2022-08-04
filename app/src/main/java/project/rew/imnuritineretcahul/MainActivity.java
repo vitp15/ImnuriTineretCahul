@@ -34,14 +34,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
 
-        Utils.loadHymns(this);
+        String language = PrefConfig.load_saved_language(this);
+        if (language.equals("RO")) Utils.language = Language.RO;
+        else if (language.equals("RU")) Utils.language = Language.RU;
+
         Utils.savedHymnsRo = PrefConfig.load_saved_list_of_hymns_ro(this);
         if (Utils.savedHymnsRo == null) Utils.savedHymnsRo = new ArrayList<>();
         Utils.savedHymnsRu = PrefConfig.load_saved_list_of_hymns_ru(this);
         if (Utils.savedHymnsRu == null) Utils.savedHymnsRu = new ArrayList<>();
-        String language = PrefConfig.load_saved_language(this);
-        if (language.equals("RO")) Utils.language = Language.RO;
-        else if (language.equals("RU")) Utils.language = Language.RU;
+
+        Utils.loadHymns(this);
 
 
         DrawerLayout drawer = binding.drawerLayout;
