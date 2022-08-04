@@ -21,7 +21,6 @@ import project.rew.imnuritineretcahul.enums.Type;
 public class UpdateFilesTask extends AsyncTask<String, String, String> {
     private Context context;
     private Type type;
-    private Language language;
     private ProgressDialog progressDialog;
     private FragmentActivity fragmentActivity;
     private String server;
@@ -35,11 +34,10 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
     public static long fileSize, total;
 
     public UpdateFilesTask(Context context, FragmentActivity fragmentActivity,
-                           Type type, Language language) {
+                           Type type) {
         this.context = context;
         this.fragmentActivity = fragmentActivity;
         this.type = type;
-        this.language = language;
         port = Integer.parseInt(context.getString(R.string.port));
         server = context.getString(R.string.server);
         user = context.getString(R.string.user);
@@ -47,7 +45,7 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
         curentItem = 0;
         total = 0;
         fileSize = 0;
-        if (language == Language.RO) {
+        if (Utils.language == Language.RO) {
             if (type == Type.HYMN) {
                 internalPatch = context.getString(R.string.ro_internal_hymns_folder);
                 ftpPatch = fragmentActivity.getString(R.string.ro_external_hymns_folder);
@@ -58,7 +56,7 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
                 internalPatch = context.getString(R.string.ro_internal_pdf_folder);
                 ftpPatch = fragmentActivity.getString(R.string.ro_external_pdf_folder);
             }
-        } else if (language == Language.RU) {
+        } else if (Utils.language == Language.RU) {
             if (type == Type.HYMN) {
                 internalPatch = context.getString(R.string.ru_internal_hymns_folder);
                 ftpPatch = fragmentActivity.getString(R.string.ru_external_hymns_folder);
@@ -79,7 +77,7 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
         progressDialog.setCancelable(false);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.setMax(100);
-        if (language == Language.RO) {
+        if (Utils.language == Language.RO) {
             progressDialog.setMessage(fragmentActivity.getString(R.string.ready_ro));
             /*progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, fragmentActivity.getString(R.string.cancel_ro), new DialogInterface.OnClickListener() {
                 @Override
@@ -87,7 +85,7 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
                     progressDialog.setMessage(fragmentActivity.getString(R.string.canceling_msg_ro));
                 }
             });*/
-        } else if (language == Language.RU) {
+        } else if (Utils.language == Language.RU) {
             progressDialog.setMessage(fragmentActivity.getString(R.string.ready_ru));
             /*progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, fragmentActivity.getString(R.string.cancel_ru), new DialogInterface.OnClickListener() {
                 @Override
@@ -103,9 +101,9 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
     protected String doInBackground(String... args) {
         FTPClient ftpClient = new FTPClient();
         if (!NetworkUtils.hasActiveNetworkConnection(context)) {
-            if (language == Language.RO)
+            if (Utils.language == Language.RO)
                 fragmentActivity.runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.settings_connect_to_internet_ro), Toast.LENGTH_SHORT).show());
-            if (language == Language.RU)
+            if (Utils.language == Language.RU)
                 fragmentActivity.runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.settings_connect_to_internet_ru), Toast.LENGTH_SHORT).show());
         } else {
             File internalDir = context.getDir(internalPatch, Context.MODE_PRIVATE);
@@ -163,14 +161,14 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
                     Thread thread = new Thread() {
                         public void run() {
                             Looper.prepare();
-                            if (language == Language.RO) {
+                            if (Utils.language == Language.RO) {
                                 if (type == Type.HYMN)
                                     Toast.makeText(context, R.string.all_hymns_are_updated_ro, Toast.LENGTH_SHORT).show();
                                 if (type == Type.AUDIO)
                                     Toast.makeText(context, R.string.all_audio_are_updated_ro, Toast.LENGTH_SHORT).show();
                                 if (type == Type.PDF)
                                     Toast.makeText(context, R.string.all_pdf_are_updated_ro, Toast.LENGTH_SHORT).show();
-                            } else if (language == Language.RU) {
+                            } else if (Utils.language == Language.RU) {
                                 if (type == Type.HYMN)
                                     Toast.makeText(context, R.string.all_hymns_are_updated_ru, Toast.LENGTH_SHORT).show();
                                 if (type == Type.AUDIO)
@@ -185,9 +183,9 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
                 }
                 if (totalItems != 0)
                     downaldAll(ftpClient, subFilesforDownald, true, ftpPatch, internalDir.getAbsolutePath());
-                if (language == Language.RO)
+                if (Utils.language == Language.RO)
                     progressDialog.setMessage(fragmentActivity.getString(R.string.cancel_operation_update_ro));
-                else if (language == Language.RU)
+                else if (Utils.language == Language.RU)
                     progressDialog.setMessage(fragmentActivity.getString(R.string.cancel_operation_update_ru));
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -204,6 +202,7 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
     }
 
     protected void onPostExecute(String result) {
+        Utils.loadHymns(context);
         progressDialog.dismiss();
         fragmentActivity.recreate();
     }
@@ -231,12 +230,12 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
                     if (type == Type.HYMN) {
                         curentItem++;
                     }
-                    if (language == Language.RO) {
+                    if (Utils.language == Language.RO) {
                         if (type == Type.HYMN) {
                             progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ro) + "   " +
                                     String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
                         }
-                    } else if (language == Language.RU) {
+                    } else if (Utils.language == Language.RU) {
                         if (type == Type.HYMN) {
                             progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ru) + "   " +
                                     String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
@@ -253,7 +252,7 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
                 } else {
                     remoteFilePatch = dirToList + File.separator + fileFtp.getName();
                     savePatch = dirSave + File.separator + fileFtp.getName();
-                    if (language == Language.RO) {
+                    if (Utils.language == Language.RO) {
                         if (type == Type.HYMN) {
                             progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ro) + "   " +
                                     String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
@@ -264,7 +263,7 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
                             progressDialog.setMessage(fragmentActivity.getString(R.string.downald_pdf_ro) + "   " +
                                     String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
                         }
-                    } else if (language == Language.RU) {
+                    } else if (Utils.language == Language.RU) {
                         if (type == Type.HYMN) {
                             progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ru) + "   " +
                                     String.valueOf(curentItem) + " / " + String.valueOf(totalItems));

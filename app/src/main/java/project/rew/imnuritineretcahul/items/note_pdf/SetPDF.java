@@ -11,8 +11,8 @@ import project.rew.imnuritineretcahul.utils.Utils;
 
 public class SetPDF {
 
-    public static void setPDF(Context context,Language language) {
-        if (language==Language.RO) {
+    public static void setPDF(Context context) {
+        if (Utils.language==Language.RO) {
             File internalDir = context.getDir(context.getString(R.string.ro_internal_pdf_folder), Context.MODE_PRIVATE);
             File[] dirFilesm = internalDir.listFiles();
             for (int j = 0; j < Utils.hymns_ro.size(); j++) {
@@ -24,7 +24,7 @@ public class SetPDF {
 
             }
         }
-        else if (language==Language.RU){
+        else if (Utils.language==Language.RU){
             File internalDir = context.getDir(context.getString(R.string.ru_internal_pdf_folder), Context.MODE_PRIVATE);
             File[] dirFilesm = internalDir.listFiles();
             for (int j = 0; j < Utils.hymns_ru.size(); j++) {

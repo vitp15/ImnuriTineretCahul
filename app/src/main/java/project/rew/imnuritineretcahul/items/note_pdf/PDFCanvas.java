@@ -27,7 +27,6 @@ import project.rew.imnuritineretcahul.utils.Utils;
 
 public class PDFCanvas extends AppCompatActivity {
     Hymn hymn;
-    Language language;
     LinearLayout linearLayout;
 
     @Override
@@ -36,12 +35,9 @@ public class PDFCanvas extends AppCompatActivity {
         setContentView(R.layout.activity_pdf_canvas);
         int id = getIntent().getIntExtra("id", 0);
         int nr = getIntent().getIntExtra("nr", 0);
-        int languageInt = getIntent().getIntExtra("language", 0);
-        if (languageInt == 1) {
-            language = Language.RO;
+        if (Utils.language == Language.RO) {
             hymn = Utils.hymns_ro.get(nr - 1);
-        } else if (languageInt == 0) {
-            language = Language.RU;
+        } else if (Utils.language == Language.RU) {
             hymn = Utils.hymns_ru.get(nr - 1);
         }
         PDFView pdfView = findViewById(R.id.pdfView);
@@ -51,8 +47,8 @@ public class PDFCanvas extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         pdfView.setOnClickListener(view -> {
-            if(getSupportActionBar().isShowing()) getSupportActionBar().hide();
-            else  getSupportActionBar().show();
+            if (getSupportActionBar().isShowing()) getSupportActionBar().hide();
+            else getSupportActionBar().show();
         });
 
         /*LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -81,7 +77,7 @@ public class PDFCanvas extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.delete) {
-            Utils.deleteFile(this, String.valueOf(hymn.getId()) + ".pdf", language, Type.PDF);
+            Utils.deleteFile(this, String.valueOf(hymn.getId()) + ".pdf", Type.PDF);
             onBackPressed();
         }
         if (item.getItemId() == android.R.id.home) {

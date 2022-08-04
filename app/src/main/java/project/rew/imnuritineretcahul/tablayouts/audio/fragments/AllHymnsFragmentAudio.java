@@ -36,11 +36,10 @@ public class AllHymnsFragmentAudio extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_all_hymns_audio, container, false);
-        Utils.loadHymns(root.getContext(), Language.RO);
-        SetMediaPlayer.setMediaPlayer(root.getContext(),Language.RO);
+        SetMediaPlayer.setMediaPlayer(root.getContext());
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
         all_hymns = Utils.hymns_ro;
-        adapter = new AudioListHymnsAdapter(all_hymns, getActivity(),Language.RO);
+        adapter = new AudioListHymnsAdapter(all_hymns, getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         TextView textView = root.findViewById(R.id.textView);

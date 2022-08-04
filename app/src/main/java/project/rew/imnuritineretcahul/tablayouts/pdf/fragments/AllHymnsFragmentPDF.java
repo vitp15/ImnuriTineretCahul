@@ -36,14 +36,13 @@ public class AllHymnsFragmentPDF extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_all_hymns_pdf, container, false);
-        Utils.loadHymns(root.getContext(), Language.RO);
 
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
-        adapter = new HymnsPdfAdapter(Utils.hymns_ro, getActivity(), Language.RO);
+        adapter = new HymnsPdfAdapter(Utils.hymns_ro, getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         TextView textView = root.findViewById(R.id.textView);
-        SetPDF.setPDF(root.getContext(), Language.RO);
+        SetPDF.setPDF(root.getContext());
         // Loading Hymns from local storage
         textView.setText(R.string.imns_not_found_ro);
 

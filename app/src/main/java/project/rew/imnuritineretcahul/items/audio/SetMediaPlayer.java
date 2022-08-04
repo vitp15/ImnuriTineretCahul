@@ -13,8 +13,8 @@ import project.rew.imnuritineretcahul.utils.Utils;
 public class SetMediaPlayer {
     public static MediaPlayer[] mediaPlayer;
 
-    public static void setMediaPlayer(Context context, Language language) {
-        if (language == Language.RO) {
+    public static void setMediaPlayer(Context context) {
+        if (Utils.language == Language.RO) {
             mediaPlayer = new MediaPlayer[Utils.hymns_ro.size()];
             File internalDir = context.getDir(context.getString(R.string.ro_internal_mp3_folder), Context.MODE_PRIVATE);
             File[] dirFilesm = internalDir.listFiles();
@@ -27,7 +27,7 @@ public class SetMediaPlayer {
                 }
 
             }
-        } else if (language == Language.RU) {
+        } else if (Utils.language == Language.RU) {
             mediaPlayer = new MediaPlayer[Utils.hymns_ru.size()];
             File internalDir = context.getDir(context.getString(R.string.ru_internal_mp3_folder), Context.MODE_PRIVATE);
             File[] dirFilesm = internalDir.listFiles();

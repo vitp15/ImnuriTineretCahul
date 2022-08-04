@@ -38,9 +38,9 @@ public class Utils {
     public static List<Hymn> savedHymns_Ro = new ArrayList<>();
     public static List<Hymn> savedHymns_Ru = new ArrayList<>();
     public static Language language;
-    public static boolean isFirst=true;
+    public static boolean isFirst = true;
 
-    public static void deleteFile(Context context, String forDelete, Language language, Type type) {
+    public static void deleteFile(Context context, String forDelete, Type type) {
         String folder = null;
         if (language == Language.RO) {
             if (type == Type.AUDIO)
@@ -130,18 +130,18 @@ public class Utils {
     /**
      * @param nr         Numarul imnului
      * @param chordsFlag Flag daca sa caute cantarea cu acorduri
-     * @param context    De unde se apeleaza metoda {@link #readContent(int, boolean, Context, Language)}
+     * @param context    De unde se apeleaza metoda {@link #readContent(int, boolean, Context)}
      * @return Continutul cantarii din fisier local.
      */
-    public static String readContent(int nr, boolean chordsFlag, Context context, Language lang) {
+    public static String readContent(int nr, boolean chordsFlag, Context context) {
         StringBuilder contentBuilder = new StringBuilder();
         String filename = "";
 
         try {
             File internalDir = null;
-            if (lang == Language.RO)
+            if (language == Language.RO)
                 internalDir = context.getDir(context.getString(R.string.ro_internal_hymns_folder), Context.MODE_PRIVATE);
-            else if (lang == Language.RU)
+            else if (language == Language.RU)
                 internalDir = context.getDir(context.getString(R.string.ru_internal_hymns_folder), Context.MODE_PRIVATE);
             File[] dirFiles = internalDir.listFiles();
             assert dirFiles != null;
@@ -158,7 +158,7 @@ public class Utils {
             }
             File file = new File(filename);
             if (!file.exists()) {
-                if (lang == Language.RO)
+                if (language == Language.RO)
                     if (chordsFlag)
                         contentBuilder.append("<body bgcolor=\\\"\" + background + \"\\\" text=\\\"\" + color + \"\\\">" +
                                 "<span style=\"font-family:"
@@ -169,7 +169,7 @@ public class Utils {
                                 "<span style=\"font-family:"
                                 + context.getResources().getString(R.string.hymn_font) + "\">" +
                                 "<p>" + context.getString(R.string.hymn_words_absent_ro) + "</p></span></body>");
-                else if (lang == Language.RU)
+                else if (language == Language.RU)
                     if (chordsFlag)
                         contentBuilder.append("<body bgcolor=\\\"\" + background + \"\\\" text=\\\"\" + color + \"\\\">" +
                                 "<span style=\"font-family:"
@@ -199,7 +199,7 @@ public class Utils {
                 contentBuilder.toString() + "</span></body>";
     }
 
-    public static void loadHymns(@NotNull Context context, Language language) {
+    public static void loadHymns(@NotNull Context context) {
         File internalDir = null;
         if (language == Language.RO)
             internalDir = context.getDir(context.getString(R.string.ro_internal_hymns_folder), Context.MODE_PRIVATE);
@@ -257,7 +257,7 @@ public class Utils {
         }
     }
 
-    public static void loadHymnsSaved(Language language) {
+    public static void loadHymnsSaved() {
         if (language == Language.RO) {
             savedHymns_Ro.clear();
             for (Hymn hymn : hymns_ro) {
@@ -272,32 +272,60 @@ public class Utils {
     }
 
     public static void addInSaved(Context context, String id) {
-        boolean exist = false;
-        for (String s : savedHymnsRo)
-            if (s.equals(id)) {
-                exist = true;
-                break;
+        if (language == Language.RO) {
+            boolean exist = false;
+            for (String s : savedHymnsRo)
+                if (s.equals(id)) {
+                    exist = true;
+                    break;
+                }
+            if (!exist) {
+                savedHymnsRo.add(id);
+                for (Hymn hymn : hymns_ro) {
+                    if (String.valueOf(hymn.getId()).equals(id)) savedHymns_Ro.add(hymn);
+                }
+                PrefConfig.saveHymnsinPreferedRo(context, Utils.savedHymnsRo);
             }
-        if (!exist) {
-            savedHymnsRo.add(id);
-            for (Hymn hymn : hymns_ro) {
-                if (String.valueOf(hymn.getId()).equals(id)) savedHymns_Ro.add(hymn);
+        } else if (language == Language.RU) {
+            boolean exist = false;
+            for (String s : savedHymnsRu)
+                if (s.equals(id)) {
+                    exist = true;
+                    break;
+                }
+            if (!exist) {
+                savedHymnsRu.add(id);
+                for (Hymn hymn : hymns_ru) {
+                    if (String.valueOf(hymn.getId()).equals(id)) savedHymns_Ru.add(hymn);
+                }
+                PrefConfig.saveHymnsinPreferedRu(context, Utils.savedHymnsRu);
             }
-            PrefConfig.saveHymnsinPreferedRo(context, Utils.savedHymnsRo);
         }
     }
 
     public static void deleteFromSaved(Context context, String id) {
-        boolean exist = false;
-        for (String s : savedHymnsRo)
-            if (s.equals(id)) {
-                exist = true;
-                savedHymnsRo.remove(id);
-                for (Hymn hymn : hymns_ro) {
-                    if (String.valueOf(hymn.getId()).equals(id)) savedHymns_Ro.remove(hymn);
+        if (language == Language.RO)
+            for (String s : savedHymnsRo) {
+                if (s.equals(id)) {
+                    savedHymnsRo.remove(id);
+                    for (Hymn hymn : hymns_ro) {
+                        if (String.valueOf(hymn.getId()).equals(id)) savedHymns_Ro.remove(hymn);
+                    }
+                    PrefConfig.saveHymnsinPreferedRo(context, Utils.savedHymnsRo);
+                    break;
                 }
-                PrefConfig.saveHymnsinPreferedRo(context, Utils.savedHymnsRo);
-                break;
+            }
+        else if (language == Language.RU)
+            for (String s : savedHymnsRu) {
+                if (s.equals(id)) {
+                    savedHymnsRu.remove(id);
+                    for (Hymn hymn : hymns_ru) {
+                        if (String.valueOf(hymn.getId()).equals(id))
+                            savedHymns_Ru.remove(hymn);
+                    }
+                    PrefConfig.saveHymnsinPreferedRu(context, Utils.savedHymnsRu);
+                    break;
+                }
             }
     }
 }

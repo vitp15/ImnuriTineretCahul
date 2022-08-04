@@ -35,10 +35,10 @@ public class SavedHymnsFragmentPDF extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_all_hymns_home, container, false);
-        Utils.loadHymns(root.getContext(), Language.RO);
+        Utils.loadHymnsSaved();
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
         all_hymns=Utils.hymns_ro;
-        adapter=new HymnsAdapter(all_hymns,Language.RO);
+        adapter=new HymnsAdapter(all_hymns);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
         TextView textView=root.findViewById(R.id.textView);

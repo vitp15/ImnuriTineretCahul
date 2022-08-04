@@ -21,7 +21,6 @@ import project.rew.imnuritineretcahul.enums.Type;
 public class DownloadSingleFileTask extends AsyncTask<String, String, String> {
     private Context context;
     private Type type;
-    private Language language;
     private ProgressDialog progressDialog;
     private FragmentActivity fragmentActivity;
     private String file;
@@ -34,7 +33,7 @@ public class DownloadSingleFileTask extends AsyncTask<String, String, String> {
 
 
     public DownloadSingleFileTask(Context context, FragmentActivity fragmentActivity, String file,
-                                  Type type, Language language) {
+                                  Type type) {
         this.context = context;
         port = Integer.parseInt(context.getString(R.string.port));
         server = context.getString(R.string.server);
@@ -43,8 +42,7 @@ public class DownloadSingleFileTask extends AsyncTask<String, String, String> {
         this.fragmentActivity = fragmentActivity;
         this.file = file;
         this.type = type;
-        this.language = language;
-        if (language == Language.RO) {
+        if (Utils.language == Language.RO) {
             if (type == Type.HYMN) {
                 internalPatch = context.getString(R.string.ro_internal_hymns_folder);
                 ftpPatch = fragmentActivity.getString(R.string.ro_external_hymns_folder);
@@ -55,7 +53,7 @@ public class DownloadSingleFileTask extends AsyncTask<String, String, String> {
                 internalPatch = context.getString(R.string.ro_internal_pdf_folder);
                 ftpPatch = fragmentActivity.getString(R.string.ro_external_pdf_folder);
             }
-        } else if (language == Language.RU) {
+        } else if (Utils.language == Language.RU) {
             if (type == Type.HYMN) {
                 internalPatch = context.getString(R.string.ru_internal_hymns_folder);
                 ftpPatch = fragmentActivity.getString(R.string.ru_external_hymns_folder);
@@ -76,7 +74,7 @@ public class DownloadSingleFileTask extends AsyncTask<String, String, String> {
         progressDialog.setCancelable(false);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.setMax(100);
-        if (language == Language.RO) {
+        if (Utils.language == Language.RO) {
             progressDialog.setMessage(fragmentActivity.getString(R.string.ready_ro));
             /*progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, fragmentActivity.getString(R.string.cancel_ro), new DialogInterface.OnClickListener() {
                 @Override
@@ -84,7 +82,7 @@ public class DownloadSingleFileTask extends AsyncTask<String, String, String> {
                     progressDialog.setMessage(fragmentActivity.getString(R.string.canceling_msg_ro));
                 }
             });*/
-        } else if (language == Language.RU) {
+        } else if (Utils.language == Language.RU) {
             progressDialog.setMessage(fragmentActivity.getString(R.string.ready_ru));
             /*progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, fragmentActivity.getString(R.string.cancel_ru), new DialogInterface.OnClickListener() {
                 @Override
@@ -101,9 +99,9 @@ public class DownloadSingleFileTask extends AsyncTask<String, String, String> {
     protected String doInBackground(String... args) {
         FTPClient ftpClient = new FTPClient();
         if (!NetworkUtils.hasActiveNetworkConnection(context)) {
-            if (language == Language.RO)
+            if (Utils.language == Language.RO)
                 fragmentActivity.runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.settings_connect_to_internet_ro), Toast.LENGTH_SHORT).show());
-            if (language == Language.RU)
+            if (Utils.language == Language.RU)
                 fragmentActivity.runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.settings_connect_to_internet_ru), Toast.LENGTH_SHORT).show());
         } else {
             File internalDir = context.getDir(internalPatch, Context.MODE_PRIVATE);
@@ -119,7 +117,7 @@ public class DownloadSingleFileTask extends AsyncTask<String, String, String> {
                 for (FTPFile fileFtp : subFiles) {
                     if (fileFtp.getName().equals(file)) {
                         exist = true;
-                        if (language == Language.RO) {
+                        if (Utils.language == Language.RO) {
                             if (type == Type.HYMN) {
                                 progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ro));
                             } else if (type == Type.AUDIO) {
@@ -127,7 +125,7 @@ public class DownloadSingleFileTask extends AsyncTask<String, String, String> {
                             } else if (type == Type.PDF) {
                                 progressDialog.setMessage(fragmentActivity.getString(R.string.downald_pdf_ro));
                             }
-                        } else if (language == Language.RU) {
+                        } else if (Utils.language == Language.RU) {
                             if (type == Type.HYMN) {
                                 progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ru));
                             } else if (type == Type.AUDIO) {
@@ -143,9 +141,9 @@ public class DownloadSingleFileTask extends AsyncTask<String, String, String> {
                     }
                 }
                 if (!exist) {
-                    if (language == Language.RO)
+                    if (Utils.language == Language.RO)
                         fragmentActivity.runOnUiThread(() -> Toast.makeText(context, R.string.dont_exist_ro, Toast.LENGTH_SHORT).show());
-                    if (language == Language.RU)
+                    if (Utils.language == Language.RU)
                         fragmentActivity.runOnUiThread(() -> Toast.makeText(context, R.string.dont_exist_ru, Toast.LENGTH_SHORT).show());
                 }
             } catch (Exception ex) {
@@ -163,6 +161,7 @@ public class DownloadSingleFileTask extends AsyncTask<String, String, String> {
     }
 
     protected void onPostExecute(String result) {
+        Utils.loadHymns(context);
         progressDialog.dismiss();
         fragmentActivity.recreate();
     }

@@ -38,14 +38,14 @@ public class UpdatesFragment extends Fragment {
 
 
         btn.setOnClickListener(v -> {
-            new UpdateFilesTask(getContext(), getActivity(), Type.HYMN, Language.RO).execute();
+            new UpdateFilesTask(getContext(), getActivity(), Type.HYMN).execute();
         });
 
         btn1.setOnClickListener(v -> {
-            new UpdateFilesTask(getContext(), getActivity(), Type.AUDIO, Language.RO).execute();
+            new UpdateFilesTask(getContext(), getActivity(), Type.AUDIO).execute();
         });
         btn2.setOnClickListener(v -> {
-            new UpdateFilesTask(getContext(), getActivity(), Type.PDF, Language.RO).execute();
+            new UpdateFilesTask(getContext(), getActivity(), Type.PDF).execute();
         });
         /*btn3.setOnClickListener(v -> {
             new UpdateFilesTask(getContext(), getActivity(), Type.HYMN, Language.RU).execute();

@@ -23,6 +23,7 @@ import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.enums.Type;
 import project.rew.imnuritineretcahul.items.hymns.Hymn;
 import project.rew.imnuritineretcahul.utils.DownloadSingleFileTask;
+import project.rew.imnuritineretcahul.utils.Utils;
 
 
 public class HymnsPdfAdapter extends RecyclerView.Adapter<HymnsPdfAdapter.ViewHolder> implements Filterable {
@@ -30,14 +31,12 @@ public class HymnsPdfAdapter extends RecyclerView.Adapter<HymnsPdfAdapter.ViewHo
     private List<Hymn> all_hymns;
     private Context context;
     private FragmentActivity fragment;
-    private Language language;
 
     // RecyclerView recyclerView;
-    public HymnsPdfAdapter(List<Hymn> hymns, FragmentActivity ft, Language language) {
+    public HymnsPdfAdapter(List<Hymn> hymns, FragmentActivity ft) {
         this.hymns = new ArrayList<>(hymns);
         all_hymns = hymns;
         fragment = ft;
-        this.language = language;
     }
 
     @Override
@@ -53,9 +52,9 @@ public class HymnsPdfAdapter extends RecyclerView.Adapter<HymnsPdfAdapter.ViewHo
         final Hymn hymn = hymns.get(position);
         holder.textView.setText(hymn.getNr() + "  " + hymn.getTitle());
         holder.linearLayout.setVisibility(View.GONE);
-        if (language == Language.RO) {
+        if (Utils.language == Language.RO) {
             holder.pdfUpdate.setText(R.string.downald_single_pdf_ro);
-        } else if (language == Language.RU) {
+        } else if (Utils.language == Language.RU) {
             holder.pdfUpdate.setText(R.string.downald_single_pdf_ru);
         }
         if (hymn.getPdfView() != null) {
@@ -66,10 +65,6 @@ public class HymnsPdfAdapter extends RecyclerView.Adapter<HymnsPdfAdapter.ViewHo
                 Intent startHymn = new Intent(context, PDFCanvas.class);
                 startHymn.putExtra("id", hymn.getId());
                 startHymn.putExtra("nr", hymn.getNr());
-                if (language == Language.RO)
-                    startHymn.putExtra("language", 1);
-                else if (language == Language.RU)
-                    startHymn.putExtra("language", 0);
                 context.startActivity(startHymn);
             });
         } else {
@@ -79,7 +74,7 @@ public class HymnsPdfAdapter extends RecyclerView.Adapter<HymnsPdfAdapter.ViewHo
                     holder.linearLayout.setVisibility(View.VISIBLE);
                     holder.pdfUpdate.setOnClickListener(v -> {
                         new DownloadSingleFileTask(context, fragment,
-                                String.valueOf(hymn.getId()) + ".pdf", Type.PDF, language).execute();
+                                String.valueOf(hymn.getId()) + ".pdf", Type.PDF).execute();
                     });
                 } else {
                     holder.linearLayout.setVisibility(View.GONE);

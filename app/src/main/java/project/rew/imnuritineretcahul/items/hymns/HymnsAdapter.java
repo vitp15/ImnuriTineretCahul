@@ -29,13 +29,11 @@ public class HymnsAdapter extends RecyclerView.Adapter<HymnsAdapter.ViewHolder> 
     private List<Hymn> hymns;
     private List<Hymn> all_hymns;
     private Context context;
-    Language language;
 
     // RecyclerView recyclerView;
-    public HymnsAdapter(List<Hymn> hymns, Language language) {
+    public HymnsAdapter(List<Hymn> hymns) {
         this.hymns = new ArrayList<>(hymns);
         all_hymns = hymns;
-        this.language = language;
     }
 
     @Override
@@ -73,10 +71,6 @@ public class HymnsAdapter extends RecyclerView.Adapter<HymnsAdapter.ViewHolder> 
             Intent startHymn = new Intent(context, HymnCanvas.class);
             startHymn.putExtra("id", hymn.getId());
             startHymn.putExtra("nr", hymn.getNr());
-            if (language == Language.RO)
-                startHymn.putExtra("language", 1);
-            else if (language == Language.RU)
-                startHymn.putExtra("language", 0);
             context.startActivity(startHymn);
         });
     }

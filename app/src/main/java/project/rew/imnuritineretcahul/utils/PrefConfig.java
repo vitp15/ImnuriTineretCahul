@@ -15,6 +15,7 @@ public class PrefConfig {
     private static final String PROGRESS_SAVE ="progress_save";
     private static final String PREFERED_HYMNS_SAVE_RO = "prefered_hymns_save_ro";
     private static final String PREFERED_HYMNS_SAVE_RU = "prefered_hymns_save_ru";
+    private static final String LANGUAGE_SAVE = "language_save";
 
     public static void SaveSBprogress(Context context, int sb_progress) {
         SharedPreferences pref=context.getSharedPreferences(MY_PREFERENCE_NAME,Context.MODE_PRIVATE);
@@ -26,6 +27,18 @@ public class PrefConfig {
     public static int load_saved_progress(Context context){
         SharedPreferences pref=context.getSharedPreferences(MY_PREFERENCE_NAME,Context.MODE_PRIVATE);
         return pref.getInt(PROGRESS_SAVE,30);
+    }
+
+    public static void SaveLanguage(Context context, String language) {
+        SharedPreferences pref=context.getSharedPreferences(MY_PREFERENCE_NAME,Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor=pref.edit();
+        editor.putString(LANGUAGE_SAVE,language);
+        editor.apply();
+    }
+
+    public static String load_saved_language(Context context){
+        SharedPreferences pref=context.getSharedPreferences(MY_PREFERENCE_NAME,Context.MODE_PRIVATE);
+        return pref.getString(LANGUAGE_SAVE,"RO");
     }
 
     public static void saveHymnsinPreferedRo(Context context, List<String> ids){

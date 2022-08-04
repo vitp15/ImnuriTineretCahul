@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import project.rew.imnuritineretcahul.databinding.ActivityMainBinding;
+import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.utils.PrefConfig;
 import project.rew.imnuritineretcahul.utils.Utils;
 
@@ -33,10 +34,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
 
+        Utils.loadHymns(this);
         Utils.savedHymnsRo = PrefConfig.load_saved_list_of_hymns_ro(this);
         if (Utils.savedHymnsRo == null) Utils.savedHymnsRo = new ArrayList<>();
         Utils.savedHymnsRu = PrefConfig.load_saved_list_of_hymns_ru(this);
         if (Utils.savedHymnsRu == null) Utils.savedHymnsRu = new ArrayList<>();
+        String language = PrefConfig.load_saved_language(this);
+        if (language.equals("RO")) Utils.language = Language.RO;
+        else if (language.equals("RU")) Utils.language = Language.RU;
 
 
         DrawerLayout drawer = binding.drawerLayout;

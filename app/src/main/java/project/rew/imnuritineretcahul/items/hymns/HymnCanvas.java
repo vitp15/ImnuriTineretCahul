@@ -54,7 +54,6 @@ public class HymnCanvas extends AppCompatActivity {
     LinearLayout audioElements, audioMiss, notePDF, pdfMiss;
     Button downald, downaldPdf;
     MediaPlayer mediaPlayer;
-    Language language;
     Hymn hymn;
 
     @Override
@@ -64,16 +63,14 @@ public class HymnCanvas extends AppCompatActivity {
 
         int id = getIntent().getIntExtra("id", 0);
         int nr = getIntent().getIntExtra("nr", 0);
-        int languageInt = getIntent().getIntExtra("language", 0);
-        if (languageInt == 1) {
-            language = Language.RO;
+
+        if (Utils.language == Language.RO) {
             hymn = Utils.hymns_ro.get(nr - 1);
-        } else if (languageInt == 0) {
-            language = Language.RU;
+        } else if (Utils.language == Language.RU) {
             hymn = Utils.hymns_ru.get(nr - 1);
         }
         seekvalue = PrefConfig.load_saved_progress(this);
-        SetMediaPlayer.setMediaPlayer(this, language);
+        SetMediaPlayer.setMediaPlayer(this);
 
         dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -107,16 +104,16 @@ public class HymnCanvas extends AppCompatActivity {
         textNotePdf = dialog.findViewById(R.id.text_notePdf);
         switchCompat = dialog.findViewById(R.id.switch1);
 
-        SetPDF.setPDF(this, language);
+        SetPDF.setPDF(this);
 
 
-        if (language == Language.RO) {
+        if (Utils.language == Language.RO) {
             switchCompat.setText(R.string.see_chords_ro);
             delete.setText(R.string.delete_ro);
             downald.setText(R.string.downald_single_audio_ro);
             downaldPdf.setText(R.string.downald_single_pdf_ro);
             textNotePdf.setText(R.string.open_pdfs_ro);
-        } else if (language == Language.RU) {
+        } else if (Utils.language == Language.RU) {
             switchCompat.setText(R.string.see_chords_ru);
             delete.setText(R.string.delete_ru);
             downald.setText(R.string.downald_single_audio_ru);
@@ -131,9 +128,9 @@ public class HymnCanvas extends AppCompatActivity {
                 Intent startPDF = new Intent(this, PDFCanvas.class);
                 startPDF.putExtra("id", hymn.getId());
                 startPDF.putExtra("nr", hymn.getNr());
-                if (language == Language.RO)
+                if (Utils.language == Language.RO)
                     startPDF.putExtra("language", 1);
-                else if (language == Language.RU)
+                else if (Utils.language == Language.RU)
                     startPDF.putExtra("language", 0);
                 this.startActivity(startPDF);
             });
@@ -142,7 +139,7 @@ public class HymnCanvas extends AppCompatActivity {
             pdfMiss.setVisibility(View.VISIBLE);
             downaldPdf.setOnClickListener(view -> {
                 new DownloadSingleFileTask(this, this,
-                        String.valueOf(hymn.getId()) + ".pdf", Type.PDF, language).execute();
+                        String.valueOf(hymn.getId()) + ".pdf", Type.PDF).execute();
             });
         }
 
@@ -169,9 +166,9 @@ public class HymnCanvas extends AppCompatActivity {
                         @Override
                         public void run() {
                             if (i[0] == 1) {
-                                if (language == Language.RO)
+                                if (Utils.language == Language.RO)
                                     Toast.makeText(HymnCanvas.this, R.string.play_ro, Toast.LENGTH_SHORT).show();
-                                else if (language == Language.RU)
+                                else if (Utils.language == Language.RU)
                                     Toast.makeText(HymnCanvas.this, R.string.play_ru, Toast.LENGTH_SHORT).show();
                             } else if (i[0] == 2) {
                                 btPlay.setVisibility(View.GONE);
@@ -279,12 +276,12 @@ public class HymnCanvas extends AppCompatActivity {
                         @Override
                         public void run() {
                             if (j[0] == 1) {
-                                if (language == Language.RO)
+                                if (Utils.language == Language.RO)
                                     Toast.makeText(HymnCanvas.this, R.string.delete_audio_ro, Toast.LENGTH_SHORT).show();
-                                else if (language == Language.RU)
+                                else if (Utils.language == Language.RU)
                                     Toast.makeText(HymnCanvas.this, R.string.delete_audio_ru, Toast.LENGTH_SHORT).show();
                             } else if (j[0] == 2) {
-                                Utils.deleteFile(HymnCanvas.this, String.valueOf(hymn.getId()) + ".mp3", language, Type.AUDIO);
+                                Utils.deleteFile(HymnCanvas.this, String.valueOf(hymn.getId()) + ".mp3", Type.AUDIO);
                                 audioElements.setVisibility(View.GONE);
                                 btFf.setVisibility(View.GONE);
                                 btRew.setVisibility(View.GONE);
@@ -294,7 +291,7 @@ public class HymnCanvas extends AppCompatActivity {
                                     @Override
                                     public void onClick(View view) {
                                         new DownloadSingleFileTask(HymnCanvas.this, HymnCanvas.this, String.valueOf(hymn.getId()) + ".mp3",
-                                                Type.AUDIO, language).execute();
+                                                Type.AUDIO).execute();
                                     }
                                 });
                             }
@@ -313,7 +310,7 @@ public class HymnCanvas extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     new DownloadSingleFileTask(HymnCanvas.this, HymnCanvas.this, String.valueOf(hymn.getId()) + ".mp3",
-                            Type.AUDIO, language).execute();
+                            Type.AUDIO).execute();
                 }
             });
         }
@@ -322,10 +319,10 @@ public class HymnCanvas extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (switchCompat.isChecked()) {
-                    content = Utils.readContent(id, true, getApplicationContext(), language);
+                    content = Utils.readContent(id, true, getApplicationContext());
                     SetWebView(webView, seekvalue, content);
                 } else {
-                    content = Utils.readContent(id, false, getApplicationContext(), language);
+                    content = Utils.readContent(id, false, getApplicationContext());
                     SetWebView(webView, seekvalue, content);
                 }
             }
@@ -334,7 +331,7 @@ public class HymnCanvas extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(hymn.getTitle());
         getSupportActionBar().setHideOnContentScrollEnabled(true);
-        content = Utils.readContent(id, false, getApplicationContext(), language);
+        content = Utils.readContent(id, false, getApplicationContext());
         SetWebView(webView, seekvalue, content);
         seekBar.setProgress(seekvalue);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
