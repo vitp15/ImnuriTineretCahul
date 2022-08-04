@@ -60,7 +60,14 @@ public class Utils {
         File internalDir = context.getDir(folder, Context.MODE_PRIVATE);
         File[] dirFiles = internalDir.listFiles();
         for (File dirFile : dirFiles) {
-            if (dirFile.getName().equals(forDelete)) DeleteRecursive(dirFile);
+            try {
+                String[] fileName = dirFile.getName().split("\\.");
+                String fileNametoDelete = fileName[0] + "." + fileName[2];
+                if (fileNametoDelete.equals(forDelete)) DeleteRecursive(dirFile);
+                Utils.loadHymns(context);
+            } catch (Exception e) {
+
+            }
         }
     }
 

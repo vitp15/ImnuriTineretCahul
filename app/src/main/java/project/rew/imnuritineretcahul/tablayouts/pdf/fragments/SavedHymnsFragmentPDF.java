@@ -25,23 +25,25 @@ import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.items.hymns.Hymn;
 import project.rew.imnuritineretcahul.items.hymns.HymnsAdapter;
+import project.rew.imnuritineretcahul.items.note_pdf.HymnsPdfAdapter;
+import project.rew.imnuritineretcahul.items.note_pdf.SetPDF;
 import project.rew.imnuritineretcahul.utils.Utils;
 
 public class SavedHymnsFragmentPDF extends Fragment {
     private List<Hymn> all_hymns;
-    private HymnsAdapter adapter;
+    private HymnsPdfAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_all_hymns_home, container, false);
+        View root = inflater.inflate(R.layout.fragment_all_hymns_pdf, container, false);
         Utils.loadHymnsSaved();
+        all_hymns=Utils.savedHymns_Ro;
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
-        all_hymns=Utils.hymns_ro;
-        adapter=new HymnsAdapter(all_hymns);
+        adapter = new HymnsPdfAdapter(all_hymns, getActivity());
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
-        TextView textView=root.findViewById(R.id.textView);
+        TextView textView = root.findViewById(R.id.textView);
+        SetPDF.setPDF(root.getContext());
         // Loading Hymns from local storage
         textView.setText(R.string.imns_not_found_ro);
 
@@ -63,10 +65,10 @@ public class SavedHymnsFragmentPDF extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull @NotNull Menu menu, @NonNull @NotNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater= getActivity().getMenuInflater();
-        inflater.inflate(R.menu.fragment_home,menu);
+        inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.fragment_home, menu);
         MenuItem searchItem = menu.findItem(R.id.search);
-        SearchView searchView=(SearchView) searchItem.getActionView();
+        SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

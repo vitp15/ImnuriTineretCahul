@@ -10,6 +10,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textSize="45sp"
-        android:text="Home Page3" />
+        android:text="Categoriile" />
 
 </FrameLayout>

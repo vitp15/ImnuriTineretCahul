@@ -1,46 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/relativeLayout"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="3dp">
+    android:layout_height="50dp"
+    android:background="@drawable/hymn_list_press"
+    android:layout_marginTop="2dp"
+    android:clickable="true">
+
     <TextView
         android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:gravity="center_vertical"
-        android:textColor="@color/text_color_pdf"
-        android:paddingLeft="10dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/text_color"
         android:textSize="18sp"
-        android:clickable="true"
-        android:background="@drawable/simple_press"/>
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
+        android:layout_marginRight="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/saved"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:orientation="vertical"
-        >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="0.5dp"
-            android:background="@color/line_separate_pdf"
-            android:id="@+id/linear4"
-            android:orientation="horizontal" />
-        <Button
-            android:id="@+id/btnPDFUpdate"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:text="@string/downald_single_pdf_ro"
-            android:textColor="@color/text_btn_pdf"
-            android:backgroundTint="@color/btn_color_pdf"
-            android:textSize="18sp"
-            android:textAllCaps="false"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            />
-    </LinearLayout>
-</RelativeLayout>
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/outline_turned_in_not_black_48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
