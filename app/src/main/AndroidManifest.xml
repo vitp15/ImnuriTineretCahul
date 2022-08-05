@@ -14,9 +14,11 @@
         android:theme="@style/Theme.ImnuriTineretCahul">
         <activity
             android:name=".items.audio.AudioCanvas"
-            android:theme="@style/Theme.ImnuriTineretCahul.NoActionBar"
-            android:exported="false" />
-        <activity android:name=".items.hymns.HymnCanvas" />
+            android:exported="false"
+            android:theme="@style/Theme.ImnuriTineretCahul.NoActionBar" />
+        <activity
+            android:name=".items.hymns.HymnCanvas"
+            android:theme="@style/Theme.ImnuriTineretCahul.NoActionBar" />
         <activity android:name=".items.note_pdf.PDFCanvas" />
         <activity
             android:name=".MainActivity"
