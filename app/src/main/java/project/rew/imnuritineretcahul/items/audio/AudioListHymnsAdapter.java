@@ -85,7 +85,8 @@ public class AudioListHymnsAdapter extends RecyclerView.Adapter<AudioListHymnsAd
         if (hymn.getUriForMediaPlayer() != null) {
             holder.constraintLayout.setBackgroundColor(Color.parseColor("#ffffff"));
             holder.constraintLayout.setOnClickListener(view -> {
-                HymnsAudioRealTime.setCurentPosition(position,all_hymns,hymn);
+                HymnsAudioRealTime.setCurentPosition(position, all_hymns, hymn);
+                Utils.saved = holder.saved;
                 Intent startHymn = new Intent(context, AudioCanvas.class);
                 context.startActivity(startHymn);
             });

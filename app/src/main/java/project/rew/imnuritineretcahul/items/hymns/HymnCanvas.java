@@ -14,7 +14,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.items.audio.AudioCanvas;
+import project.rew.imnuritineretcahul.items.audio.HymnsAudioRealTime;
 import project.rew.imnuritineretcahul.items.note_pdf.PDFCanvas;
+import project.rew.imnuritineretcahul.tablayouts.hymns.fragments.AllHymnsFragment;
 import project.rew.imnuritineretcahul.utils.PrefConfig;
 import project.rew.imnuritineretcahul.utils.Utils;
 
@@ -100,10 +102,12 @@ public class HymnCanvas extends AppCompatActivity {
                 Utils.deleteFromSaved(this, String.valueOf(hymn.getId()));
                 hymn.setSaved(false);
                 btnSave.setImageDrawable(this.getResources().getDrawable(R.drawable.save_acces_btn_white01));
+                Utils.saved.setImageDrawable(this.getResources().getDrawable(R.drawable.outline_turned_in_not_black_48dp));
             } else {
                 Utils.addInSaved(this, String.valueOf(hymn.getId()));
                 hymn.setSaved(true);
                 btnSave.setImageDrawable(this.getResources().getDrawable(R.drawable.save_acces_btn_clicked_white01));
+                Utils.saved.setImageDrawable(this.getResources().getDrawable(R.drawable.outline_turned_in_black_48dp));
             }
         });
 

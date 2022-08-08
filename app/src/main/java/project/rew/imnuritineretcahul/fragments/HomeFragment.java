@@ -46,14 +46,19 @@ public class HomeFragment extends Fragment implements TabLayout.OnTabSelectedLis
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                viewPager2.post(new Runnable() {
+                    public void run() {
+                        viewPager2.getAdapter().notifyDataSetChanged();
+                    }
+                });
                 super.onPageScrolled(position, positionOffset, positionOffsetPixels);
             }
 
             @Override
             public void onPageSelected(int position) {
-                if (!Utils.isFirst)
+                if (!Utils.isFirst) {
                     viewPager2.getAdapter().notifyItemChanged(position);
-                else
+                } else
                     Utils.isFirst = false;
                 super.onPageSelected(position);
             }

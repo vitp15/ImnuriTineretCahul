@@ -3,14 +3,16 @@ package project.rew.imnuritineretcahul.items.hymns;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.Comparator;
+import java.util.List;
 
 
 public class Hymn {
-    private int id, category;
+    private int id;
     private int nr;
     private String title;
     private String UriForMediaPlayer;
     private String UriForImgInAudio;
+    private List<String> categoryes;
     private File pdfView;
     private boolean saved;
 
@@ -53,12 +55,12 @@ public class Hymn {
         this.title = title;
     }
 
-    public int getCategory() {
-        return category;
+    public List<String> getCategoryes() {
+        return categoryes;
     }
 
-    public void setCategory(int category) {
-        this.category = category;
+    public void setCategoryes(List<String> categoryes) {
+        this.categoryes = categoryes;
     }
 
     public boolean isSaved() {

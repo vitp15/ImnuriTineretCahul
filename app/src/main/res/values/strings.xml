@@ -14,7 +14,8 @@
     <string name="hymns_ru">Гимны</string>
     <string name="menu_audio_ru">Аудио</string>
     <string name="menu_notspdf_ru">Ноты PDF</string>
-    <string name="menu_updates">Actualizare</string>
+    <string name="menu_updates_ro">Actualizare</string>
+    <string name="menu_updates_ru">Actualizare</string>
 
     <string name="imns_not_found_ro">Actualizati lista de imnuri din <b>Actualizare</b></string>
     <string name="imns_not_found_ru">Обновите список гимнов в <b>Actualizare</b></string>

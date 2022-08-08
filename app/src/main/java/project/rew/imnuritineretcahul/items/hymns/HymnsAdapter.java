@@ -70,6 +70,7 @@ public class HymnsAdapter extends RecyclerView.Adapter<HymnsAdapter.ViewHolder> 
         });
         holder.constraintLayout.setOnClickListener(view -> {
             HymnsAudioRealTime.setCurentPosition(position, all_hymns, hymn);
+            Utils.saved = holder.saved;
             Intent startHymn = new Intent(context, HymnCanvas.class);
             startHymn.putExtra("id", hymn.getId());
             startHymn.putExtra("nr", hymn.getNr());

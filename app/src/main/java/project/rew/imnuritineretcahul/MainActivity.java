@@ -1,12 +1,17 @@
 package project.rew.imnuritineretcahul;
 
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -15,7 +20,6 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import project.rew.imnuritineretcahul.databinding.ActivityMainBinding;
 import project.rew.imnuritineretcahul.enums.Language;
@@ -26,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    TextView customTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +58,49 @@ public class MainActivity extends AppCompatActivity {
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_hymns_ro,
                 R.id.nav_audio_ro, R.id.nav_pdfs_ro,
-                R.id.nav_updates)
+                R.id.nav_updates, R.id.nav_langue_select)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        if (Utils.language == Language.RO) {
+            navigationView.getMenu().getItem(0).setTitle(this.getResources().getString(R.string.hymns_ro));
+            navigationView.getMenu().getItem(1).setTitle(this.getResources().getString(R.string.menu_audio_ro));
+            navigationView.getMenu().getItem(2).setTitle(this.getResources().getString(R.string.menu_notspdf_ro));
+            navigationView.getMenu().getItem(3).setTitle(this.getResources().getString(R.string.menu_updates_ro));
+        } else if (Utils.language == Language.RU) {
+            navigationView.getMenu().getItem(0).setTitle(this.getResources().getString(R.string.hymns_ru));
+            navigationView.getMenu().getItem(1).setTitle(this.getResources().getString(R.string.menu_audio_ru));
+            navigationView.getMenu().getItem(2).setTitle(this.getResources().getString(R.string.menu_notspdf_ru));
+            navigationView.getMenu().getItem(3).setTitle(this.getResources().getString(R.string.menu_updates_ru));
+        }
+        navigationView.getMenu().getItem(4).getSubMenu().getItem(0).setActionView(R.layout.menu_language_ro);
+        navigationView.getMenu().getItem(4).getSubMenu().getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                if (Utils.language == Language.RO) {
+                    PrefConfig.SaveLanguage(MainActivity.this, "RU");
+                } else if (Utils.language == Language.RU) {
+                    PrefConfig.SaveLanguage(MainActivity.this, "RO");
+                }
+                recreate();
+                return true;
+            }
+        });
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        View customView = getLayoutInflater().inflate(R.layout.action_bar_title, null);
+        customTitle = customView.findViewById(R.id.actionbarTitle);
+        getSupportActionBar().setCustomView(customView);
+        customTitle.setOnClickListener(v -> {
+            if (Utils.language == Language.RO) {
+                PrefConfig.SaveLanguage(MainActivity.this, "RU");
+            } else if (Utils.language == Language.RU) {
+                PrefConfig.SaveLanguage(MainActivity.this, "RO");
+            }
+            recreate();
+        });
     }
 
     @Override

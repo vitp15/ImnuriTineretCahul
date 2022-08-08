@@ -32,12 +32,12 @@
         <item
             android:id="@+id/nav_updates"
             android:icon="@drawable/ic_baseline_system_update_alt_24"
-            android:title="@string/menu_updates" />
+            android:title="@string/menu_updates_ro" />
     </group>
-    <item android:title="">
+    <item
+        android:id="@+id/nav_langue_select" android:title="">
         <menu>
             <item
-                android:id="@+id/nav_langue_select"
                 android:icon="@drawable/ic_baseline_language_24"
                 android:title="Limba" />
         </menu>

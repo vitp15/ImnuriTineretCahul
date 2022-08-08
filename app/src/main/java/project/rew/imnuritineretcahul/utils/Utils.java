@@ -2,6 +2,7 @@ package project.rew.imnuritineretcahul.utils;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import org.apache.commons.net.ftp.FTP;
@@ -39,6 +40,7 @@ public class Utils {
     public static List<Hymn> savedHymns_Ru = new ArrayList<>();
     public static Language language;
     public static boolean isFirst = true;
+    public static ImageView saved;
 
     public static void deleteFile(Context context, String forDelete, Type type) {
         String folder = null;
@@ -222,7 +224,11 @@ public class Utils {
                     String[] hymn = dirFile.getName().split(" - ");
                     String[] id = hymn[0].split("\\.");
                     Hymn hymn_h = new Hymn(Integer.parseInt(id[0]), hymn[2]);
-                    hymn_h.setCategory(Integer.parseInt(hymn[1]));
+                    String[] categories = hymn[1].split("\\.");
+                    List<String> categoryes=new ArrayList<>();
+                    for(String s:categories)
+                        categoryes.add(s);
+                    hymn_h.setCategoryes(categoryes);
                     hymn_h.setSaved(false);
 
                     setAudio(context, hymn_h);
@@ -249,7 +255,11 @@ public class Utils {
                     String[] hymn = dirFile.getName().split(" - ");
                     String[] id = hymn[0].split("\\.");
                     Hymn hymn_h = new Hymn(Integer.parseInt(id[0]), hymn[2]);
-                    hymn_h.setCategory(Integer.parseInt(hymn[1]));
+                    String[] categories = hymn[1].split("\\.");
+                    List<String> categoryes=new ArrayList<>();
+                    for(String s:categories)
+                        categoryes.add(s);
+                    hymn_h.setCategoryes(categoryes);
                     hymn_h.setSaved(false);
                     for (String s : savedHymnsRo) {
                         if (s.equals(id[0])) {

@@ -1,6 +1,7 @@
 package project.rew.imnuritineretcahul.items.audio;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
 import android.media.MediaPlayer;
@@ -8,7 +9,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.items.hymns.Hymn;
+import project.rew.imnuritineretcahul.tablayouts.audio.fragments.AllHymnsFragmentAudio;
 import project.rew.imnuritineretcahul.utils.Utils;
 
 public class AudioCanvas extends AppCompatActivity {
@@ -70,10 +71,12 @@ public class AudioCanvas extends AppCompatActivity {
                 Utils.deleteFromSaved(this, String.valueOf(hymn.getId()));
                 hymn.setSaved(false);
                 btnSave.setImageDrawable(this.getResources().getDrawable(R.drawable.outline_turned_in_not_black_48dp));
+                Utils.saved.setImageDrawable(this.getResources().getDrawable(R.drawable.outline_turned_in_not_black_48dp));
             } else {
                 Utils.addInSaved(this, String.valueOf(hymn.getId()));
                 hymn.setSaved(true);
                 btnSave.setImageDrawable(this.getResources().getDrawable(R.drawable.outline_turned_in_black_48dp));
+                Utils.saved.setImageDrawable(this.getResources().getDrawable(R.drawable.outline_turned_in_black_48dp));
             }
         });
 

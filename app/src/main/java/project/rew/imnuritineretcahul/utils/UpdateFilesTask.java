@@ -27,8 +27,8 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
     private int port;
     private String user;
     private String pass;
-    private String ftpPatch;
-    private String internalPatch;
+    private String ftpPatchRO, ftpPatchRU;
+    private String internalPatchRO, internalPatchRU;
     private int totalItems = 0, curentItem;
     private double procentPerHymn;
     public static long fileSize, total;
@@ -45,28 +45,22 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
         curentItem = 0;
         total = 0;
         fileSize = 0;
-        if (Utils.language == Language.RO) {
-            if (type == Type.HYMN) {
-                internalPatch = context.getString(R.string.ro_internal_hymns_folder);
-                ftpPatch = fragmentActivity.getString(R.string.ro_external_hymns_folder);
-            } else if (type == Type.AUDIO) {
-                internalPatch = context.getString(R.string.ro_internal_mp3_folder);
-                ftpPatch = fragmentActivity.getString(R.string.ro_external_mp3_folder);
-            } else if (type == Type.PDF) {
-                internalPatch = context.getString(R.string.ro_internal_pdf_folder);
-                ftpPatch = fragmentActivity.getString(R.string.ro_external_pdf_folder);
-            }
-        } else if (Utils.language == Language.RU) {
-            if (type == Type.HYMN) {
-                internalPatch = context.getString(R.string.ru_internal_hymns_folder);
-                ftpPatch = fragmentActivity.getString(R.string.ru_external_hymns_folder);
-            } else if (type == Type.AUDIO) {
-                internalPatch = context.getString(R.string.ru_internal_mp3_folder);
-                ftpPatch = fragmentActivity.getString(R.string.ru_external_mp3_folder);
-            } else if (type == Type.PDF) {
-                internalPatch = context.getString(R.string.ru_internal_pdf_folder);
-                ftpPatch = fragmentActivity.getString(R.string.ru_external_pdf_folder);
-            }
+
+        if (type == Type.HYMN) {
+            internalPatchRO = context.getString(R.string.ro_internal_hymns_folder);
+            ftpPatchRO = fragmentActivity.getString(R.string.ro_external_hymns_folder);
+            internalPatchRU = context.getString(R.string.ru_internal_hymns_folder);
+            ftpPatchRU = fragmentActivity.getString(R.string.ru_external_hymns_folder);
+        } else if (type == Type.AUDIO) {
+            internalPatchRO = context.getString(R.string.ro_internal_mp3_folder);
+            ftpPatchRO = fragmentActivity.getString(R.string.ro_external_mp3_folder);
+            internalPatchRU = context.getString(R.string.ru_internal_mp3_folder);
+            ftpPatchRU = fragmentActivity.getString(R.string.ru_external_mp3_folder);
+        } else if (type == Type.PDF) {
+            internalPatchRO = context.getString(R.string.ro_internal_pdf_folder);
+            ftpPatchRO = fragmentActivity.getString(R.string.ro_external_pdf_folder);
+            internalPatchRU = context.getString(R.string.ru_internal_pdf_folder);
+            ftpPatchRU = fragmentActivity.getString(R.string.ru_external_pdf_folder);
         }
     }
 
@@ -106,23 +100,27 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
             if (Utils.language == Language.RU)
                 fragmentActivity.runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.settings_connect_to_internet_ru), Toast.LENGTH_SHORT).show());
         } else {
-            File internalDir = context.getDir(internalPatch, Context.MODE_PRIVATE);
-            File[] dirFiles = internalDir.listFiles();
+            File internalDirRO = context.getDir(internalPatchRO, Context.MODE_PRIVATE);
+            File internalDirRU = context.getDir(internalPatchRU, Context.MODE_PRIVATE);
+            File[] dirFilesRO = internalDirRO.listFiles();
+            File[] dirFilesRU = internalDirRU.listFiles();
             try {
                 ftpClient.connect(server, port);
                 ftpClient.login(user, pass);
                 ftpClient.enterLocalPassiveMode();
-                FTPFile[] subFiles = Utils.getDirectoryFiles(ftpClient, ftpPatch);
-                deleteFiles(subFiles);
+                FTPFile[] subFilesRO = Utils.getDirectoryFiles(ftpClient, ftpPatchRO);
+                FTPFile[] subFilesRU = Utils.getDirectoryFiles(ftpClient, ftpPatchRU);
+                deleteFiles(subFilesRO);
+                deleteFiles(subFilesRU);
                 ftpClient.logout();
                 ftpClient.disconnect();
-                int i = 0, a = 0;
-                for (FTPFile ftpFile : subFiles) {
+                int iRO = 0, aRO = 0, iRU = 0, aRU = 0;
+                for (FTPFile ftpFile : subFilesRO) {
                     if (ftpFile.getName().equals(".") || ftpFile.getName().equals("..")) {
                         continue;
                     }
                     boolean exist = false;
-                    for (File fileDir : dirFiles) {
+                    for (File fileDir : dirFilesRO) {
                         if (ftpFile.getName().equals(fileDir.getName())) {
                             exist = true;
                         }
@@ -130,30 +128,63 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
                     if (!exist) {
                         fileSize += ftpFile.getSize();
                         if (type != Type.AUDIO || ftpFile.getName().split("\\.")[2].equals("mp3"))
-                            i++;
-                        else a++;
+                            iRO++;
+                        else aRO++;
                     }
                 }
-                totalItems = i;
-                if (totalItems == 0 && a != 0 && type == Type.AUDIO)
-                    totalItems = a;
-                FTPFile[] subFilesforDownald = new FTPFile[i+a];
+                for (FTPFile ftpFile : subFilesRU) {
+                    if (ftpFile.getName().equals(".") || ftpFile.getName().equals("..")) {
+                        continue;
+                    }
+                    boolean exist = false;
+                    for (File fileDir : dirFilesRU) {
+                        if (ftpFile.getName().equals(fileDir.getName())) {
+                            exist = true;
+                        }
+                    }
+                    if (!exist) {
+                        fileSize += ftpFile.getSize();
+                        if (type != Type.AUDIO || ftpFile.getName().split("\\.")[2].equals("mp3"))
+                            iRU++;
+                        else aRU++;
+                    }
+                }
+                totalItems = iRO + iRU;
+                if (totalItems == 0 && (aRO != 0 || aRU != 0) && type == Type.AUDIO)
+                    totalItems = aRO + aRU;
+                FTPFile[] subFilesforDownaldRO = new FTPFile[iRO + aRO];
+                FTPFile[] subFilesforDownaldRU = new FTPFile[iRU + aRU];
                 if (totalItems != 0) {
                     procentPerHymn = 1 / (double) totalItems * 100;
-                    int j = 0;
-                    for (FTPFile ftpFile : subFiles) {
+                    int jRO = 0, jRU = 0;
+                    for (FTPFile ftpFile : subFilesRO) {
                         if (ftpFile.getName().equals(".") || ftpFile.getName().equals("..")) {
                             continue;
                         }
                         boolean exist = false;
-                        for (File fileDir : dirFiles) {
+                        for (File fileDir : dirFilesRO) {
                             if (ftpFile.getName().equals(fileDir.getName())) {
                                 exist = true;
                             }
                         }
                         if (!exist) {
-                            subFilesforDownald[j] = ftpFile;
-                            j++;
+                            subFilesforDownaldRO[jRO] = ftpFile;
+                            jRO++;
+                        }
+                    }
+                    for (FTPFile ftpFile : subFilesRU) {
+                        if (ftpFile.getName().equals(".") || ftpFile.getName().equals("..")) {
+                            continue;
+                        }
+                        boolean exist = false;
+                        for (File fileDir : dirFilesRU) {
+                            if (ftpFile.getName().equals(fileDir.getName())) {
+                                exist = true;
+                            }
+                        }
+                        if (!exist) {
+                            subFilesforDownaldRU[jRU] = ftpFile;
+                            jRU++;
                         }
                     }
                 }
@@ -181,8 +212,10 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
                     };
                     thread.start();
                 }
-                if (totalItems != 0)
-                    downaldAll(ftpClient, subFilesforDownald, true, ftpPatch, internalDir.getAbsolutePath());
+                if (totalItems != 0) {
+                    downaldAll(ftpClient, subFilesforDownaldRO, true, ftpPatchRO, internalDirRO.getAbsolutePath());
+                    downaldAll(ftpClient, subFilesforDownaldRU, true, ftpPatchRU, internalDirRU.getAbsolutePath());
+                }
                 if (Utils.language == Language.RO)
                     progressDialog.setMessage(fragmentActivity.getString(R.string.cancel_operation_update_ro));
                 else if (Utils.language == Language.RU)
@@ -303,9 +336,20 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
     }
 
     private void deleteFiles(FTPFile[] subFiles) {
-        File internalDir = context.getDir(internalPatch, Context.MODE_PRIVATE);
-        File[] dirFiles = internalDir.listFiles();
-        for (File dirFile : dirFiles) {
+        File internalDirRO = context.getDir(internalPatchRO, Context.MODE_PRIVATE);
+        File internalDirRU = context.getDir(internalPatchRU, Context.MODE_PRIVATE);
+        File[] dirFilesRO = internalDirRO.listFiles();
+        File[] dirFilesRU = internalDirRU.listFiles();
+        for (File dirFile : dirFilesRO) {
+            boolean exist = false;
+            for (FTPFile fileFtp : subFiles) {
+                if (dirFile.getName().equals(fileFtp.getName())) {
+                    exist = true;
+                }
+            }
+            if (!exist) Utils.DeleteRecursive(dirFile);
+        }
+        for (File dirFile : dirFilesRU) {
             boolean exist = false;
             for (FTPFile fileFtp : subFiles) {
                 if (dirFile.getName().equals(fileFtp.getName())) {
