@@ -1,7 +1,5 @@
 package project.rew.imnuritineretcahul;
 
-
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,7 +9,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -30,26 +27,25 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-    TextView customTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        setSupportActionBar(binding.appBarMain.toolbar);
 
         String language = PrefConfig.load_saved_language(this);
-        if (language.equals("RO")) Utils.language = Language.RO;
-        else if (language.equals("RU")) Utils.language = Language.RU;
-
+        if (language.equals("RO"))
+            Utils.language = Language.RO;
+        else if (language.equals("RU"))
+            Utils.language = Language.RU;
         Utils.savedHymnsRo = PrefConfig.load_saved_list_of_hymns_ro(this);
         if (Utils.savedHymnsRo == null) Utils.savedHymnsRo = new ArrayList<>();
         Utils.savedHymnsRu = PrefConfig.load_saved_list_of_hymns_ru(this);
         if (Utils.savedHymnsRu == null) Utils.savedHymnsRu = new ArrayList<>();
-
         Utils.loadHymns(this);
 
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        setSupportActionBar(binding.appBarMain.toolbar);
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
@@ -91,9 +87,12 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         View customView = getLayoutInflater().inflate(R.layout.action_bar_title, null);
-        customTitle = customView.findViewById(R.id.actionbarTitle);
+        TextView customTitle = customView.findViewById(R.id.actionbarTitle);
+        Utils.appBarTitle = customTitle;
+        if (Utils.appBarTitleString != null)
+            customTitle.setText(Utils.appBarTitleString);
         getSupportActionBar().setCustomView(customView);
-        customTitle.setOnClickListener(v -> {
+        Utils.appBarTitle.setOnClickListener(v -> {
             if (Utils.language == Language.RO) {
                 PrefConfig.SaveLanguage(MainActivity.this, "RU");
             } else if (Utils.language == Language.RU) {

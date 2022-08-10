@@ -10,9 +10,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import project.rew.imnuritineretcahul.R;
+import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.enums.Type;
 import project.rew.imnuritineretcahul.utils.UpdateAllFilesTask;
 import project.rew.imnuritineretcahul.utils.UpdateFilesTask;
+import project.rew.imnuritineretcahul.utils.Utils;
 
 public class UpdatesFragment extends Fragment {
 
@@ -75,6 +77,18 @@ public class UpdatesFragment extends Fragment {
         btn11.setOnClickListener(v -> {
             new UpdateFilesTask(getContext(), getActivity(), Type.PDF, Language.RU).execute();
         });*/
+        if (Utils.appBarTitle != null) {
+            if (Utils.language == Language.RO) {
+                Utils.appBarTitle.setText(R.string.menu_updates_ro);
+            } else if (Utils.language == Language.RU) {
+                Utils.appBarTitle.setText(R.string.menu_updates_ru);
+            }
+        }
+        if (Utils.language == Language.RO) {
+            Utils.appBarTitleString = getString(R.string.menu_updates_ro);
+        } else if (Utils.language == Language.RU) {
+            Utils.appBarTitleString = getString(R.string.menu_updates_ru);
+        }
         return root;
     }
 

@@ -14,6 +14,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.tabs.TabLayout;
 
 import project.rew.imnuritineretcahul.R;
+import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.tablayouts.hymns.adapters.HymnTabsAdapter;
 import project.rew.imnuritineretcahul.tablayouts.pdf.adapters.PdfTabsAdapter;
 import project.rew.imnuritineretcahul.utils.Utils;
@@ -62,6 +63,18 @@ public class NotePDFragment extends Fragment implements TabLayout.OnTabSelectedL
                 super.onPageScrollStateChanged(state);
             }
         });
+        if (Utils.appBarTitle != null) {
+            if (Utils.language == Language.RO) {
+                Utils.appBarTitle.setText(R.string.menu_notspdf_ro);
+            } else if (Utils.language == Language.RU) {
+                Utils.appBarTitle.setText(R.string.menu_notspdf_ru);
+            }
+        }
+        if (Utils.language == Language.RO) {
+            Utils.appBarTitleString = getString(R.string.menu_notspdf_ro);
+        } else if (Utils.language == Language.RU) {
+            Utils.appBarTitleString = getString(R.string.menu_notspdf_ru);
+        }
         return root;
     }
 

@@ -104,5 +104,7 @@
     <string name="downald_all_pdf_ru">PDF скачивается, элемент</string>
     <string name="language_ro">Limba</string>
     <string name="language_ru">Язык</string>
-
+    <string name="no_hymns_saved_ro">Nu aveți imnuri salvate</string>
+    <string name="no_hymns_saved_ru">У вас нет сохраненных гимнов</string>
+    <string name="app_name_ru">Гимны</string>
 </resources>

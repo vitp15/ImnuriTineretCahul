@@ -22,34 +22,42 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 import project.rew.imnuritineretcahul.R;
+import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.items.audio.AudioListHymnsAdapter;
 import project.rew.imnuritineretcahul.items.hymns.Hymn;
 import project.rew.imnuritineretcahul.utils.Utils;
 
 public class SavedHymnsFragmentAudio extends Fragment {
-    private List<Hymn> all_hymns;
     private AudioListHymnsAdapter adapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_all_hymns_audio, container, false);
         Utils.loadHymnsSaved();
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
-        all_hymns=Utils.savedHymns_Ro;
-        adapter=new AudioListHymnsAdapter(all_hymns,getActivity());
+        TextView textView = root.findViewById(R.id.textView);
+        if (Utils.language == Language.RO) {
+            if (Utils.savedHymns_Ro.isEmpty()) {
+                textView.setText(R.string.no_hymns_saved_ro);
+                textView.setVisibility(View.VISIBLE);
+            } else {
+                textView.setVisibility(View.GONE);
+                adapter = new AudioListHymnsAdapter(Utils.savedHymns_Ro);
+                recyclerView.setAdapter(adapter);
+            }
+        } else if (Utils.language == Language.RU) {
+            if (Utils.savedHymns_Ru.isEmpty()) {
+                textView.setText(R.string.no_hymns_saved_ru);
+                textView.setVisibility(View.VISIBLE);
+            } else {
+                textView.setVisibility(View.GONE);
+                adapter = new AudioListHymnsAdapter(Utils.savedHymns_Ru);
+                recyclerView.setAdapter(adapter);
+            }
+        }
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
-        TextView textView=root.findViewById(R.id.textView);
-        // Loading Hymns from local storage
-        textView.setText(R.string.imns_not_found_ro);
-
-        if (Utils.hymns_ro.isEmpty()) {
-            textView.setVisibility(View.VISIBLE);
-        } else {
-            textView.setVisibility(View.GONE);
-            recyclerView.setAdapter(adapter);
-        }
         return root;
     }
 
@@ -62,10 +70,10 @@ public class SavedHymnsFragmentAudio extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull @NotNull Menu menu, @NonNull @NotNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater= getActivity().getMenuInflater();
-        inflater.inflate(R.menu.fragment_home,menu);
+        inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.fragment_home, menu);
         MenuItem searchItem = menu.findItem(R.id.search);
-        SearchView searchView=(SearchView) searchItem.getActionView();
+        SearchView searchView = (SearchView) searchItem.getActionView();
         searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override

@@ -6,17 +6,22 @@ import android.view.LayoutInflater;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 
+import project.rew.imnuritineretcahul.MainActivity;
 import project.rew.imnuritineretcahul.R;
+import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.tablayouts.hymns.adapters.HymnTabsAdapter;
+import project.rew.imnuritineretcahul.utils.PrefConfig;
 import project.rew.imnuritineretcahul.utils.Utils;
 
 public class HomeFragment extends Fragment implements TabLayout.OnTabSelectedListener {
@@ -68,6 +73,18 @@ public class HomeFragment extends Fragment implements TabLayout.OnTabSelectedLis
                 super.onPageScrollStateChanged(state);
             }
         });
+        if (Utils.appBarTitle != null) {
+            if (Utils.language == Language.RO) {
+                Utils.appBarTitle.setText(R.string.app_name);
+            } else if (Utils.language == Language.RU) {
+                Utils.appBarTitle.setText(R.string.app_name_ru);
+            }
+        }
+        if (Utils.language == Language.RO) {
+            Utils.appBarTitleString = getString(R.string.app_name);
+        } else if (Utils.language == Language.RU) {
+            Utils.appBarTitleString = getString(R.string.app_name_ru);
+        }
         return root;
     }
 

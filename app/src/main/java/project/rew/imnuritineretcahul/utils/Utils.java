@@ -3,7 +3,10 @@ package project.rew.imnuritineretcahul.utils;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.FragmentActivity;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
@@ -41,6 +44,8 @@ public class Utils {
     public static Language language;
     public static boolean isFirst = true;
     public static ImageView saved;
+    public static TextView appBarTitle;
+    public static String appBarTitleString;
 
     public static void deleteFile(Context context, String forDelete, Type type) {
         String folder = null;
@@ -404,5 +409,62 @@ public class Utils {
                     break;
                 }
             }
+    }
+
+    public static boolean needsToUpdate(Context context, Type type) {
+        FTPClient ftpClient = new FTPClient();
+        int port = Integer.parseInt(context.getString(R.string.port));
+        String server = context.getString(R.string.server);
+        String user = context.getString(R.string.user);
+        String pass = context.getString(R.string.password);
+        String internalPatchRO = context.getString(R.string.ro_internal_hymns_folder);
+        String ftpPatchRO = context.getString(R.string.ro_external_hymns_folder);
+        String internalPatchRU = context.getString(R.string.ru_internal_hymns_folder);
+        String ftpPatchRU = context.getString(R.string.ru_external_hymns_folder);
+        try {
+            ftpClient.connect(server, port);
+            ftpClient.login(user, pass);
+            ftpClient.enterLocalPassiveMode();
+            FTPFile[] subFilesRO = Utils.getDirectoryFiles(ftpClient, ftpPatchRO);
+            FTPFile[] subFilesRU = Utils.getDirectoryFiles(ftpClient, ftpPatchRU);
+            ftpClient.logout();
+            ftpClient.disconnect();
+            File internalDirRO = context.getDir(internalPatchRO, Context.MODE_PRIVATE);
+            File internalDirRU = context.getDir(internalPatchRU, Context.MODE_PRIVATE);
+            File[] dirFilesRO = internalDirRO.listFiles();
+            File[] dirFilesRU = internalDirRU.listFiles();
+            for (FTPFile ftpFile : subFilesRO) {
+                if (ftpFile.getName().equals(".") || ftpFile.getName().equals("..")) {
+                    continue;
+                }
+                boolean exist = false;
+                for (File fileDir : dirFilesRO) {
+                    if (ftpFile.getName().equals(fileDir.getName())) {
+                        exist = true;
+                    }
+                }
+                if (!exist) {
+                    return true;
+                }
+            }
+            for (FTPFile ftpFile : subFilesRU) {
+                if (ftpFile.getName().equals(".") || ftpFile.getName().equals("..")) {
+                    continue;
+                }
+                boolean exist = false;
+                for (File fileDir : dirFilesRU) {
+                    if (ftpFile.getName().equals(fileDir.getName())) {
+                        exist = true;
+                    }
+                }
+                if (!exist) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (Exception e) {
+            Toast.makeText(context, "Failed: " + e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+            return false;
+        }
     }
 }

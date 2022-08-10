@@ -13,7 +13,9 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 
+import project.rew.imnuritineretcahul.MainActivity;
 import project.rew.imnuritineretcahul.R;
+import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.tablayouts.audio.adapters.AudioTabsAdapter;
 import project.rew.imnuritineretcahul.tablayouts.hymns.adapters.HymnTabsAdapter;
 import project.rew.imnuritineretcahul.utils.Utils;
@@ -21,15 +23,16 @@ import project.rew.imnuritineretcahul.utils.Utils;
 public class AudioFragment extends Fragment implements TabLayout.OnTabSelectedListener {
     private TabLayout tabLayout;
     private ViewPager2 viewPager2;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_audio,container,false);
+        View root = inflater.inflate(R.layout.fragment_audio, container, false);
 
-        tabLayout=root.findViewById(R.id.tabLayout);
-        viewPager2=root.findViewById(R.id.viewPager);
+        tabLayout = root.findViewById(R.id.tabLayout);
+        viewPager2 = root.findViewById(R.id.viewPager);
 
-        FragmentManager manager=getChildFragmentManager();
-        AudioTabsAdapter adapter = new AudioTabsAdapter(manager,getLifecycle());
+        FragmentManager manager = getChildFragmentManager();
+        AudioTabsAdapter adapter = new AudioTabsAdapter(manager, getLifecycle());
         viewPager2.setAdapter(adapter);
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_baseline_home_24));
         tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_baseline_language_24));
@@ -61,6 +64,18 @@ public class AudioFragment extends Fragment implements TabLayout.OnTabSelectedLi
                 super.onPageScrollStateChanged(state);
             }
         });
+        if (Utils.appBarTitle != null) {
+            if (Utils.language == Language.RO) {
+                Utils.appBarTitle.setText(R.string.menu_audio_ro);
+            } else if (Utils.language == Language.RU) {
+                Utils.appBarTitle.setText(R.string.menu_audio_ru);
+            }
+        }
+        if (Utils.language == Language.RO) {
+            Utils.appBarTitleString = getString(R.string.menu_audio_ro);
+        } else if (Utils.language == Language.RU) {
+            Utils.appBarTitleString = getString(R.string.menu_audio_ru);
+        }
         return root;
     }
 

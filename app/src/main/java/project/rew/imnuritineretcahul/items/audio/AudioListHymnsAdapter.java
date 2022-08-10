@@ -1,25 +1,15 @@
 package project.rew.imnuritineretcahul.items.audio;
 
-import android.annotation.SuppressLint;
 import android.content.Context;;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.media.MediaPlayer;
-import android.os.Handler;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.FragmentActivity;
@@ -27,14 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
-import project.rew.imnuritineretcahul.R;
-import project.rew.imnuritineretcahul.enums.Language;
-import project.rew.imnuritineretcahul.enums.Type;
+import project.rew.imnuritineretcahul.R;;
 import project.rew.imnuritineretcahul.items.hymns.Hymn;
-import project.rew.imnuritineretcahul.items.note_pdf.PDFCanvas;
-import project.rew.imnuritineretcahul.utils.DownloadSingleFileTask;
 import project.rew.imnuritineretcahul.utils.Utils;
 
 
@@ -42,13 +27,10 @@ public class AudioListHymnsAdapter extends RecyclerView.Adapter<AudioListHymnsAd
     private List<Hymn> hymns;
     private List<Hymn> all_hymns;
     private Context context;
-    private FragmentActivity fragment;
 
-    // RecyclerView recyclerView;
-    public AudioListHymnsAdapter(List<Hymn> hymns, FragmentActivity frag) {
+    public AudioListHymnsAdapter(List<Hymn> hymns) {
         this.hymns = new ArrayList<>(hymns);
         all_hymns = hymns;
-        this.fragment = frag;
     }
 
     @Override

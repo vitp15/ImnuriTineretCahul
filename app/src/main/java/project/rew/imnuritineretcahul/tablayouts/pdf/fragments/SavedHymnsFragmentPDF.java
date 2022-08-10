@@ -22,33 +22,41 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 import project.rew.imnuritineretcahul.R;
+import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.items.hymns.Hymn;
 import project.rew.imnuritineretcahul.items.note_pdf.HymnsPdfAdapter;
 import project.rew.imnuritineretcahul.utils.Utils;
 
 public class SavedHymnsFragmentPDF extends Fragment {
-    private List<Hymn> all_hymns;
     private HymnsPdfAdapter adapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_all_hymns_pdf, container, false);
         Utils.loadHymnsSaved();
-        all_hymns=Utils.savedHymns_Ro;
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
-        adapter = new HymnsPdfAdapter(all_hymns, getActivity());
+        TextView textView = root.findViewById(R.id.textView);
+        if (Utils.language == Language.RO) {
+            if (Utils.hymns_ro.isEmpty()) {
+                textView.setText(R.string.no_hymns_saved_ro);
+                textView.setVisibility(View.VISIBLE);
+            } else {
+                textView.setVisibility(View.GONE);
+                adapter = new HymnsPdfAdapter(Utils.savedHymns_Ro);
+                recyclerView.setAdapter(adapter);
+            }
+        } else if (Utils.language == Language.RU) {
+            if (Utils.hymns_ru.isEmpty()) {
+                textView.setText(R.string.no_hymns_saved_ru);
+                textView.setVisibility(View.VISIBLE);
+            } else {
+                textView.setVisibility(View.GONE);
+                adapter = new HymnsPdfAdapter(Utils.savedHymns_Ru);
+                recyclerView.setAdapter(adapter);
+            }
+        }
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
-        TextView textView = root.findViewById(R.id.textView);
-        // Loading Hymns from local storage
-        textView.setText(R.string.imns_not_found_ro);
-
-        if (Utils.hymns_ro.isEmpty()) {
-            textView.setVisibility(View.VISIBLE);
-        } else {
-            textView.setVisibility(View.GONE);
-            recyclerView.setAdapter(adapter);
-        }
         return root;
     }
 

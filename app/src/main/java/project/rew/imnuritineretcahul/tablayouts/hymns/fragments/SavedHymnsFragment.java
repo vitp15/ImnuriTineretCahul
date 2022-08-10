@@ -29,30 +29,36 @@ import project.rew.imnuritineretcahul.items.hymns.HymnsAdapter;
 import project.rew.imnuritineretcahul.utils.Utils;
 
 public class SavedHymnsFragment extends Fragment {
-    private List<Hymn> all_hymns;
     private HymnsAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_all_hymns_home, container, false);
         Utils.loadHymnsSaved();
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
-        all_hymns=Utils.savedHymns_Ro;
-        adapter = new HymnsAdapter(all_hymns);
+        TextView textView = root.findViewById(R.id.textView);
+        if (Utils.language == Language.RO) {
+            if (Utils.hymns_ro.isEmpty()) {
+                textView.setText(R.string.no_hymns_saved_ro);
+                textView.setVisibility(View.VISIBLE);
+            } else {
+                textView.setVisibility(View.GONE);
+                adapter = new HymnsAdapter(Utils.savedHymns_Ro);
+                recyclerView.setAdapter(adapter);
+            }
+        } else if (Utils.language == Language.RU) {
+            if (Utils.hymns_ru.isEmpty()) {
+                textView.setText(R.string.no_hymns_saved_ru);
+                textView.setVisibility(View.VISIBLE);
+            } else {
+                textView.setVisibility(View.GONE);
+                adapter = new HymnsAdapter(Utils.savedHymns_Ru);
+                recyclerView.setAdapter(adapter);
+            }
+        }
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
-        TextView textView = root.findViewById(R.id.textView);
-        // Loading Hymns from local storage
-        textView.setText(R.string.imns_not_found_ro);
-
-        if (Utils.hymns_ro.isEmpty()) {
-            textView.setVisibility(View.VISIBLE);
-        } else {
-            textView.setVisibility(View.GONE);
-            recyclerView.setAdapter(adapter);
-        }
         return root;
     }
 

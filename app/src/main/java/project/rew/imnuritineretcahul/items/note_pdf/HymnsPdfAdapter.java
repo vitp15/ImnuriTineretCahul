@@ -33,12 +33,10 @@ public class HymnsPdfAdapter extends RecyclerView.Adapter<HymnsPdfAdapter.ViewHo
     private List<Hymn> hymns;
     private List<Hymn> all_hymns;
     private Context context;
-    private FragmentActivity fragment;
 
-    public HymnsPdfAdapter(List<Hymn> hymns, FragmentActivity ft) {
+    public HymnsPdfAdapter(List<Hymn> hymns) {
         this.hymns = new ArrayList<>(hymns);
         all_hymns = hymns;
-        fragment = ft;
     }
 
     @Override

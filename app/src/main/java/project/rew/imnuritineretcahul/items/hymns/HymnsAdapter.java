@@ -31,7 +31,6 @@ public class HymnsAdapter extends RecyclerView.Adapter<HymnsAdapter.ViewHolder> 
     private List<Hymn> all_hymns;
     private Context context;
 
-    // RecyclerView recyclerView;
     public HymnsAdapter(List<Hymn> hymns) {
         this.hymns = new ArrayList<>(hymns);
         all_hymns = hymns;

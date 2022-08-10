@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.jetbrains.annotations.NotNull;
 
 import project.rew.imnuritineretcahul.R;
+import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.items.note_pdf.HymnsPdfAdapter;
 import project.rew.imnuritineretcahul.utils.Utils;
 
@@ -32,18 +33,28 @@ public class AllHymnsFragmentPDF extends Fragment {
         View root = inflater.inflate(R.layout.fragment_all_hymns_pdf, container, false);
 
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
-        adapter = new HymnsPdfAdapter(Utils.hymns_ro, getActivity());
+        TextView textView = root.findViewById(R.id.textView);
+        if (Utils.language == Language.RO) {
+            if (Utils.hymns_ro.isEmpty()) {
+                textView.setText(R.string.imns_not_found_ro);
+                textView.setVisibility(View.VISIBLE);
+            } else {
+                textView.setVisibility(View.GONE);
+                adapter = new HymnsPdfAdapter(Utils.hymns_ro);
+                recyclerView.setAdapter(adapter);
+            }
+        } else if (Utils.language == Language.RU) {
+            if (Utils.hymns_ru.isEmpty()) {
+                textView.setText(R.string.imns_not_found_ru);
+                textView.setVisibility(View.VISIBLE);
+            } else {
+                textView.setVisibility(View.GONE);
+                adapter = new HymnsPdfAdapter(Utils.hymns_ru);
+                recyclerView.setAdapter(adapter);
+            }
+        }
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
-        TextView textView = root.findViewById(R.id.textView);
-        textView.setText(R.string.imns_not_found_ro);
-
-        if (Utils.hymns_ro.isEmpty()) {
-            textView.setVisibility(View.VISIBLE);
-        } else {
-            textView.setVisibility(View.GONE);
-            recyclerView.setAdapter(adapter);
-        }
         return root;
     }
 

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textSize="23sp"
-        android:text="@string/imns_not_found_ro"
+        android:text="@string/no_hymns_saved_ro"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
