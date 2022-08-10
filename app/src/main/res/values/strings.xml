@@ -15,7 +15,7 @@
     <string name="menu_audio_ru">Аудио</string>
     <string name="menu_notspdf_ru">Ноты PDF</string>
     <string name="menu_updates_ro">Actualizare</string>
-    <string name="menu_updates_ru">Actualizare</string>
+    <string name="menu_updates_ru">Обновления</string>
 
     <string name="imns_not_found_ro">Actualizati lista de imnuri din <b>Actualizare</b></string>
     <string name="imns_not_found_ru">Обновите список гимнов в <b>Actualizare</b></string>
@@ -94,13 +94,15 @@
     <string name="dwnldN_pdf_ro">Descărcare PDF</string>
     <string name="dwnldN_pdf_ru">Загрузка PDF</string>
 
-    <string name="downald_all_elements">Descarcă toate elementele</string>
-    <!-- Daca descarci doar elementele care nu exista cele deja existente nu vor primi modificari
-    chiar daca ele au fost facute pe server,de aceea se recomanda sa actualizam pe toate,
-     doar in cazul in care sa uitat si nu este mult timp sau de pe date mobile se poate de folosit optiunea
-     pentru a descarca doar elementele inexistente-->
-    <string name="downald_only_nonexist">Descarcă doar elementele care încă nu sunt descarcate</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="all_elements_are_updated_ro">Toate fisierele sunt deja actualizate</string>
+    <string name="all_elements_are_updated_ru">Все файлы уже обновлены</string>
+    <string name="downald_all_hymn_ro">Se descarcă imnurile, elementul</string>
+    <string name="downald_all_hymn_ru">Гимны скачиваются, элемент</string>
+    <string name="downald_all_audio_ro">Se descarcă audiourile, elementul</string>
+    <string name="downald_all_pdf_ro">Se descarcă fișierele PDF, elementul</string>
+    <string name="downald_all_audio_ru">Аудио скачивается, элемент</string>
+    <string name="downald_all_pdf_ru">PDF скачивается, элемент</string>
+    <string name="language_ro">Limba</string>
+    <string name="language_ru">Язык</string>
 
 </resources>

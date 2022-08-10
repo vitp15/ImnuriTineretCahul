@@ -10,9 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import project.rew.imnuritineretcahul.R;
-import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.enums.Type;
-import project.rew.imnuritineretcahul.utils.DownloadSingleFileTask;
+import project.rew.imnuritineretcahul.utils.UpdateAllFilesTask;
 import project.rew.imnuritineretcahul.utils.UpdateFilesTask;
 
 public class UpdatesFragment extends Fragment {
@@ -47,10 +46,10 @@ public class UpdatesFragment extends Fragment {
         btn2.setOnClickListener(v -> {
             new UpdateFilesTask(getContext(), getActivity(), Type.PDF).execute();
         });
-        /*btn3.setOnClickListener(v -> {
-            new UpdateFilesTask(getContext(), getActivity(), Type.HYMN, Language.RU).execute();
+        btn3.setOnClickListener(v -> {
+            new UpdateAllFilesTask(getContext(), getActivity()).execute();
         });
-        btn4.setOnClickListener(v -> {
+        /*btn4.setOnClickListener(v -> {
             new UpdateFilesTask(getContext(), getActivity(), Type.AUDIO, Language.RU).execute();
         });
         btn5.setOnClickListener(v -> {

@@ -26,15 +26,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/downald_all_elements"
-                    android:textAlignment="center"
-                    android:textColor="@color/text_color_updt"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

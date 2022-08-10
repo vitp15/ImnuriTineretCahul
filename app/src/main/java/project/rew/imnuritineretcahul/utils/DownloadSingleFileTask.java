@@ -173,7 +173,7 @@ public class DownloadSingleFileTask extends AsyncTask<String, String, String> {
             ftpClient.login(user, pass);
             ftpClient.enterLocalPassiveMode();
 
-            Utils.downloadSingleFile(ftpClient, remoteFilePatch, savePatch, progressDialog, type);
+            Utils.downloadSingleFile(ftpClient, remoteFilePatch, savePatch, progressDialog);
 
             ftpClient.logout();
             ftpClient.disconnect();

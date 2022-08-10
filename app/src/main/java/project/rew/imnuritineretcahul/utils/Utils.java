@@ -94,7 +94,7 @@ public class Utils {
 
     public static boolean downloadSingleFile(FTPClient ftpClient,
                                              String remoteFilePath, String savePath,
-                                             ProgressDialog progressDialog, Type type) throws IOException {
+                                             ProgressDialog progressDialog) throws IOException {
         File downloadFile = new File(savePath);
         File parentDir = downloadFile.getParentFile();
         if (!parentDir.exists()) {
@@ -110,8 +110,7 @@ public class Utils {
             while ((count = input.read(data)) != -1) {
                 UpdateFilesTask.total += count;
                 int progres = (int) ((UpdateFilesTask.total * 100) / UpdateFilesTask.fileSize);
-                if (type != Type.HYMN)
-                    progressDialog.setProgress(progres);
+                progressDialog.setProgress(progres);
                 outputStream.write(data, 0, count);
             }
             return true;
@@ -225,8 +224,8 @@ public class Utils {
                     String[] id = hymn[0].split("\\.");
                     Hymn hymn_h = new Hymn(Integer.parseInt(id[0]), hymn[2]);
                     String[] categories = hymn[1].split("\\.");
-                    List<String> categoryes=new ArrayList<>();
-                    for(String s:categories)
+                    List<String> categoryes = new ArrayList<>();
+                    for (String s : categories)
                         categoryes.add(s);
                     hymn_h.setCategoryes(categoryes);
                     hymn_h.setSaved(false);
@@ -256,8 +255,8 @@ public class Utils {
                     String[] id = hymn[0].split("\\.");
                     Hymn hymn_h = new Hymn(Integer.parseInt(id[0]), hymn[2]);
                     String[] categories = hymn[1].split("\\.");
-                    List<String> categoryes=new ArrayList<>();
-                    for(String s:categories)
+                    List<String> categoryes = new ArrayList<>();
+                    for (String s : categories)
                         categoryes.add(s);
                     hymn_h.setCategoryes(categoryes);
                     hymn_h.setSaved(false);
