@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,7 +16,9 @@ import android.widget.TextView;
 
 import java.util.concurrent.TimeUnit;
 
+import project.rew.imnuritineretcahul.MainActivity;
 import project.rew.imnuritineretcahul.R;
+import project.rew.imnuritineretcahul.fragments.AudioFragment;
 import project.rew.imnuritineretcahul.items.hymns.Hymn;
 import project.rew.imnuritineretcahul.tablayouts.audio.fragments.AllHymnsFragmentAudio;
 import project.rew.imnuritineretcahul.utils.Utils;
@@ -58,7 +61,10 @@ public class AudioCanvas extends AppCompatActivity {
             imgBackground.setImageURI(Uri.parse(hymn.getUriForImgInAudio()));
 
         btnHymnsList.setOnClickListener(v -> {
-            onBackPressed();
+            if (mediaPlayer != null)
+                mediaPlayer.stop();
+            Utils.audioList = true;
+            startActivity(new Intent(AudioCanvas.this, MainActivity.class));
         });
 
         if (hymn.isSaved())

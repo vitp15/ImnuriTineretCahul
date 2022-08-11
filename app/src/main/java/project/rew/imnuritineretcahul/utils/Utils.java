@@ -37,8 +37,9 @@ public class Utils {
 
     public static List<Hymn> hymns_ro = new ArrayList<>();
     public static List<Hymn> hymns_ru = new ArrayList<>();
-    public static List<String> savedHymnsRo;
-    public static List<String> savedHymnsRu;
+    public static List<String> savedHymnsRo = new ArrayList<>();
+    public static List<String> savedHymnsRu = new ArrayList<>();
+    public static List<String> dosentDownloadCorectly = new ArrayList<>();
     public static List<Hymn> savedHymns_Ro = new ArrayList<>();
     public static List<Hymn> savedHymns_Ru = new ArrayList<>();
     public static Language language;
@@ -46,6 +47,7 @@ public class Utils {
     public static ImageView saved;
     public static TextView appBarTitle;
     public static String appBarTitleString;
+    public static boolean audioList = false;
 
     public static void deleteFile(Context context, String forDelete, Type type) {
         String folder = null;
@@ -97,10 +99,18 @@ public class Utils {
      * @throws IOException if any network or IO error occurred.
      */
 
-    public static boolean downloadSingleFile(FTPClient ftpClient,
+    public static boolean downloadSingleFile(Context context, FTPClient ftpClient,
                                              String remoteFilePath, String savePath,
                                              ProgressDialog progressDialog) throws IOException {
         File downloadFile = new File(savePath);
+        if (dosentDownloadCorectly == null)
+            dosentDownloadCorectly = new ArrayList<>();
+        String savePatchToAdd;
+        if (downloadFile.getName().split("\\.")[1].equals("txt"))
+            savePatchToAdd = savePath.substring(0,savePath.length()-downloadFile.getName().length()-1);
+        else savePatchToAdd = savePath;
+        dosentDownloadCorectly.add(savePatchToAdd);
+        PrefConfig.saveNotDownloadCorectly(context, dosentDownloadCorectly);
         File parentDir = downloadFile.getParentFile();
         if (!parentDir.exists()) {
             parentDir.mkdir();
@@ -118,6 +128,8 @@ public class Utils {
                 progressDialog.setProgress(progres);
                 outputStream.write(data, 0, count);
             }
+            dosentDownloadCorectly.remove(savePatchToAdd);
+            PrefConfig.saveNotDownloadCorectly(context, dosentDownloadCorectly);
             return true;
         } catch (IOException ex) {
             throw ex;
@@ -131,7 +143,7 @@ public class Utils {
     }
 
 
-    protected static void DeleteRecursive(File fileOrDirectory) {
+    public static void DeleteRecursive(File fileOrDirectory) {
         if (fileOrDirectory.isDirectory())
             for (File child : fileOrDirectory.listFiles()) {
                 DeleteRecursive(child);

@@ -7,19 +7,25 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import project.rew.imnuritineretcahul.databinding.ActivityMainBinding;
 import project.rew.imnuritineretcahul.enums.Language;
+import project.rew.imnuritineretcahul.fragments.AudioFragment;
 import project.rew.imnuritineretcahul.utils.PrefConfig;
 import project.rew.imnuritineretcahul.utils.Utils;
 
@@ -37,6 +43,15 @@ public class MainActivity extends AppCompatActivity {
             Utils.language = Language.RO;
         else if (language.equals("RU"))
             Utils.language = Language.RU;
+        Utils.dosentDownloadCorectly = PrefConfig.load_not_download_corectly(this);
+        if (Utils.dosentDownloadCorectly != null && !Utils.dosentDownloadCorectly.isEmpty()) {
+            for (String s : Utils.dosentDownloadCorectly) {
+                File file = new File(s);
+                Utils.DeleteRecursive(file);
+                Utils.dosentDownloadCorectly.remove(s);
+                PrefConfig.saveNotDownloadCorectly(this, Utils.dosentDownloadCorectly);
+            }
+        }
         Utils.savedHymnsRo = PrefConfig.load_saved_list_of_hymns_ro(this);
         if (Utils.savedHymnsRo == null) Utils.savedHymnsRo = new ArrayList<>();
         Utils.savedHymnsRu = PrefConfig.load_saved_list_of_hymns_ru(this);
@@ -54,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_hymns_ro,
                 R.id.nav_audio_ro, R.id.nav_pdfs_ro,
-                R.id.nav_updates, R.id.nav_langue_select)
+                R.id.nav_updates)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
@@ -100,6 +115,13 @@ public class MainActivity extends AppCompatActivity {
             }
             recreate();
         });
+        if (Utils.audioList) {
+            Utils.audioList = false;
+            NavOptions navOptions = new NavOptions.Builder()
+                    .setPopUpTo(R.id.nav_hymns_ro, true)
+                    .build();
+            navController.navigate(R.id.nav_audio_ro, null, navOptions);
+        }
     }
 
     @Override
@@ -125,5 +147,10 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }

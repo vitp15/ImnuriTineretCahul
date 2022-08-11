@@ -13,9 +13,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.enums.Language;
+import project.rew.imnuritineretcahul.fragments.AudioFragment;
 import project.rew.imnuritineretcahul.items.audio.AudioCanvas;
 import project.rew.imnuritineretcahul.items.audio.HymnsAudioRealTime;
 import project.rew.imnuritineretcahul.items.note_pdf.PDFCanvas;
+import project.rew.imnuritineretcahul.tablayouts.audio.fragments.AllHymnsFragmentAudio;
 import project.rew.imnuritineretcahul.tablayouts.hymns.fragments.AllHymnsFragment;
 import project.rew.imnuritineretcahul.utils.PrefConfig;
 import project.rew.imnuritineretcahul.utils.Utils;

@@ -460,7 +460,7 @@ public class UpdateAllFilesTask extends AsyncTask<String, String, String> {
             ftpClient.login(user, pass);
             ftpClient.enterLocalPassiveMode();
 
-            Utils.downloadSingleFile(ftpClient, remoteFilePatch, savePatch, progressDialog);
+            Utils.downloadSingleFile(context, ftpClient, remoteFilePatch, savePatch, progressDialog);
 
             ftpClient.logout();
             ftpClient.disconnect();
