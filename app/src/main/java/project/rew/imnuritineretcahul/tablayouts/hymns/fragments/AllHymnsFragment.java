@@ -34,7 +34,7 @@ public class AllHymnsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_all_hymns_pdf, container, false);
+        View root = inflater.inflate(R.layout.fragment_all_hymns_home, container, false);
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
         TextView textView = root.findViewById(R.id.textView);
         if (Utils.language == Language.RO) {

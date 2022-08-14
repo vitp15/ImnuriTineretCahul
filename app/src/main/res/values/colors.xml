@@ -3,8 +3,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="appBar_light">#0552C5</color>
-    <color name="appBarTop_light">#00195A</color>
+    <color name="appBar_light">#363636</color>
+    <color name="appBarTop_light">#000000</color>
+    <color name="tabLayoutColor">#363636</color>
+    <color name="tabLayoutRippleColor">#636363</color>
 
     <color name="appBar_night">#0D3C06</color>
     <color name="appBarTop_night">#041B00</color>
@@ -21,7 +23,8 @@
     <color name="start">#4DA6B6</color>
     <color name="center">#008496</color>
     <color name="end">#003869</color>
-    <color name="drawer_title">@color/white</color>
+    <color name="drawer_title">@color/black</color>
+    <color name="language_color">#cca43b</color>
 
     <!--home fragment-->
     <color name="background_home">@color/white</color>
@@ -30,7 +33,7 @@
 
     <color name="nonpressed_contur">#2E2E2E</color>
     <color name="pressed_contur">#151515</color>
-    <color name="background_press">#19000000</color>
+    <color name="background_press">#1A000000</color>
 
     <!--hymn canvas-->
     <string name="text_color_hc">#000000</string>
@@ -83,5 +86,10 @@
     <color name="text_color_updt">#2B2B2B</color>
     <color name="btn_color_updt">@color/appBar_light</color>
     <color name="btn_text_color_updt">@color/white</color>
+
+
+    <color name="layout_transparence">#80FFFFFF</color>
+    <color name="item_nonpressed_transparence">#99FFFFFF</color>
+    <color name="item_pressed_transparence">#99FFFFFF</color>
 
 </resources>

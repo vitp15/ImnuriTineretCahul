@@ -9,7 +9,17 @@
         android:id="@+id/nav_hymns_ro"
         android:name="project.rew.imnuritineretcahul.fragments.HomeFragment"
         android:label="@string/hymns_ro"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_hymns_ro_to_nav_audio_ro"
+            app:destination="@id/nav_audio_ro" />
+        <action
+            android:id="@+id/action_nav_hymns_ro_to_nav_pdfs_ro"
+            app:destination="@id/nav_pdfs_ro" />
+        <action
+            android:id="@+id/action_nav_hymns_ro_to_nav_updates"
+            app:destination="@id/nav_updates" />
+    </fragment>
 
     <!--<fragment
         android:id="@+id/nav_hymns_ru"
@@ -21,18 +31,48 @@
         android:id="@+id/nav_audio_ro"
         android:name="project.rew.imnuritineretcahul.fragments.AudioFragment"
         android:label="@string/menu_audio_ro"
-        tools:layout="@layout/fragment_audio" />
+        tools:layout="@layout/fragment_audio" >
+        <action
+            android:id="@+id/action_nav_audio_ro_to_nav_hymns_ro"
+            app:destination="@id/nav_hymns_ro" />
+        <action
+            android:id="@+id/action_nav_audio_ro_to_nav_pdfs_ro"
+            app:destination="@id/nav_pdfs_ro" />
+        <action
+            android:id="@+id/action_nav_audio_ro_to_nav_updates"
+            app:destination="@id/nav_updates" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_pdfs_ro"
         android:name="project.rew.imnuritineretcahul.fragments.NotePDFragment"
         android:label="@string/menu_notspdf_ro"
-        tools:layout="@layout/fragment_notepdf" />
+        tools:layout="@layout/fragment_notepdf" >
+        <action
+            android:id="@+id/action_nav_pdfs_ro_to_nav_hymns_ro"
+            app:destination="@id/nav_hymns_ro" />
+        <action
+            android:id="@+id/action_nav_pdfs_ro_to_nav_audio_ro"
+            app:destination="@id/nav_audio_ro" />
+        <action
+            android:id="@+id/action_nav_pdfs_ro_to_nav_updates"
+            app:destination="@id/nav_updates" />
+    </fragment>
     <fragment
         android:id="@+id/nav_updates"
         android:name="project.rew.imnuritineretcahul.fragments.UpdatesFragment"
         android:label="@string/menu_updates_ro"
-        tools:layout="@layout/fragment_updates" />
+        tools:layout="@layout/fragment_updates" >
+        <action
+            android:id="@+id/action_nav_updates_to_nav_audio_ro"
+            app:destination="@id/nav_audio_ro" />
+        <action
+            android:id="@+id/action_nav_updates_to_nav_hymns_ro"
+            app:destination="@id/nav_hymns_ro" />
+        <action
+            android:id="@+id/action_nav_updates_to_nav_pdfs_ro"
+            app:destination="@id/nav_pdfs_ro" />
+    </fragment>
 
     <!--<fragment
         android:id="@+id/nav_audio_ru"

@@ -47,22 +47,22 @@ public class HymnsAdapter extends RecyclerView.Adapter<HymnsAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Hymn hymn = hymns.get(position);
-        holder.textView.setText(hymn.getNr() + "  " + hymn.getTitle());
+        holder.textView.setText(hymn.getNr() + ". " + hymn.getTitle());
         if (hymn.isSaved())
-            holder.saved.setImageDrawable(context.getResources().getDrawable(R.drawable.outline_turned_in_black_48dp));
+            holder.saved.setImageDrawable(context.getResources().getDrawable(R.drawable.to_save_btn_enable01));
         else
-            holder.saved.setImageDrawable(context.getResources().getDrawable(R.drawable.outline_turned_in_not_black_48dp));
+            holder.saved.setImageDrawable(context.getResources().getDrawable(R.drawable.to_save_btn_disable01));
         holder.saved.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (hymn.isSaved()) {
                     Utils.deleteFromSaved(context, String.valueOf(hymn.getId()));
                     hymn.setSaved(false);
-                    holder.saved.setImageDrawable(context.getResources().getDrawable(R.drawable.outline_turned_in_not_black_48dp));
+                    holder.saved.setImageDrawable(context.getResources().getDrawable(R.drawable.to_save_btn_disable01));
                 } else {
                     Utils.addInSaved(context, String.valueOf(hymn.getId()));
                     hymn.setSaved(true);
-                    holder.saved.setImageDrawable(context.getResources().getDrawable(R.drawable.outline_turned_in_black_48dp));
+                    holder.saved.setImageDrawable(context.getResources().getDrawable(R.drawable.to_save_btn_enable01));
                 }
             }
 

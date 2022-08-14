@@ -1,6 +1,8 @@
 package project.rew.imnuritineretcahul;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
@@ -86,7 +89,10 @@ public class MainActivity extends AppCompatActivity {
             navigationView.getMenu().getItem(2).setTitle(this.getResources().getString(R.string.menu_notspdf_ru));
             navigationView.getMenu().getItem(3).setTitle(this.getResources().getString(R.string.menu_updates_ru));
         }
-        navigationView.getMenu().getItem(4).getSubMenu().getItem(0).setActionView(R.layout.menu_language_ro);
+        if (Utils.language == Language.RO)
+            navigationView.getMenu().getItem(4).getSubMenu().getItem(0).setActionView(R.layout.menu_language_ro);
+        else if (Utils.language == Language.RU)
+            navigationView.getMenu().getItem(4).getSubMenu().getItem(0).setActionView(R.layout.menu_language_ru);
         navigationView.getMenu().getItem(4).getSubMenu().getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
@@ -106,7 +112,10 @@ public class MainActivity extends AppCompatActivity {
         Utils.appBarTitle = customTitle;
         if (Utils.appBarTitleString != null)
             customTitle.setText(Utils.appBarTitleString);
-        getSupportActionBar().setCustomView(customView);
+        getSupportActionBar().setCustomView(customView, new ActionBar.LayoutParams(
+                ActionBar.LayoutParams.WRAP_CONTENT,
+                ActionBar.LayoutParams.MATCH_PARENT,
+                Gravity.CENTER));
         Utils.appBarTitle.setOnClickListener(v -> {
             if (Utils.language == Language.RO) {
                 PrefConfig.SaveLanguage(MainActivity.this, "RU");

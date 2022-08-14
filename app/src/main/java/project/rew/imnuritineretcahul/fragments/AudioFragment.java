@@ -35,9 +35,9 @@ public class AudioFragment extends Fragment implements TabLayout.OnTabSelectedLi
         FragmentManager manager = getChildFragmentManager();
         AudioTabsAdapter adapter = new AudioTabsAdapter(manager, getLifecycle());
         viewPager2.setAdapter(adapter);
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_baseline_home_24));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_baseline_language_24));
-        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.ic_baseline_system_update_alt_24));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.first_pg_btn_white01));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.category_pg_btn_white01));
+        tabLayout.addTab(tabLayout.newTab().setIcon(R.drawable.save_pg_btn_white01));
         tabLayout.addOnTabSelectedListener(this);
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override

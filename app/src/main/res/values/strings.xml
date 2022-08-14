@@ -106,5 +106,8 @@
     <string name="language_ru">Язык</string>
     <string name="no_hymns_saved_ro">Nu aveți imnuri salvate</string>
     <string name="no_hymns_saved_ru">У вас нет сохраненных гимнов</string>
-    <string name="app_name_ru">Гимны</string>
+    <string name="app_name_ro">Imnuri Tineret</string>
+    <string name="app_name_ru">Гимны Молодёжи</string>
+    <string name="language_drawer_ro">ro</string>
+    <string name="language_drawer_ru">ru</string>
 </resources>

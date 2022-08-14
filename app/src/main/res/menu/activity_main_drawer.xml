@@ -7,39 +7,34 @@
 
         <item
             android:id="@+id/nav_hymns_ro"
-            android:icon="@drawable/ic_baseline_home_24"
+            android:icon="@drawable/outline_library_music_24"
             android:title="@string/hymns_ro" />
-        <!--        <item
-                    android:id="@+id/nav_hymns_ru"
-                    android:icon="@drawable/ic_baseline_home_24"
-                    android:title="@string/hymns_ru" />-->
+
         <item
             android:id="@+id/nav_audio_ro"
-            android:icon="@drawable/ic_baseline_audiotrack_24"
+            android:icon="@drawable/play_btn_black01"
             android:title="@string/menu_audio_ro" />
-        <!--        <item
-                    android:id="@+id/nav_audio_ru"
-                    android:icon="@drawable/ic_baseline_audiotrack_24"
-                    android:title="@string/menu_audio_ru" />-->
+
         <item
             android:id="@+id/nav_pdfs_ro"
-            android:icon="@drawable/ic_baseline_picture_as_pdf_24"
+            android:icon="@drawable/outline_description_24"
             android:title="@string/menu_notspdf_ro" />
-        <!--        <item
-                    android:id="@+id/nav_pdfs_ru"
-                    android:icon="@drawable/ic_baseline_picture_as_pdf_24"
-                    android:title="@string/menu_notspdf_ru" />-->
+
         <item
             android:id="@+id/nav_updates"
-            android:icon="@drawable/ic_baseline_system_update_alt_24"
+            android:icon="@drawable/outline_cloud_sync_24"
             android:title="@string/menu_updates_ro" />
     </group>
+
     <item
-        android:id="@+id/nav_langue_select" android:title="">
+        android:id="@+id/nav_langue_select"
+        android:title="">
         <menu>
             <item
-                android:icon="@drawable/ic_baseline_language_24"
+                android:id="@+id/nav_langue_select_subitem"
+                android:icon="@drawable/outline_translate_24"
                 android:title="Limba" />
         </menu>
     </item>
+
 </menu>
