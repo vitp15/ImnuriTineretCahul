@@ -6,7 +6,7 @@
     <string name="port">21</string>
     <string name="password">GKd0PhDzIvLm0</string>
 
-    <string name="hymn_font">Georgia,serif</string>
+    <string name="hymn_font">Open Sans, sans-serif</string>
 
     <string name="hymns_ro">Imnuri</string>
     <string name="menu_audio_ro">Audio</string>
@@ -110,4 +110,6 @@
     <string name="app_name_ru">Гимны Молодёжи</string>
     <string name="language_drawer_ro">ro</string>
     <string name="language_drawer_ru">ru</string>
+    <string name="no_hymns_in_category_ro">Momentan nu există imnuri ce aparțin acestei categorii</string>
+    <string name="no_hymns_in_category_ru">Momentan nu există imnuri ce aparțin acestei categorii</string>
 </resources>

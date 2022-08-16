@@ -6,9 +6,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import project.rew.imnuritineretcahul.tablayouts.hymns.fragments.AllHymnsFragment;
-import project.rew.imnuritineretcahul.tablayouts.hymns.fragments.CategoriesFragment;
-import project.rew.imnuritineretcahul.tablayouts.hymns.fragments.SavedHymnsFragment;
 import project.rew.imnuritineretcahul.tablayouts.pdf.fragments.AllHymnsFragmentPDF;
 import project.rew.imnuritineretcahul.tablayouts.pdf.fragments.CategoriesFragmentPDF;
 import project.rew.imnuritineretcahul.tablayouts.pdf.fragments.SavedHymnsFragmentPDF;

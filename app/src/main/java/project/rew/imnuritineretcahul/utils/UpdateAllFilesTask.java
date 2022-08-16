@@ -140,6 +140,7 @@ public class UpdateAllFilesTask extends AsyncTask<String, String, String> {
                     if (!exist) {
                         if (ftpFile.isDirectory()) {
                             FTPFile[] subFilesFromHymn = Utils.getDirectoryFiles(ftpClient, ftpPatchHRO + "/" + ftpFile.getName());
+                            if (subFilesFromHymn != null)
                             for (FTPFile ftpFileFromHymn : subFilesFromHymn) {
                                 if (ftpFileFromHymn.getName().equals(".") || ftpFileFromHymn.getName().equals("..")) {
                                     continue;
@@ -163,6 +164,7 @@ public class UpdateAllFilesTask extends AsyncTask<String, String, String> {
                     if (!exist) {
                         if (ftpFile.isDirectory()) {
                             FTPFile[] subFilesFromHymn = Utils.getDirectoryFiles(ftpClient, ftpPatchHRU + "/" + ftpFile.getName());
+                            if (subFilesFromHymn != null)
                             for (FTPFile ftpFileFromHymn : subFilesFromHymn) {
                                 if (ftpFileFromHymn.getName().equals(".") || ftpFileFromHymn.getName().equals("..")) {
                                     continue;

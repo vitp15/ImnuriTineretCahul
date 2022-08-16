@@ -125,15 +125,14 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
                     }
                     if (!exist) {
                         if (type == Type.HYMN && ftpFile.isDirectory()) {
-                            ftpClient.connect(server, port);
-                            ftpClient.login(user, pass);
                             FTPFile[] subFilesFromHymn = Utils.getDirectoryFiles(ftpClient, ftpPatchRO + "/" + ftpFile.getName());
-                            for (FTPFile ftpFileFromHymn : subFilesFromHymn) {
-                                if (ftpFileFromHymn.getName().equals(".") || ftpFileFromHymn.getName().equals("..")) {
-                                    continue;
+                            if (subFilesFromHymn != null)
+                                for (FTPFile ftpFileFromHymn : subFilesFromHymn) {
+                                    if (ftpFileFromHymn.getName().equals(".") || ftpFileFromHymn.getName().equals("..")) {
+                                        continue;
+                                    }
+                                    fileSize += ftpFileFromHymn.getSize();
                                 }
-                                fileSize += ftpFileFromHymn.getSize();
-                            }
                         } else if (type == Type.AUDIO || type == Type.PDF)
                             fileSize += ftpFile.getSize();
                         if (type != Type.AUDIO || ftpFile.getName().split("\\.")[2].equals("mp3"))
@@ -153,15 +152,14 @@ public class UpdateFilesTask extends AsyncTask<String, String, String> {
                     }
                     if (!exist) {
                         if (type == Type.HYMN && ftpFile.isDirectory()) {
-                            ftpClient.connect(server, port);
-                            ftpClient.login(user, pass);
                             FTPFile[] subFilesFromHymn = Utils.getDirectoryFiles(ftpClient, ftpPatchRU + "/" + ftpFile.getName());
-                            for (FTPFile ftpFileFromHymn : subFilesFromHymn) {
-                                if (ftpFileFromHymn.getName().equals(".") || ftpFileFromHymn.getName().equals("..")) {
-                                    continue;
+                            if (subFilesFromHymn != null)
+                                for (FTPFile ftpFileFromHymn : subFilesFromHymn) {
+                                    if (ftpFileFromHymn.getName().equals(".") || ftpFileFromHymn.getName().equals("..")) {
+                                        continue;
+                                    }
+                                    fileSize += ftpFileFromHymn.getSize();
                                 }
-                                fileSize += ftpFileFromHymn.getSize();
-                            }
                         } else if (type == Type.AUDIO || type == Type.PDF)
                             fileSize += ftpFile.getSize();
                         if (type != Type.AUDIO || ftpFile.getName().split("\\.")[2].equals("mp3"))

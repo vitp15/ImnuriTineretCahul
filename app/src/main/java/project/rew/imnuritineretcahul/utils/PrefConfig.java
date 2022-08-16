@@ -2,6 +2,8 @@ package project.rew.imnuritineretcahul.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -81,12 +83,16 @@ public class PrefConfig {
     }
 
     public static void saveNotDownloadCorectly(Context context, List<String> notDownloadCorectly) {
-        Gson ids_gson = new Gson();
-        String ids_string = ids_gson.toJson(notDownloadCorectly);
-        SharedPreferences pref = context.getSharedPreferences(MY_PREFERENCE_NAME, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString(NOT_DOWNLOAD_CORECLY, ids_string);
-        editor.apply();
+        try {
+            Gson ids_gson = new Gson();
+            String ids_string = ids_gson.toJson(notDownloadCorectly);
+            SharedPreferences pref = context.getSharedPreferences(MY_PREFERENCE_NAME, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = pref.edit();
+            editor.putString(NOT_DOWNLOAD_CORECLY, ids_string);
+            editor.apply();
+        } catch (Exception e) {
+            Toast.makeText(context, "Error: " + e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     public static List<String> load_not_download_corectly(Context context) {

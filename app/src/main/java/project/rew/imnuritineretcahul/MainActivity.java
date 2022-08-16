@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,14 +47,18 @@ public class MainActivity extends AppCompatActivity {
             Utils.language = Language.RO;
         else if (language.equals("RU"))
             Utils.language = Language.RU;
-        Utils.dosentDownloadCorectly = PrefConfig.load_not_download_corectly(this);
-        if (Utils.dosentDownloadCorectly != null && !Utils.dosentDownloadCorectly.isEmpty()) {
-            for (String s : Utils.dosentDownloadCorectly) {
-                File file = new File(s);
-                Utils.DeleteRecursive(file);
-                Utils.dosentDownloadCorectly.remove(s);
+        try {
+            Utils.dosentDownloadCorectly = PrefConfig.load_not_download_corectly(this);
+            if (Utils.dosentDownloadCorectly != null && !Utils.dosentDownloadCorectly.isEmpty()) {
+                for (String s : Utils.dosentDownloadCorectly) {
+                    File file = new File(s);
+                    Utils.DeleteRecursive(file);
+                    Utils.dosentDownloadCorectly.remove(s);
+                }
                 PrefConfig.saveNotDownloadCorectly(this, Utils.dosentDownloadCorectly);
             }
+        } catch (Exception e) {
+            Toast.makeText(this, "Error: " + e.getMessage().toString(), Toast.LENGTH_SHORT).show();
         }
         Utils.savedHymnsRo = PrefConfig.load_saved_list_of_hymns_ro(this);
         if (Utils.savedHymnsRo == null) Utils.savedHymnsRo = new ArrayList<>();

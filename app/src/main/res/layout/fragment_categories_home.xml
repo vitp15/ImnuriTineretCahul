@@ -6,6 +6,7 @@
     tools:context=".tablayouts.hymns.fragments.AllHymnsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginBottom="20dp"
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
