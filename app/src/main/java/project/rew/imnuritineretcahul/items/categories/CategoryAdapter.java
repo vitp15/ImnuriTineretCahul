@@ -39,43 +39,43 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (Utils.language == Language.RO) {
             if (categories.size() > position * 4) {
-                holder.image1.setImageDrawable(categories.get(position * 4).getImgRO());
+                holder.image1.setImageDrawable(categories.get(position * 4).getImg());
             } else {
                 holder.materialCardView1.setVisibility(View.INVISIBLE);
             }
             if (categories.size() > position * 4 + 1) {
-                holder.image2.setImageDrawable(categories.get(position * 4 + 1).getImgRO());
+                holder.image2.setImageDrawable(categories.get(position * 4 + 1).getImg());
             } else {
                 holder.materialCardView2.setVisibility(View.INVISIBLE);
             }
             if (categories.size() > position * 4 + 2) {
-                holder.image3.setImageDrawable(categories.get(position * 4 + 2).getImgRO());
+                holder.image3.setImageDrawable(categories.get(position * 4 + 2).getImg());
             } else {
                 holder.materialCardView3.setVisibility(View.INVISIBLE);
             }
             if (categories.size() > position * 4 + 3) {
-                holder.image4.setImageDrawable(categories.get(position * 4 + 3).getImgRO());
+                holder.image4.setImageDrawable(categories.get(position * 4 + 3).getImg());
             } else {
                 holder.materialCardView4.setVisibility(View.INVISIBLE);
             }
         } else if (Utils.language == Language.RU) {
             if (categories.size() > position * 4) {
-                holder.image1.setImageDrawable(categories.get(position * 4).getImgRU());
+                holder.image1.setImageDrawable(categories.get(position * 4).getImg());
             } else {
                 holder.materialCardView1.setVisibility(View.INVISIBLE);
             }
             if (categories.size() > position * 4 + 1) {
-                holder.image2.setImageDrawable(categories.get(position * 4 + 1).getImgRU());
+                holder.image2.setImageDrawable(categories.get(position * 4 + 1).getImg());
             } else {
                 holder.materialCardView2.setVisibility(View.INVISIBLE);
             }
             if (categories.size() > position * 4 + 2) {
-                holder.image3.setImageDrawable(categories.get(position * 4 + 2).getImgRU());
+                holder.image3.setImageDrawable(categories.get(position * 4 + 2).getImg());
             } else {
                 holder.materialCardView3.setVisibility(View.INVISIBLE);
             }
             if (categories.size() > position * 4 + 3) {
-                holder.image4.setImageDrawable(categories.get(position * 4 + 3).getImgRU());
+                holder.image4.setImageDrawable(categories.get(position * 4 + 3).getImg());
             } else {
                 holder.materialCardView4.setVisibility(View.INVISIBLE);
             }

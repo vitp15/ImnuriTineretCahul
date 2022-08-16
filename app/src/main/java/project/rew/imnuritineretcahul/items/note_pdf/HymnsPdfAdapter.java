@@ -43,7 +43,7 @@ public class HymnsPdfAdapter extends RecyclerView.Adapter<HymnsPdfAdapter.ViewHo
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
         return new ViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.lyst_pdf_item, parent, false));
+                .inflate(R.layout.lyst_item, parent, false));
     }
 
 
@@ -52,36 +52,35 @@ public class HymnsPdfAdapter extends RecyclerView.Adapter<HymnsPdfAdapter.ViewHo
         final Hymn hymn = hymns.get(position);
         holder.textView.setText(hymn.getNr() + "  " + hymn.getTitle());
         if (hymn.isSaved())
-            holder.saved.setImageDrawable(context.getResources().getDrawable(R.drawable.outline_turned_in_black_48dp));
+            holder.saved.setImageDrawable(context.getResources().getDrawable(R.drawable.to_save_btn_enable01));
         else
-            holder.saved.setImageDrawable(context.getResources().getDrawable(R.drawable.outline_turned_in_not_black_48dp));
+            holder.saved.setImageDrawable(context.getResources().getDrawable(R.drawable.to_save_btn_disable01));
         holder.saved.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (hymn.isSaved()) {
                     Utils.deleteFromSaved(context, String.valueOf(hymn.getId()));
                     hymn.setSaved(false);
-                    holder.saved.setImageDrawable(context.getResources().getDrawable(R.drawable.outline_turned_in_not_black_48dp));
+                    holder.saved.setImageDrawable(context.getResources().getDrawable(R.drawable.to_save_btn_disable01));
                 } else {
                     Utils.addInSaved(context, String.valueOf(hymn.getId()));
                     hymn.setSaved(true);
-                    holder.saved.setImageDrawable(context.getResources().getDrawable(R.drawable.outline_turned_in_black_48dp));
+                    holder.saved.setImageDrawable(context.getResources().getDrawable(R.drawable.to_save_btn_enable01));
                 }
             }
 
         });
         if (hymn.getPdfView() != null) {
-            holder.constraintLayout.setBackgroundColor(Color.parseColor("#ffffff"));
-            holder.constraintLayout.setOnClickListener(view -> {
-
-                Intent startHymn = new Intent(context, PDFCanvas.class);
-                startHymn.putExtra("id", hymn.getId());
-                startHymn.putExtra("nr", hymn.getNr());
-                context.startActivity(startHymn);
-            });
+            holder.constraintLayout.setBackground(context.getDrawable(R.drawable.hymn_list_press));
         } else {
-            holder.constraintLayout.setBackgroundColor(Color.parseColor("#20000000"));
+            holder.constraintLayout.setBackground(context.getDrawable(R.drawable.hymn_nonexistent_list_press));
         }
+        holder.constraintLayout.setOnClickListener(view -> {
+            Intent startHymn = new Intent(context, PDFCanvas.class);
+            startHymn.putExtra("id", hymn.getId());
+            startHymn.putExtra("nr", hymn.getNr());
+            context.startActivity(startHymn);
+        });
     }
 
 

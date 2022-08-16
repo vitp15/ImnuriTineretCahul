@@ -31,13 +31,15 @@ public class CategoriesFragment extends Fragment {
         recyclerView = root.findViewById(R.id.recyclerView);
 
         categories = new ArrayList<>();
-        categories.add(new Category("1", "Noul Pământ", getActivity().getDrawable(R.drawable.c1), getActivity().getDrawable(R.drawable.c1)));
-        categories.add(new Category("2", "Fericire", getActivity().getDrawable(R.drawable.c2), getActivity().getDrawable(R.drawable.c2)));
-        categories.add(new Category("3", "Bunătate", getActivity().getDrawable(R.drawable.c3), getActivity().getDrawable(R.drawable.c3)));
-        categories.add(new Category("4", "Iubire", getActivity().getDrawable(R.drawable.c4), getActivity().getDrawable(R.drawable.c4)));
-        categories.add(new Category("5", "Mântuire", getActivity().getDrawable(R.drawable.c5), getActivity().getDrawable(R.drawable.c5)));
-        categories.add(new Category("6", "Încercări", getActivity().getDrawable(R.drawable.c6), getActivity().getDrawable(R.drawable.c6)));
-        categories.add(new Category("7", "Speranță", getActivity().getDrawable(R.drawable.c7), getActivity().getDrawable(R.drawable.c7)));
+        categories.add(new Category("1", "Noul Pământ", "Новая Земля", getActivity().getDrawable(R.drawable.c1), getActivity().getDrawable(R.drawable.c1ru)));
+        categories.add(new Category("2", "Fericire", "Счастье", getActivity().getDrawable(R.drawable.c2), getActivity().getDrawable(R.drawable.c2ru)));
+        categories.add(new Category("3", "Bunătate", "Доброта", getActivity().getDrawable(R.drawable.c3), getActivity().getDrawable(R.drawable.c3ru)));
+        categories.add(new Category("4", "Iubire", "Любовь", getActivity().getDrawable(R.drawable.c4), getActivity().getDrawable(R.drawable.c4ru)));
+        categories.add(new Category("5", "Mântuire", "Спасение", getActivity().getDrawable(R.drawable.c5), getActivity().getDrawable(R.drawable.c5ru)));
+        categories.add(new Category("6", "Încercări", "Испытание", getActivity().getDrawable(R.drawable.c6), getActivity().getDrawable(R.drawable.c6ru)));
+        categories.add(new Category("7", "Devotament", "Преданность", getActivity().getDrawable(R.drawable.c7), getActivity().getDrawable(R.drawable.c7ru)));
+        categories.add(new Category("8", "Speranță", "Надежда", getActivity().getDrawable(R.drawable.c8), getActivity().getDrawable(R.drawable.c8ru)));
+        categories.add(new Category("9", "Chemare", "Вызов", getActivity().getDrawable(R.drawable.c9), getActivity().getDrawable(R.drawable.c9ru)));
 
         adapter = new CategoryAdapter(categories);
         recyclerView.setAdapter(adapter);

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
@@ -24,6 +25,7 @@
             android:id="@+id/nav_updates"
             android:icon="@drawable/outline_cloud_sync_24"
             android:title="@string/menu_updates_ro" />
+
     </group>
 
     <item

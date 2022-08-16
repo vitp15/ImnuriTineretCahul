@@ -111,5 +111,9 @@
     <string name="language_drawer_ro">ro</string>
     <string name="language_drawer_ru">ru</string>
     <string name="no_hymns_in_category_ro">Momentan nu există imnuri ce aparțin acestei categorii</string>
-    <string name="no_hymns_in_category_ru">Momentan nu există imnuri ce aparțin acestei categorii</string>
+    <string name="no_hymns_in_category_ru">В настоящее время нет гимнов, относящихся к этой категории</string>
+    <string name="update_audio_ro">Apăsați butonul de mai sus\npentru a descărca melodia</string>
+    <string name="update_pdf_ro">Apăsați butonul de mai sus\npentru a descărca pdf-ul</string>
+    <string name="update_audio_ru">Нажмите кнопку выше,\nчтобы скачать песню</string>
+    <string name="update_pdf_ru">Нажмите на кнопку выше,\nчтобы скачать пдф</string>
 </resources>

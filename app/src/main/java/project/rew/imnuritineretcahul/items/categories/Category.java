@@ -2,13 +2,17 @@ package project.rew.imnuritineretcahul.items.categories;
 
 import android.graphics.drawable.Drawable;
 
+import project.rew.imnuritineretcahul.enums.Language;
+import project.rew.imnuritineretcahul.utils.Utils;
+
 public class Category {
-    String id, title;
+    String id, titleRO, titleRU;
     Drawable ImgRO, ImgRU;
 
-    public Category(String id, String title, Drawable imgRO, Drawable imgRU) {
+    public Category(String id, String titleRO,String titleRU, Drawable imgRO, Drawable imgRU) {
         this.id = id;
-        this.title = title;
+        this.titleRO = titleRO;
+        this.titleRU = titleRU;
         ImgRO = imgRO;
         ImgRU = imgRU;
     }
@@ -22,23 +26,31 @@ public class Category {
     }
 
     public String getTitle() {
-        return title;
+        if (Utils.language == Language.RO)
+            return titleRO;
+        else if (Utils.language == Language.RU)
+            return titleRU;
+        return "";
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitleRO(String title) {
+        this.titleRO = title;
     }
 
-    public Drawable getImgRO() {
+    public void setTitleRU(String title) {
+        this.titleRU = title;
+    }
+
+    public Drawable getImg() {
+        if (Utils.language == Language.RO)
+            return ImgRO;
+        else if (Utils.language == Language.RU)
+            return ImgRU;
         return ImgRO;
     }
 
     public void setImgRO(Drawable imgRO) {
         ImgRO = imgRO;
-    }
-
-    public Drawable getImgRU() {
-        return ImgRU;
     }
 
     public void setImgRU(Drawable imgRU) {

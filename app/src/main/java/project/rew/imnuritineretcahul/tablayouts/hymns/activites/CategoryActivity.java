@@ -50,6 +50,7 @@ public class CategoryActivity extends AppCompatActivity {
                 ActionBar.LayoutParams.MATCH_PARENT,
                 Gravity.CENTER));
 
+
         if (Utils.language == Language.RO) {
             for (Hymn hymn : Utils.hymns_ro) {
                 for (String hymn_id : hymn.getCategoryes()) {
@@ -68,7 +69,6 @@ public class CategoryActivity extends AppCompatActivity {
                 recyclerView.setAdapter(adapter);
             }
         } else if (Utils.language == Language.RU) {
-            boolean cont = true;
             for (Hymn hymn : Utils.hymns_ru) {
                 for (String hymn_id : hymn.getCategoryes()) {
                     if (hymn_id.equals(id)) {

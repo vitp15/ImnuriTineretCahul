@@ -3,30 +3,43 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable-v24/hymn_nonexisten_list_press.xml" value="0.2315" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2315" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable-v24/style_hymn_nonexistent_nonpresed.xml" value="0.2315" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable-v24/style_hymn_nonexistent_pressed.xml" value="0.2315" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable/category_bckg.xml" value="0.2315" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable/delete_audio.xml" value="0.2315" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable/hymn_list_press.xml" value="0.2315" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable/hymn_nonexist_list_press.xml" value="0.1935" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable/hymn_nonexistent_list_press.xml" value="0.2315" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.211" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable/line_audio_title.xml" value="0.2315" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable/nav_header_layout.xml" value="0.2315" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable/outline_class_24.xml" value="0.2315" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable/outline_cloud_sync_24.xml" value="0.2315" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable/outline_description_24.xml" value="0.2315" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable/outline_equalizer_24.xml" value="0.2315" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable/outline_library_music_24.xml" value="0.2315" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable/outline_library_music_24_white.xml" value="0.2315" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable/outline_translate_24.xml" value="0.2315" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable/side_nav_bar.xml" value="0.2315" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable/simple_press.xml" value="0.2315" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable/style_delete_nonpress.xml" value="0.2315" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable/style_hymn_nonexistent_nonpresed.xml" value="0.2315" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable/style_hymn_nonexistent_pressed.xml" value="0.2315" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable/style_hymn_nonpresed.xml" value="0.2315" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable/style_hymn_pressed.xml" value="0.2315" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable/style_pressed.xml" value="0.2315" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable/tab_icon_color.xml" value="0.2315" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable/tab_indicator.xml" value="0.2315" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable/tab_indicatorr.xml" value="0.2315" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable/thumb.xml" value="0.2315" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/drawable/track.xml" value="0.2315" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/font/ubuntu.xml" value="0.38666666666666666" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/action_bar_hymn.xml" value="0.3614583333333333" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/action_bar_title.xml" value="0.3614583333333333" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/action_bar_title_category.xml" value="0.21240942028985507" />
-        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/activity_audio_canvas.xml" value="0.3625" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/activity_audio_canvas.xml" value="0.33" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/activity_category.xml" value="0.25" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/activity_hymn_canvas.xml" value="0.3625" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
@@ -51,14 +64,19 @@
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/fragment_saved_pdf.xml" value="0.3625" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/fragment_updates.xml" value="0.33" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/item_category.xml" value="0.3614583333333333" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/layout_beteen_items_and_language.xml" value="0.25" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/lyst_hymn_audio.xml" value="0.3625" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/lyst_item.xml" value="0.33" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/lyst_item_non_existent.xml" value="0.3625" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/lyst_pdf_item.xml" value="0.3625" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/menu_language.xml" value="0.3614583333333333" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/menu_language_ro.xml" value="0.33" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/menu_language_ru.xml" value="0.3625" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/layout/nav_header_main.xml" value="0.358695652173913" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/menu/activity_main_drawer.xml" value="0.5" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/menu/fragment_audio.xml" value="0.18541666666666667" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/menu/fragment_home.xml" value="0.18541666666666667" />
+        <entry key="..\:/ImnuriTineretCahul/app/src/main/res/menu/hymn_canvas.xml" value="0.18541666666666667" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/menu/main.xml" value="0.3625" />
         <entry key="..\:/ImnuriTineretCahul/app/src/main/res/menu/pdf_canvas.xml" value="0.34814814814814815" />
       </map>

@@ -1,6 +1,7 @@
 package project.rew.imnuritineretcahul.items.audio;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
@@ -18,9 +19,12 @@ import java.util.concurrent.TimeUnit;
 
 import project.rew.imnuritineretcahul.MainActivity;
 import project.rew.imnuritineretcahul.R;
+import project.rew.imnuritineretcahul.enums.Language;
+import project.rew.imnuritineretcahul.enums.Type;
 import project.rew.imnuritineretcahul.fragments.AudioFragment;
 import project.rew.imnuritineretcahul.items.hymns.Hymn;
 import project.rew.imnuritineretcahul.tablayouts.audio.fragments.AllHymnsFragmentAudio;
+import project.rew.imnuritineretcahul.utils.DownloadSingleFileTask;
 import project.rew.imnuritineretcahul.utils.Utils;
 
 public class AudioCanvas extends AppCompatActivity {
@@ -31,68 +35,81 @@ public class AudioCanvas extends AppCompatActivity {
 
     TextView hymn_nr, hymn_title, playerPosition, playerDuration;
     SeekBar playerTrack;
-    ImageView btnPlay, btnPause, btnNext, btnPrevious, btnSave, btnHymnsList, imgBackground;
+    ImageView btnPlay, btnPause, btnNext, btnPrevious, btnSave, btnHymnsList, imgBackground, btnBack;
     Hymn hymn;
+
+    ConstraintLayout constraintLayout;
+    ImageView downloadBtn, btnBackNonExist;
+    TextView indicationsToDownload;
+    TextView hymn_nr_non_exist, hymn_title_non_exist;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audio_canvas);
 
-        hymn_nr = findViewById(R.id.hymn_number);
-        hymn_title = findViewById(R.id.hymn_title);
-        playerPosition = findViewById(R.id.player_position);
-        playerDuration = findViewById(R.id.player_duration);
-        playerTrack = findViewById(R.id.player_track);
-        btnPlay = findViewById(R.id.btnPlay);
-        btnPause = findViewById(R.id.btnPause);
-        btnNext = findViewById(R.id.nextSong);
-        btnPrevious = findViewById(R.id.previousSong);
-        btnSave = findViewById(R.id.saved);
-        btnHymnsList = findViewById(R.id.hymns_list);
-        imgBackground = findViewById(R.id.imgBackground);
-
         hymn = HymnsAudioRealTime.getHymnToPlay();
 
-        hymn_nr.setText(String.valueOf(hymn.getNr()));
-        hymn_title.setText(hymn.getTitle());
+        imgBackground = findViewById(R.id.imgBackground);
+        btnSave = findViewById(R.id.saved);
+        constraintLayout = findViewById(R.id.nonexist);
+        hymn_nr = findViewById(R.id.hymn_number);
+        hymn_title = findViewById(R.id.hymn_title);
+        btnBack = findViewById(R.id.btnBack);
 
         if (hymn.getUriForImgInAudio() != null)
             imgBackground.setImageURI(Uri.parse(hymn.getUriForImgInAudio()));
 
-        btnHymnsList.setOnClickListener(v -> {
-            if (mediaPlayer != null)
-                mediaPlayer.stop();
-            Utils.audioList = true;
-            startActivity(new Intent(AudioCanvas.this, MainActivity.class));
-        });
-
         if (hymn.isSaved())
-            btnSave.setImageDrawable(this.getResources().getDrawable(R.drawable.outline_turned_in_black_48dp));
+            btnSave.setImageDrawable(this.getResources().getDrawable(R.drawable.player_pg_savet_white));
         else
-            btnSave.setImageDrawable(this.getResources().getDrawable(R.drawable.outline_turned_in_not_black_48dp));
+            btnSave.setImageDrawable(this.getResources().getDrawable(R.drawable.player_pg_not_savet_white));
 
-        btnSave.setOnClickListener(v -> {
-            if (hymn.isSaved()) {
-                Utils.deleteFromSaved(this, String.valueOf(hymn.getId()));
-                hymn.setSaved(false);
-                btnSave.setImageDrawable(this.getResources().getDrawable(R.drawable.outline_turned_in_not_black_48dp));
-                Utils.saved.setImageDrawable(this.getResources().getDrawable(R.drawable.outline_turned_in_not_black_48dp));
-            } else {
-                Utils.addInSaved(this, String.valueOf(hymn.getId()));
-                hymn.setSaved(true);
-                btnSave.setImageDrawable(this.getResources().getDrawable(R.drawable.outline_turned_in_black_48dp));
-                Utils.saved.setImageDrawable(this.getResources().getDrawable(R.drawable.outline_turned_in_black_48dp));
-            }
-        });
+        if (hymn.getUriForMediaPlayer() != null) {
 
-        if (hymn.getUriForMediaPlayer() != null)
+            constraintLayout.setVisibility(View.GONE);
+            hymn_nr.setVisibility(View.VISIBLE);
+            hymn_title.setVisibility(View.VISIBLE);
+            btnBack.setVisibility(View.VISIBLE);
+
+            playerPosition = findViewById(R.id.player_position);
+            playerDuration = findViewById(R.id.player_duration);
+            playerTrack = findViewById(R.id.player_track);
+            btnPlay = findViewById(R.id.btnPlay);
+            btnPause = findViewById(R.id.btnPause);
+            btnNext = findViewById(R.id.nextSong);
+            btnPrevious = findViewById(R.id.previousSong);
+            btnHymnsList = findViewById(R.id.hymns_list);
+
+            hymn_nr.setText(String.valueOf(hymn.getNr()));
+            hymn_title.setText(hymn.getTitle());
+
+            btnHymnsList.setOnClickListener(v -> {
+                if (mediaPlayer != null)
+                    mediaPlayer.stop();
+                Utils.audioList = true;
+                startActivity(new Intent(AudioCanvas.this, MainActivity.class));
+            });
+
+            btnBack.setOnClickListener(v -> {
+                onBackPressed();
+            });
+
+            btnSave.setOnClickListener(v -> {
+                if (hymn.isSaved()) {
+                    Utils.deleteFromSaved(this, String.valueOf(hymn.getId()));
+                    hymn.setSaved(false);
+                    btnSave.setImageDrawable(this.getResources().getDrawable(R.drawable.player_pg_not_savet_white));
+                    Utils.saved.setImageDrawable(this.getResources().getDrawable(R.drawable.to_save_btn_disable01));
+                } else {
+                    Utils.addInSaved(this, String.valueOf(hymn.getId()));
+                    hymn.setSaved(true);
+                    btnSave.setImageDrawable(this.getResources().getDrawable(R.drawable.player_pg_savet_white));
+                    Utils.saved.setImageDrawable(this.getResources().getDrawable(R.drawable.to_save_btn_enable01));
+                }
+            });
             mediaPlayer = MediaPlayer.create(getApplicationContext(), Uri.parse(hymn.getUriForMediaPlayer()));
-        else {
-            HymnsAudioRealTime.goToNextSong();
-            recreate();
-        }
-        if (mediaPlayer != null) {
             runnable = new Runnable() {
                 @Override
                 public void run() {
@@ -258,14 +275,40 @@ public class AudioCanvas extends AppCompatActivity {
             });*/
 
         } else {
-            HymnsAudioRealTime.goToNextSong();
-            recreate();
+
+            constraintLayout.setVisibility(View.VISIBLE);
+            hymn_nr.setVisibility(View.GONE);
+            hymn_title.setVisibility(View.GONE);
+            btnBack.setVisibility(View.GONE);
+
+            downloadBtn = findViewById(R.id.download);
+            btnBackNonExist = findViewById(R.id.btnBackNonExist);
+            indicationsToDownload = findViewById(R.id.indication_to_download);
+            hymn_nr_non_exist = findViewById(R.id.hymn_number_nonexist);
+            hymn_title_non_exist = findViewById(R.id.hymn_title_nonexist);
+
+            hymn_nr_non_exist.setText(String.valueOf(hymn.getNr()));
+            hymn_title_non_exist.setText(hymn.getTitle());
+
+            btnBackNonExist.setOnClickListener(v -> {
+                onBackPressed();
+            });
+
+            if (Utils.language == Language.RO) {
+                indicationsToDownload.setText(getString(R.string.update_audio_ro));
+            } else if (Utils.language == Language.RU) {
+                indicationsToDownload.setText(getString(R.string.update_audio_ru));
+            }
+
+            downloadBtn.setOnClickListener(v -> {
+                new DownloadSingleFileTask(this, this, hymn.getId() + ".mp3", Type.AUDIO).execute();
+            });
         }
     }
 
     @SuppressLint("DefaultLocale")
     private String convertFormat(int duration) {
-        return String.format("%02d:%02d"
+        return String.format("%02d.%02d"
                 , TimeUnit.MILLISECONDS.toMinutes(duration),
                 TimeUnit.MILLISECONDS.toSeconds(duration) -
                         TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration)));

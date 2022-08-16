@@ -34,7 +34,7 @@ public class SavedHymnsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_all_hymns_home, container, false);
+        View root = inflater.inflate(R.layout.fragment_saved_home, container, false);
         Utils.loadHymnsSaved();
         RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
         TextView textView = root.findViewById(R.id.textView);
