@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,16 +13,19 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.tabs.TabLayout;
 
-import project.rew.imnuritineretcahul.MainActivity;
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.enums.Language;
+import project.rew.imnuritineretcahul.items.audio.AudioListHymnsAdapter;
 import project.rew.imnuritineretcahul.tablayouts.audio.adapters.AudioTabsAdapter;
-import project.rew.imnuritineretcahul.tablayouts.hymns.adapters.HymnTabsAdapter;
+import project.rew.imnuritineretcahul.tablayouts.audio.fragments.AllHymnsFragmentAudio;
+import project.rew.imnuritineretcahul.tablayouts.audio.fragments.SavedHymnsFragmentAudio;
+import project.rew.imnuritineretcahul.tablayouts.hymns.fragments.SavedHymnsFragment;
 import project.rew.imnuritineretcahul.utils.Utils;
 
 public class AudioFragment extends Fragment implements TabLayout.OnTabSelectedListener {
     private TabLayout tabLayout;
     private ViewPager2 viewPager2;
+    private int lastPosition;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -45,26 +47,7 @@ public class AudioFragment extends Fragment implements TabLayout.OnTabSelectedLi
                 tabLayout.selectTab(tabLayout.getTabAt(position));
             }
         });
-        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-            }
 
-            @Override
-            public void onPageSelected(int position) {
-                if (!Utils.isFirst)
-                    viewPager2.getAdapter().notifyItemChanged(position);
-                else
-                    Utils.isFirst = false;
-                super.onPageSelected(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                super.onPageScrollStateChanged(state);
-            }
-        });
         if (Utils.appBarTitle != null) {
             if (Utils.language == Language.RO) {
                 Utils.appBarTitle.setText(R.string.menu_audio_ro);
@@ -77,6 +60,9 @@ public class AudioFragment extends Fragment implements TabLayout.OnTabSelectedLi
         } else if (Utils.language == Language.RU) {
             Utils.appBarTitleString = getString(R.string.menu_audio_ru);
         }
+
+        Utils.needsToNotify = false;
+        lastPosition = tabLayout.getSelectedTabPosition();
         return root;
     }
 
@@ -94,6 +80,38 @@ public class AudioFragment extends Fragment implements TabLayout.OnTabSelectedLi
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
         viewPager2.setCurrentItem(tab.getPosition());
+        if (lastPosition == 2 && AllHymnsFragmentAudio.adapter != null && Utils.needsToNotify == true) {
+            Utils.needsToNotify = false;
+            AllHymnsFragmentAudio.adapter.notifyDataSetChanged();
+        }
+        if (lastPosition == 0 && SavedHymnsFragmentAudio.adapter != null && Utils.needsToNotify == true) {
+            Utils.needsToNotify = false;
+            Utils.loadHymnsSaved();
+            if (Utils.language == Language.RO) {
+                if (Utils.savedHymns_Ro.isEmpty()) {
+                    SavedHymnsFragmentAudio.textView.setText(R.string.no_hymns_saved_ro);
+                    SavedHymnsFragmentAudio.textView.setVisibility(View.VISIBLE);
+                    SavedHymnsFragmentAudio.recyclerView.setVisibility(View.GONE);
+                } else {
+                    SavedHymnsFragmentAudio.textView.setVisibility(View.GONE);
+                    SavedHymnsFragmentAudio.recyclerView.setVisibility(View.VISIBLE);
+                    SavedHymnsFragmentAudio.adapter = new AudioListHymnsAdapter(Utils.savedHymns_Ro);
+                    SavedHymnsFragmentAudio.recyclerView.setAdapter(SavedHymnsFragmentAudio.adapter);
+                }
+            } else if (Utils.language == Language.RU) {
+                if (Utils.savedHymns_Ru.isEmpty()) {
+                    SavedHymnsFragmentAudio.textView.setText(R.string.no_hymns_saved_ru);
+                    SavedHymnsFragmentAudio.textView.setVisibility(View.VISIBLE);
+                    SavedHymnsFragmentAudio.recyclerView.setVisibility(View.GONE);
+                } else {
+                    SavedHymnsFragmentAudio.textView.setVisibility(View.GONE);
+                    SavedHymnsFragmentAudio.recyclerView.setVisibility(View.VISIBLE);
+                    SavedHymnsFragmentAudio.adapter = new AudioListHymnsAdapter(Utils.savedHymns_Ru);
+                    SavedHymnsFragmentAudio.recyclerView.setAdapter(SavedHymnsFragmentAudio.adapter);
+                }
+            }
+        }
+        lastPosition = tab.getPosition();
     }
 
     @Override

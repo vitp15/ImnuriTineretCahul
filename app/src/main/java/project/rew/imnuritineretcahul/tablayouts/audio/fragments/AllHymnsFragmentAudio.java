@@ -29,7 +29,7 @@ import project.rew.imnuritineretcahul.utils.Utils;
 
 public class AllHymnsFragmentAudio extends Fragment {
 
-    private AudioListHymnsAdapter adapter;
+    public static AudioListHymnsAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,7 +59,6 @@ public class AllHymnsFragmentAudio extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
 
-        textView.setText(R.string.imns_not_found_ro);
         return root;
     }
 

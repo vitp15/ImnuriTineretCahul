@@ -141,12 +141,12 @@ public class UpdateAllFilesTask extends AsyncTask<String, String, String> {
                         if (ftpFile.isDirectory()) {
                             FTPFile[] subFilesFromHymn = Utils.getDirectoryFiles(ftpClient, ftpPatchHRO + "/" + ftpFile.getName());
                             if (subFilesFromHymn != null)
-                            for (FTPFile ftpFileFromHymn : subFilesFromHymn) {
-                                if (ftpFileFromHymn.getName().equals(".") || ftpFileFromHymn.getName().equals("..")) {
-                                    continue;
+                                for (FTPFile ftpFileFromHymn : subFilesFromHymn) {
+                                    if (ftpFileFromHymn.getName().equals(".") || ftpFileFromHymn.getName().equals("..")) {
+                                        continue;
+                                    }
+                                    UpdateFilesTask.fileSize += ftpFileFromHymn.getSize();
                                 }
-                                UpdateFilesTask.fileSize += ftpFileFromHymn.getSize();
-                            }
                         }
                         iHRO++;
                     }
@@ -165,12 +165,12 @@ public class UpdateAllFilesTask extends AsyncTask<String, String, String> {
                         if (ftpFile.isDirectory()) {
                             FTPFile[] subFilesFromHymn = Utils.getDirectoryFiles(ftpClient, ftpPatchHRU + "/" + ftpFile.getName());
                             if (subFilesFromHymn != null)
-                            for (FTPFile ftpFileFromHymn : subFilesFromHymn) {
-                                if (ftpFileFromHymn.getName().equals(".") || ftpFileFromHymn.getName().equals("..")) {
-                                    continue;
+                                for (FTPFile ftpFileFromHymn : subFilesFromHymn) {
+                                    if (ftpFileFromHymn.getName().equals(".") || ftpFileFromHymn.getName().equals("..")) {
+                                        continue;
+                                    }
+                                    UpdateFilesTask.fileSize += ftpFileFromHymn.getSize();
                                 }
-                                UpdateFilesTask.fileSize += ftpFileFromHymn.getSize();
-                            }
                         }
                         iHRU++;
                     }
@@ -406,12 +406,12 @@ public class UpdateAllFilesTask extends AsyncTask<String, String, String> {
                     }
                     if (Utils.language == Language.RO) {
                         if (type == Type.HYMN) {
-                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ro) + "   " +
+                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_all_hymn_ro) + "   " +
                                     String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
                         }
                     } else if (Utils.language == Language.RU) {
                         if (type == Type.HYMN) {
-                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ru) + "   " +
+                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_all_hymn_ru) + "   " +
                                     String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
                         }
                     }

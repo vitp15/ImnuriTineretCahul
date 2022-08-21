@@ -8,21 +8,16 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import project.rew.imnuritineretcahul.R;
-import project.rew.imnuritineretcahul.databinding.FragmentAllHymnsAudioBinding;
-import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.items.audio.HymnsAudioRealTime;
-import project.rew.imnuritineretcahul.utils.PrefConfig;
 import project.rew.imnuritineretcahul.utils.Utils;
 
 
@@ -64,8 +59,8 @@ public class HymnsAdapter extends RecyclerView.Adapter<HymnsAdapter.ViewHolder> 
                     hymn.setSaved(true);
                     holder.saved.setImageDrawable(context.getResources().getDrawable(R.drawable.to_save_btn_enable01));
                 }
+                Utils.needsToNotify = true;
             }
-
         });
         holder.constraintLayout.setOnClickListener(view -> {
             HymnsAudioRealTime.setCurentPosition(position, all_hymns, hymn);

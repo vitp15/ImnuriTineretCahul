@@ -19,25 +19,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.enums.Language;
-import project.rew.imnuritineretcahul.items.hymns.Hymn;
 import project.rew.imnuritineretcahul.items.note_pdf.HymnsPdfAdapter;
 import project.rew.imnuritineretcahul.utils.Utils;
 
 public class SavedHymnsFragmentPDF extends Fragment {
-    private HymnsPdfAdapter adapter;
+    public static HymnsPdfAdapter adapter;
+    public static TextView textView;
+    public static RecyclerView recyclerView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_all_hymns_pdf, container, false);
+        View root = inflater.inflate(R.layout.fragment_saved_pdf, container, false);
         Utils.loadHymnsSaved();
-        RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
-        TextView textView = root.findViewById(R.id.textView);
+        recyclerView = root.findViewById(R.id.rvHymns);
+        textView = root.findViewById(R.id.textView);
         if (Utils.language == Language.RO) {
-            if (Utils.hymns_ro.isEmpty()) {
+            if (Utils.savedHymns_Ro.isEmpty()) {
                 textView.setText(R.string.no_hymns_saved_ro);
                 textView.setVisibility(View.VISIBLE);
             } else {
@@ -46,7 +46,7 @@ public class SavedHymnsFragmentPDF extends Fragment {
                 recyclerView.setAdapter(adapter);
             }
         } else if (Utils.language == Language.RU) {
-            if (Utils.hymns_ru.isEmpty()) {
+            if (Utils.savedHymns_Ru.isEmpty()) {
                 textView.setText(R.string.no_hymns_saved_ru);
                 textView.setVisibility(View.VISIBLE);
             } else {

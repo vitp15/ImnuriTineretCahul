@@ -15,13 +15,17 @@ import com.google.android.material.tabs.TabLayout;
 
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.enums.Language;
-import project.rew.imnuritineretcahul.tablayouts.hymns.adapters.HymnTabsAdapter;
+import project.rew.imnuritineretcahul.items.note_pdf.HymnsPdfAdapter;
+import project.rew.imnuritineretcahul.tablayouts.hymns.fragments.SavedHymnsFragment;
 import project.rew.imnuritineretcahul.tablayouts.pdf.adapters.PdfTabsAdapter;
+import project.rew.imnuritineretcahul.tablayouts.pdf.fragments.AllHymnsFragmentPDF;
+import project.rew.imnuritineretcahul.tablayouts.pdf.fragments.SavedHymnsFragmentPDF;
 import project.rew.imnuritineretcahul.utils.Utils;
 
 public class NotePDFragment extends Fragment implements TabLayout.OnTabSelectedListener {
     private TabLayout tabLayout;
     private ViewPager2 viewPager2;
+    private int lastPosition;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -43,26 +47,7 @@ public class NotePDFragment extends Fragment implements TabLayout.OnTabSelectedL
                 tabLayout.selectTab(tabLayout.getTabAt(position));
             }
         });
-        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
-            }
 
-            @Override
-            public void onPageSelected(int position) {
-                if (!Utils.isFirst)
-                    viewPager2.getAdapter().notifyItemChanged(position);
-                else
-                    Utils.isFirst = false;
-                super.onPageSelected(position);
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                super.onPageScrollStateChanged(state);
-            }
-        });
         if (Utils.appBarTitle != null) {
             if (Utils.language == Language.RO) {
                 Utils.appBarTitle.setText(R.string.menu_notspdf_ro);
@@ -75,6 +60,9 @@ public class NotePDFragment extends Fragment implements TabLayout.OnTabSelectedL
         } else if (Utils.language == Language.RU) {
             Utils.appBarTitleString = getString(R.string.menu_notspdf_ru);
         }
+
+        Utils.needsToNotify = false;
+        lastPosition = tabLayout.getSelectedTabPosition();
         return root;
     }
 
@@ -92,6 +80,38 @@ public class NotePDFragment extends Fragment implements TabLayout.OnTabSelectedL
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
         viewPager2.setCurrentItem(tab.getPosition());
+        if (lastPosition == 2 && AllHymnsFragmentPDF.adapter != null && Utils.needsToNotify == true) {
+            Utils.needsToNotify = false;
+            AllHymnsFragmentPDF.adapter.notifyDataSetChanged();
+        }
+        if (lastPosition == 0 && SavedHymnsFragmentPDF.adapter != null && Utils.needsToNotify == true) {
+            Utils.needsToNotify = false;
+            Utils.loadHymnsSaved();
+            if (Utils.language == Language.RO) {
+                if (Utils.savedHymns_Ro.isEmpty()) {
+                    SavedHymnsFragmentPDF.textView.setText(R.string.no_hymns_saved_ro);
+                    SavedHymnsFragmentPDF.textView.setVisibility(View.VISIBLE);
+                    SavedHymnsFragmentPDF.recyclerView.setVisibility(View.GONE);
+                } else {
+                    SavedHymnsFragmentPDF.textView.setVisibility(View.GONE);
+                    SavedHymnsFragmentPDF.recyclerView.setVisibility(View.VISIBLE);
+                    SavedHymnsFragmentPDF.adapter = new HymnsPdfAdapter(Utils.savedHymns_Ro);
+                    SavedHymnsFragmentPDF.recyclerView.setAdapter(SavedHymnsFragmentPDF.adapter);
+                }
+            } else if (Utils.language == Language.RU) {
+                if (Utils.savedHymns_Ru.isEmpty()) {
+                    SavedHymnsFragmentPDF.textView.setText(R.string.no_hymns_saved_ru);
+                    SavedHymnsFragmentPDF.textView.setVisibility(View.VISIBLE);
+                    SavedHymnsFragmentPDF.recyclerView.setVisibility(View.GONE);
+                } else {
+                    SavedHymnsFragmentPDF.textView.setVisibility(View.GONE);
+                    SavedHymnsFragmentPDF.recyclerView.setVisibility(View.VISIBLE);
+                    SavedHymnsFragmentPDF.adapter = new HymnsPdfAdapter(Utils.savedHymns_Ru);
+                    SavedHymnsFragmentPDF.recyclerView.setAdapter(SavedHymnsFragmentPDF.adapter);
+                }
+            }
+        }
+        lastPosition = tab.getPosition();
     }
 
     @Override

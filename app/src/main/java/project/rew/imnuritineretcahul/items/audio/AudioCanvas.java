@@ -1,9 +1,5 @@
 package project.rew.imnuritineretcahul.items.audio;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -15,15 +11,16 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import java.util.concurrent.TimeUnit;
 
 import project.rew.imnuritineretcahul.MainActivity;
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.enums.Type;
-import project.rew.imnuritineretcahul.fragments.AudioFragment;
 import project.rew.imnuritineretcahul.items.hymns.Hymn;
-import project.rew.imnuritineretcahul.tablayouts.audio.fragments.AllHymnsFragmentAudio;
 import project.rew.imnuritineretcahul.utils.DownloadSingleFileTask;
 import project.rew.imnuritineretcahul.utils.Utils;
 
@@ -35,7 +32,7 @@ public class AudioCanvas extends AppCompatActivity {
 
     TextView hymn_nr, hymn_title, playerPosition, playerDuration;
     SeekBar playerTrack;
-    ImageView btnPlay, btnPause, btnNext, btnPrevious, btnSave, btnHymnsList, imgBackground, btnBack;
+    ImageView btnPlay, btnPause, btnNext, btnPrevious, btnSave, btnHymnsList, imgBackground, btnBack, btnDelete;
     Hymn hymn;
 
     ConstraintLayout constraintLayout;
@@ -81,9 +78,24 @@ public class AudioCanvas extends AppCompatActivity {
             btnNext = findViewById(R.id.nextSong);
             btnPrevious = findViewById(R.id.previousSong);
             btnHymnsList = findViewById(R.id.hymns_list);
+            btnDelete = findViewById(R.id.delete);
 
             hymn_nr.setText(String.valueOf(hymn.getNr()));
             hymn_title.setText(hymn.getTitle());
+
+            btnDelete.setOnClickListener(v -> {
+                Utils.deleteFile(this, String.valueOf(hymn.getId()), Type.AUDIO);
+                if (mediaPlayer != null)
+                    mediaPlayer.stop();
+                Utils.constraintLayout.setBackground(this.getDrawable(R.drawable.hymn_nonexistent_list_press));
+                Utils.hymn_title_to_edit.setTextColor(this.getResources().getColor(R.color.nonpressed_nonexis_contur));
+                if (hymn.isSaved())
+                    Utils.saved.setImageDrawable(this.getResources().getDrawable(R.drawable.nonexisting_save_clicked));
+                else
+                    Utils.saved.setImageDrawable(this.getResources().getDrawable(R.drawable.nonexisting_save_nonclicked));
+                Utils.loadHymns(this);
+                recreate();
+            });
 
             btnHymnsList.setOnClickListener(v -> {
                 if (mediaPlayer != null)
@@ -108,6 +120,7 @@ public class AudioCanvas extends AppCompatActivity {
                     btnSave.setImageDrawable(this.getResources().getDrawable(R.drawable.player_pg_savet_white));
                     Utils.saved.setImageDrawable(this.getResources().getDrawable(R.drawable.to_save_btn_enable01));
                 }
+                Utils.needsToNotify = true;
             });
             mediaPlayer = MediaPlayer.create(getApplicationContext(), Uri.parse(hymn.getUriForMediaPlayer()));
             runnable = new Runnable() {
@@ -301,7 +314,14 @@ public class AudioCanvas extends AppCompatActivity {
             }
 
             downloadBtn.setOnClickListener(v -> {
-                new DownloadSingleFileTask(this, this, hymn.getId() + ".mp3", Type.AUDIO).execute();
+                new DownloadSingleFileTask(this, this, hymn, Type.AUDIO).execute();
+                Utils.ifDownloadBrokedChangeListItem = true;
+                Utils.constraintLayout.setBackground(this.getDrawable(R.drawable.hymn_list_press));
+                Utils.hymn_title_to_edit.setTextColor(this.getResources().getColor(R.color.text_color));
+                if (hymn.isSaved())
+                    Utils.saved.setImageDrawable(this.getResources().getDrawable(R.drawable.to_save_btn_enable01));
+                else
+                    Utils.saved.setImageDrawable(this.getResources().getDrawable(R.drawable.to_save_btn_disable01));
             });
         }
     }

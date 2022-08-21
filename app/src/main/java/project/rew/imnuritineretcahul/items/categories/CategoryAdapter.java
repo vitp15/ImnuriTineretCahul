@@ -15,16 +15,18 @@ import java.util.List;
 
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.enums.Language;
-import project.rew.imnuritineretcahul.tablayouts.hymns.activites.CategoryActivity;
+import project.rew.imnuritineretcahul.enums.Type;
 import project.rew.imnuritineretcahul.utils.Utils;
 
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
     private List<Category> categories;
     private Context context;
+    Type type;
 
-    public CategoryAdapter(List<Category> categories) {
+    public CategoryAdapter(List<Category> categories, Type type) {
         this.categories = categories;
+        this.type = type;
     }
 
     @Override
@@ -84,28 +86,33 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             holder.materialCardView1.setOnClickListener(v -> {
                 context.startActivity(new Intent(context, CategoryActivity.class).
                         putExtra("id", categories.get(position * 4).getId())
-                        .putExtra("title", categories.get(position * 4).getTitle()));
+                        .putExtra("title", categories.get(position * 4).getTitle())
+                        .putExtra("type", type)
+                );
             });
         }
         if (categories.size() > position * 4 + 1) {
             holder.materialCardView2.setOnClickListener(v -> {
                 context.startActivity(new Intent(context, CategoryActivity.class).
                         putExtra("id", categories.get(position * 4 + 1).getId())
-                        .putExtra("title", categories.get(position * 4 + 1).getTitle()));
+                        .putExtra("title", categories.get(position * 4 + 1).getTitle())
+                        .putExtra("type", type));
             });
         }
         if (categories.size() > position * 4 + 2) {
             holder.materialCardView3.setOnClickListener(v -> {
                 context.startActivity(new Intent(context, CategoryActivity.class).
                         putExtra("id", categories.get(position * 4 + 2).getId())
-                        .putExtra("title", categories.get(position * 4 + 2).getTitle()));
+                        .putExtra("title", categories.get(position * 4 + 2).getTitle())
+                        .putExtra("type", type));
             });
         }
         if (categories.size() > position * 4 + 3) {
             holder.materialCardView4.setOnClickListener(v -> {
                 context.startActivity(new Intent(context, CategoryActivity.class).
                         putExtra("id", categories.get(position * 4 + 3).getId())
-                        .putExtra("title", categories.get(position * 4 + 3).getTitle()));
+                        .putExtra("title", categories.get(position * 4 + 3).getTitle())
+                        .putExtra("type", type));
             });
         }
     }

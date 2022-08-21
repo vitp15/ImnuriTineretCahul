@@ -17,7 +17,7 @@ public class Hymn {
     private boolean saved;
 
     public Hymn(int id, String title) {
-        byte[] bytes = title.getBytes(StandardCharsets.ISO_8859_1);
+        byte[] bytes = title.getBytes();
         String decoding_title = new String(bytes, StandardCharsets.UTF_8);
         this.id = id;
         this.title = decoding_title;
@@ -52,7 +52,9 @@ public class Hymn {
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        byte[] bytes = title.getBytes();
+        String decoding_title = new String(bytes, StandardCharsets.UTF_8);
+        this.title = decoding_title;
     }
 
     public List<String> getCategoryes() {

@@ -1,4 +1,4 @@
-package project.rew.imnuritineretcahul.tablayouts.hymns.activites;
+package project.rew.imnuritineretcahul.items.categories;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -20,15 +20,21 @@ import java.util.List;
 
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.enums.Language;
+import project.rew.imnuritineretcahul.enums.Type;
+import project.rew.imnuritineretcahul.items.audio.AudioListHymnsAdapter;
 import project.rew.imnuritineretcahul.items.hymns.Hymn;
 import project.rew.imnuritineretcahul.items.hymns.HymnsAdapter;
+import project.rew.imnuritineretcahul.items.note_pdf.HymnsPdfAdapter;
 import project.rew.imnuritineretcahul.utils.Utils;
 
 public class CategoryActivity extends AppCompatActivity {
 
     private HymnsAdapter adapter;
+    private AudioListHymnsAdapter audioListHymnsAdapter;
+    private HymnsPdfAdapter pdfAdapter;
     private List<Hymn> categorieHymns = new ArrayList<>();
     String id, title;
+    Type type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +42,7 @@ public class CategoryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_category);
         id = getIntent().getStringExtra("id");
         title = getIntent().getStringExtra("title");
+        type = (Type) getIntent().getSerializableExtra("type");
         RecyclerView recyclerView = findViewById(R.id.rvHymns);
         TextView textView = findViewById(R.id.textView);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -65,8 +72,16 @@ public class CategoryActivity extends AppCompatActivity {
                 textView.setVisibility(View.VISIBLE);
             } else {
                 textView.setVisibility(View.GONE);
-                adapter = new HymnsAdapter(categorieHymns);
-                recyclerView.setAdapter(adapter);
+                if (type == Type.HYMN) {
+                    adapter = new HymnsAdapter(categorieHymns);
+                    recyclerView.setAdapter(adapter);
+                } else if (type == Type.AUDIO) {
+                    audioListHymnsAdapter = new AudioListHymnsAdapter(categorieHymns);
+                    recyclerView.setAdapter(audioListHymnsAdapter);
+                } else if (type == Type.PDF) {
+                    pdfAdapter = new HymnsPdfAdapter(categorieHymns);
+                    recyclerView.setAdapter(pdfAdapter);
+                }
             }
         } else if (Utils.language == Language.RU) {
             for (Hymn hymn : Utils.hymns_ru) {
@@ -104,7 +119,12 @@ public class CategoryActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                adapter.getFilter().filter(s);
+                if (type == Type.HYMN)
+                    adapter.getFilter().filter(s);
+                else if (type == Type.AUDIO)
+                    audioListHymnsAdapter.getFilter().filter(s);
+                else if (type == Type.PDF)
+                    pdfAdapter.getFilter().filter(s);
                 return false;
             }
         });

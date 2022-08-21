@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,130 +8,177 @@
     android:orientation="vertical"
     tools:context=".fragments.AudioFragment">
 
-    <ScrollView
-        android:id="@+id/scrool"
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="226dp"
+        android:layout_height="278dp"
+        android:src="@drawable/app_logo01"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/layout_transparence_update"
+        android:orientation="vertical" />
+
+    <TextView
+        android:id="@+id/text_all"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/update_all_ro"
+        android:textColor="@color/text_color"
+        android:textSize="19sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:id="@+id/all"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+    <ImageView
+        android:id="@+id/download_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/btn_update_press"
+        android:src="@drawable/update_btn"
+        app:layout_constraintBottom_toBottomOf="@+id/text_all"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_all" />
 
-            <LinearLayout
-                android:id="@+id/linear"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+    <ImageView
+        android:id="@+id/iconDAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:src="@drawable/outline_rotate_left_gray_24"
+        app:layout_constraintBottom_toBottomOf="@+id/download_all"
+        app:layout_constraintEnd_toEndOf="@+id/download_all"
+        app:layout_constraintStart_toStartOf="@+id/download_all"
+        app:layout_constraintTop_toTopOf="@+id/download_all" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
+    <TextView
+        android:id="@+id/text_hymn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/update_hymns_ro"
+        android:textColor="@color/text_color"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_all" />
 
-                    <Button
-                        android:id="@+id/btnHymnsUpdate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_weight="1"
-                        android:backgroundTint="@color/btn_color_updt"
-                        android:text="@string/dwnld_hymn_ro"
-                        android:textAllCaps="false"
-                        android:textColor="@color/btn_text_color_updt"
-                        android:textSize="15sp" />
+    <ImageView
+        android:id="@+id/download_hymns"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/btn_update_press"
+        android:src="@drawable/update_btn"
+        app:layout_constraintBottom_toBottomOf="@+id/text_hymn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_hymn" />
 
-                    <Button
-                        android:id="@+id/btnHymnsUpdate_ru"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_weight="1"
-                        android:backgroundTint="@color/btn_color_updt"
-                        android:text="@string/dwnld_hymn_ru"
-                        android:textAllCaps="false"
-                        android:textColor="@color/btn_text_color_updt"
-                        android:textSize="15sp" />
-                </LinearLayout>
+    <ImageView
+        android:id="@+id/iconDHymn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:src="@drawable/outline_rotate_left_gray_24"
+        app:layout_constraintBottom_toBottomOf="@+id/download_hymns"
+        app:layout_constraintEnd_toEndOf="@+id/download_hymns"
+        app:layout_constraintStart_toStartOf="@+id/download_hymns"
+        app:layout_constraintTop_toTopOf="@+id/download_hymns" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
+    <LinearLayout
+        android:layout_width="220dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="40dp"
+        android:background="@color/line_update"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/text_audio"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_hymn" />
 
-                    <Button
-                        android:id="@+id/btnAudioUpdate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_weight="1"
-                        android:backgroundTint="@color/btn_color_updt"
-                        android:text="@string/dwnld_audio_ro"
-                        android:textAllCaps="false"
-                        android:textColor="@color/btn_text_color_updt"
-                        android:textSize="15sp" />
+    <TextView
+        android:id="@+id/text_audio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="36dp"
+        android:text="@string/update_audios_ro"
+        android:textColor="@color/text_color"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_hymn" />
 
-                    <Button
-                        android:id="@+id/btnAudioUpdate_ru"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_weight="1"
-                        android:backgroundTint="@color/btn_color_updt"
-                        android:text="@string/dwnld_audio_ru"
-                        android:textAllCaps="false"
-                        android:textColor="@color/btn_text_color_updt"
-                        android:textSize="15sp" />
-                </LinearLayout>
+    <ImageView
+        android:id="@+id/download_audio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/btn_update_press"
+        android:src="@drawable/update_btn"
+        app:layout_constraintBottom_toBottomOf="@+id/text_audio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_audio" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
+    <ImageView
+        android:id="@+id/iconDAudio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:src="@drawable/outline_rotate_left_gray_24"
+        app:layout_constraintBottom_toBottomOf="@+id/download_audio"
+        app:layout_constraintEnd_toEndOf="@+id/download_audio"
+        app:layout_constraintStart_toStartOf="@+id/download_audio"
+        app:layout_constraintTop_toTopOf="@+id/download_audio" />
 
-                    <Button
-                        android:id="@+id/btnPdfUpdate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_weight="1"
-                        android:backgroundTint="@color/btn_color_updt"
-                        android:text="@string/dwnld_pdf_ro"
-                        android:textAllCaps="false"
-                        android:textColor="@color/btn_text_color_updt"
-                        android:textSize="15sp" />
+    <LinearLayout
+        android:layout_width="220dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="40dp"
+        android:background="@color/line_update"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/text_pdf"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_audio" />
 
-                    <Button
-                        android:id="@+id/btnPdfUpdate_ru"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_weight="1"
-                        android:backgroundTint="@color/btn_color_updt"
-                        android:text="@string/dwnld_pdf_ru"
-                        android:textAllCaps="false"
-                        android:textColor="@color/btn_text_color_updt"
-                        android:textSize="15sp" />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
+    <TextView
+        android:id="@+id/text_pdf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="36dp"
+        android:text="@string/update_pdfs_ro"
+        android:textColor="@color/text_color"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_audio" />
 
-    </ScrollView>
-</LinearLayout>
+    <ImageView
+        android:id="@+id/download_pdf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/btn_update_press"
+        android:src="@drawable/update_btn"
+        app:layout_constraintBottom_toBottomOf="@+id/text_pdf"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/text_pdf" />
+
+    <ImageView
+        android:id="@+id/iconDPDF"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:src="@drawable/outline_rotate_left_gray_24"
+        app:layout_constraintBottom_toBottomOf="@+id/download_pdf"
+        app:layout_constraintEnd_toEndOf="@+id/download_pdf"
+        app:layout_constraintStart_toStartOf="@+id/download_pdf"
+        app:layout_constraintTop_toTopOf="@+id/download_pdf" />
+</androidx.constraintlayout.widget.ConstraintLayout>

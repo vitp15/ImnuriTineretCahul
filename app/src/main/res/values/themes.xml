@@ -7,7 +7,9 @@
         <item name="colorPrimaryVariant">@color/appBarTop_light</item>
         <item name="colorOnPrimary">@color/white</item>
         <item name="android:outlineSpotShadowColor" tools:targetApi="p">@color/appBar_light</item>
-        <item name="android:outlineAmbientShadowColor" tools:targetApi="p">@color/appBar_light</item>
+        <item name="android:outlineAmbientShadowColor" tools:targetApi="p">@color/appBar_light
+        </item>
+        <item name="android:listDivider">@color/language_color</item>
         <!-- Secondary brand color. -->
         <!--<item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>

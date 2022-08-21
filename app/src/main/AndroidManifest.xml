@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ImnuriTineretCahul">
         <activity
-            android:name=".tablayouts.hymns.activites.CategoryActivity"
+            android:name=".items.categories.CategoryActivity"
             android:exported="false" />
         <activity
             android:name=".items.audio.AudioCanvas"

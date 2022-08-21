@@ -14,11 +14,11 @@ public class HymnsAudioRealTime {
 
     public static void setCurentPosition(int position, List<Hymn> curentList, Hymn hymn) {
         HymnsAudioRealTime.curentList = curentList;
-        if (curentList.get(position) == hymn)
+        if (curentList.get(position).getId() == hymn.getId())
             HymnsAudioRealTime.position = position;
         else {
             for (int i = 0; i < curentList.size(); i++) {
-                if (curentList.get(i) == hymn) {
+                if (curentList.get(i).getId() == hymn.getId()) {
                     HymnsAudioRealTime.position = i;
                     break;
                 }

@@ -19,24 +19,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.items.audio.AudioListHymnsAdapter;
-import project.rew.imnuritineretcahul.items.hymns.Hymn;
 import project.rew.imnuritineretcahul.utils.Utils;
 
 public class SavedHymnsFragmentAudio extends Fragment {
-    private AudioListHymnsAdapter adapter;
+    public static AudioListHymnsAdapter adapter;
+    public static TextView textView;
+    public static RecyclerView recyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_all_hymns_audio, container, false);
+        View root = inflater.inflate(R.layout.fragment_saved_aduio, container, false);
         Utils.loadHymnsSaved();
-        RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
-        TextView textView = root.findViewById(R.id.textView);
+        recyclerView = root.findViewById(R.id.rvHymns);
+        textView = root.findViewById(R.id.textView);
         if (Utils.language == Language.RO) {
             if (Utils.savedHymns_Ro.isEmpty()) {
                 textView.setText(R.string.no_hymns_saved_ro);

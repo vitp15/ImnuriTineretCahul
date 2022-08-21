@@ -25,7 +25,7 @@ import project.rew.imnuritineretcahul.items.note_pdf.HymnsPdfAdapter;
 import project.rew.imnuritineretcahul.utils.Utils;
 
 public class AllHymnsFragmentPDF extends Fragment {
-    HymnsPdfAdapter adapter;
+    public static HymnsPdfAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

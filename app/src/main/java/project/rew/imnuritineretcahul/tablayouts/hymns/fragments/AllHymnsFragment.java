@@ -29,7 +29,7 @@ import project.rew.imnuritineretcahul.items.hymns.HymnsAdapter;
 import project.rew.imnuritineretcahul.utils.Utils;
 
 public class AllHymnsFragment extends Fragment {
-    private HymnsAdapter adapter;
+    public static HymnsAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -81,18 +81,6 @@
     <string name="see_chords_ru">Показать аккорды</string>
     <string name="open_pdfs_ro">Note PDF</string>
     <string name="open_pdfs_ru">Ноты PDF</string>
-    <string name="dwnld_hymn_ro">Actualizare imnuri</string>
-    <string name="dwnld_hymn_ru">Обновить гимны</string>
-    <string name="dwnld_audio_ro">Actualizare fișiere audio</string>
-    <string name="dwnld_audio_ru">Обновить аудиофайлы</string>
-    <string name="dwnld_pdf_ro">Actualizare PDF</string>
-    <string name="dwnld_pdf_ru"> Обновить PDF</string>
-    <string name="dwnldN_hymn_ro">Descărcare imnuri</string>
-    <string name="dwnldN_hymn_ru">Загрузка гимнов</string>
-    <string name="dwnldN_audio_ro">Descărcare audio</string>
-    <string name="dwnldN_audio_ru">Загрузка аудио</string>
-    <string name="dwnldN_pdf_ro">Descărcare PDF</string>
-    <string name="dwnldN_pdf_ru">Загрузка PDF</string>
 
     <string name="all_elements_are_updated_ro">Toate fisierele sunt deja actualizate</string>
     <string name="all_elements_are_updated_ru">Все файлы уже обновлены</string>
@@ -116,4 +104,14 @@
     <string name="update_pdf_ro">Apăsați butonul de mai sus\npentru a descărca pdf-ul</string>
     <string name="update_audio_ru">Нажмите кнопку выше,\nчтобы скачать песню</string>
     <string name="update_pdf_ru">Нажмите на кнопку выше,\nчтобы скачать пдф</string>
+    <string name="update_all_ro">Actualizează toate fișierele</string>
+    <string name="update_hymns_ro">Actualizează imnuri</string>
+    <string name="update_audios_ro">Actualizează fișiere audio</string>
+    <string name="update_pdfs_ro">Actualizează fișiere PDF</string>
+    <string name="update_all_ru">Обновить все файлы</string>
+    <string name="update_hymns_ru">Обновить гимны</string>
+    <string name="update_audios_ru">Обновить аудиофайлы</string>
+    <string name="update_pdfs_ru">Обновить PDF-файлы</string>
+    <string name="curent_sttate_ro">Starea Actuală</string>
+    <string name="curent_sttate_ru">Текущее состояние</string>
 </resources>

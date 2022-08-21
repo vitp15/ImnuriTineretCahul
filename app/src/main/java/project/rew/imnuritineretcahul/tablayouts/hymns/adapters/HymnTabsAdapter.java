@@ -34,5 +34,4 @@ public class HymnTabsAdapter extends FragmentStateAdapter {
         return 3;
     }
 
-
 }

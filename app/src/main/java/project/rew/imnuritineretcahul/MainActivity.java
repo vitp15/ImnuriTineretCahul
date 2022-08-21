@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
                 for (String s : Utils.dosentDownloadCorectly) {
                     File file = new File(s);
                     Utils.DeleteRecursive(file);
-                    Utils.dosentDownloadCorectly.remove(s);
                 }
+                Utils.dosentDownloadCorectly.clear();
                 PrefConfig.saveNotDownloadCorectly(this, Utils.dosentDownloadCorectly);
             }
         } catch (Exception e) {
@@ -95,10 +95,10 @@ public class MainActivity extends AppCompatActivity {
             navigationView.getMenu().getItem(3).setTitle(this.getResources().getString(R.string.menu_updates_ru));
         }
         if (Utils.language == Language.RO)
-            navigationView.getMenu().getItem(4).getSubMenu().getItem(0).setActionView(R.layout.menu_language_ro);
+            navigationView.getMenu().getItem(4).setActionView(R.layout.menu_language_ro);
         else if (Utils.language == Language.RU)
-            navigationView.getMenu().getItem(4).getSubMenu().getItem(0).setActionView(R.layout.menu_language_ru);
-        navigationView.getMenu().getItem(4).getSubMenu().getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            navigationView.getMenu().getItem(4).setActionView(R.layout.menu_language_ru);
+        navigationView.getMenu().getItem(4).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 if (Utils.language == Language.RO) {

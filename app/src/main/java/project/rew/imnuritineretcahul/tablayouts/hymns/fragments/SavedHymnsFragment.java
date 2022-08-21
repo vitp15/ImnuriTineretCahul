@@ -29,17 +29,19 @@ import project.rew.imnuritineretcahul.items.hymns.HymnsAdapter;
 import project.rew.imnuritineretcahul.utils.Utils;
 
 public class SavedHymnsFragment extends Fragment {
-    private HymnsAdapter adapter;
+    public static HymnsAdapter adapter;
+    public static TextView textView;
+    public static RecyclerView recyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_saved_home, container, false);
         Utils.loadHymnsSaved();
-        RecyclerView recyclerView = root.findViewById(R.id.rvHymns);
-        TextView textView = root.findViewById(R.id.textView);
+        recyclerView = root.findViewById(R.id.rvHymns);
+        textView = root.findViewById(R.id.textView);
         if (Utils.language == Language.RO) {
-            if (Utils.hymns_ro.isEmpty()) {
+            if (Utils.savedHymns_Ro.isEmpty()) {
                 textView.setText(R.string.no_hymns_saved_ro);
                 textView.setVisibility(View.VISIBLE);
             } else {
@@ -48,7 +50,7 @@ public class SavedHymnsFragment extends Fragment {
                 recyclerView.setAdapter(adapter);
             }
         } else if (Utils.language == Language.RU) {
-            if (Utils.hymns_ru.isEmpty()) {
+            if (Utils.savedHymns_Ru.isEmpty()) {
                 textView.setText(R.string.no_hymns_saved_ru);
                 textView.setVisibility(View.VISIBLE);
             } else {

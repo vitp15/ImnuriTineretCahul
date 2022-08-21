@@ -1,25 +1,21 @@
 package project.rew.imnuritineretcahul.items.hymns;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import project.rew.imnuritineretcahul.MainActivity;
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.enums.Language;
-import project.rew.imnuritineretcahul.fragments.AudioFragment;
 import project.rew.imnuritineretcahul.items.audio.AudioCanvas;
-import project.rew.imnuritineretcahul.items.audio.HymnsAudioRealTime;
 import project.rew.imnuritineretcahul.items.note_pdf.PDFCanvas;
-import project.rew.imnuritineretcahul.tablayouts.audio.fragments.AllHymnsFragmentAudio;
-import project.rew.imnuritineretcahul.tablayouts.hymns.fragments.AllHymnsFragment;
 import project.rew.imnuritineretcahul.utils.PrefConfig;
 import project.rew.imnuritineretcahul.utils.Utils;
 
@@ -30,7 +26,8 @@ public class HymnCanvas extends AppCompatActivity {
     String content;
     SeekBar seekBar;
     TextView hymnNumber, hymnTitle;
-    ImageView btnBack, btnAudio, btnChords, btnSave;
+    ImageView btnBack, btnAudio, btnSave;
+    LinearLayout btnPDFAndChords;
     Hymn hymn;
     boolean showChords = false;
 
@@ -57,7 +54,7 @@ public class HymnCanvas extends AppCompatActivity {
         hymnTitle = findViewById(R.id.hymn_title);
         btnBack = findViewById(R.id.btnBack);
         btnAudio = findViewById(R.id.startAudio);
-        btnChords = findViewById(R.id.chordsOrPDF);
+        btnPDFAndChords = findViewById(R.id.chordsOrPDF);
         btnSave = findViewById(R.id.saveHymn);
 
         seekBar.getProgressDrawable().setColorFilter(this.getColor(R.color.seekbar_text), PorterDuff.Mode.MULTIPLY);
@@ -80,7 +77,14 @@ public class HymnCanvas extends AppCompatActivity {
             this.startActivity(startAudio);
         });
 
-        btnChords.setOnClickListener(v -> {
+        btnPDFAndChords.setOnClickListener(v -> {
+            Intent startPDF = new Intent(HymnCanvas.this, PDFCanvas.class);
+            startPDF.putExtra("id", hymn.getId());
+            startPDF.putExtra("nr", hymn.getNr());
+            HymnCanvas.this.startActivity(startPDF);
+        });
+
+        btnPDFAndChords.setOnLongClickListener(v -> {
             if (!showChords) {
                 showChords = true;
                 content = Utils.readContent(id, true, getApplicationContext());
@@ -90,14 +94,7 @@ public class HymnCanvas extends AppCompatActivity {
                 content = Utils.readContent(id, false, getApplicationContext());
                 SetWebView(webView, seekvalue, content);
             }
-        });
-
-        btnChords.setOnLongClickListener(v -> {
-            Intent startPDF = new Intent(HymnCanvas.this, PDFCanvas.class);
-            startPDF.putExtra("id", hymn.getId());
-            startPDF.putExtra("nr", hymn.getNr());
-            HymnCanvas.this.startActivity(startPDF);
-            return false;
+            return true;
         });
 
         btnSave.setOnClickListener(v -> {
@@ -112,6 +109,7 @@ public class HymnCanvas extends AppCompatActivity {
                 btnSave.setImageDrawable(this.getResources().getDrawable(R.drawable.save_acces_btn_clicked_white01));
                 Utils.saved.setImageDrawable(this.getResources().getDrawable(R.drawable.to_save_btn_enable01));
             }
+            Utils.needsToNotify = true;
         });
 
         content = Utils.readContent(id, false, getApplicationContext());
@@ -144,6 +142,7 @@ public class HymnCanvas extends AppCompatActivity {
                 PrefConfig.SaveSBprogress(getApplicationContext(), seekvalue);
             }
         });
+        webView.setBackgroundColor(Color.TRANSPARENT);
     }
 
     @Override

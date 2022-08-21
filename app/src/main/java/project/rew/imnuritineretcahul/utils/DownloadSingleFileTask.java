@@ -2,7 +2,6 @@ package project.rew.imnuritineretcahul.utils;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
@@ -12,10 +11,13 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.enums.Type;
+import project.rew.imnuritineretcahul.items.hymns.Hymn;
 
 
 public class DownloadSingleFileTask extends AsyncTask<String, String, String> {
@@ -30,17 +32,23 @@ public class DownloadSingleFileTask extends AsyncTask<String, String, String> {
     private String pass;
     private String ftpPatch;
     private String internalPatch;
+    boolean brokedAfterStart;
+    private Hymn hymn;
 
 
-    public DownloadSingleFileTask(Context context, FragmentActivity fragmentActivity, String file,
+    public DownloadSingleFileTask(Context context, FragmentActivity fragmentActivity, Hymn hymn,
                                   Type type) {
         this.context = context;
+        brokedAfterStart = false;
         port = Integer.parseInt(context.getString(R.string.port));
         server = context.getString(R.string.server);
         user = context.getString(R.string.user);
         pass = context.getString(R.string.password);
+        UpdateFilesTask.fileSize = 0;
+        UpdateFilesTask.total = 0;
+        this.hymn = hymn;
         this.fragmentActivity = fragmentActivity;
-        this.file = file;
+        this.file = String.valueOf(hymn.getId());
         this.type = type;
         if (Utils.language == Language.RO) {
             if (type == Type.HYMN) {
@@ -103,6 +111,7 @@ public class DownloadSingleFileTask extends AsyncTask<String, String, String> {
                 fragmentActivity.runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.settings_connect_to_internet_ro), Toast.LENGTH_SHORT).show());
             if (Utils.language == Language.RU)
                 fragmentActivity.runOnUiThread(() -> Toast.makeText(context, context.getString(R.string.settings_connect_to_internet_ru), Toast.LENGTH_SHORT).show());
+            brokedAfterStart = true;
         } else {
             File internalDir = context.getDir(internalPatch, Context.MODE_PRIVATE);
             try {
@@ -114,39 +123,53 @@ public class DownloadSingleFileTask extends AsyncTask<String, String, String> {
                 ftpClient.logout();
                 ftpClient.disconnect();
                 boolean exist = false;
+                int count = 0;
+                List<String> toDownload = new ArrayList<>();
                 for (FTPFile fileFtp : subFiles) {
-                    if (fileFtp.getName().equals(file)) {
-                        exist = true;
-                        if (Utils.language == Language.RO) {
-                            if (type == Type.HYMN) {
-                                progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ro));
-                            } else if (type == Type.AUDIO) {
-                                progressDialog.setMessage(fragmentActivity.getString(R.string.downald_audio_ro));
-                            } else if (type == Type.PDF) {
-                                progressDialog.setMessage(fragmentActivity.getString(R.string.downald_pdf_ro));
+                    if (fileFtp.getName().equals(".") || fileFtp.getName().equals("..")) continue;
+                    if ((type == Type.HYMN && fileFtp.getName().split(" - ").length > 0 && fileFtp.getName().split("\\.").length != 0) ||
+                            (type != Type.HYMN) && fileFtp.getName().split("\\.").length > 0)
+                        if ((type == Type.HYMN && fileFtp.getName().split(" - ")[0].split("\\.")[0].equals(file)) ||
+                                (type != Type.HYMN) && fileFtp.getName().split("\\.")[0].equals(file)) {
+                            exist = true;
+                            count++;
+                            if (Utils.language == Language.RO) {
+                                if (type == Type.HYMN) {
+                                    progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ro));
+                                } else if (type == Type.AUDIO) {
+                                    progressDialog.setMessage(fragmentActivity.getString(R.string.downald_audio_ro));
+                                } else if (type == Type.PDF) {
+                                    progressDialog.setMessage(fragmentActivity.getString(R.string.downald_pdf_ro));
+                                }
+                            } else if (Utils.language == Language.RU) {
+                                if (type == Type.HYMN) {
+                                    progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ru));
+                                } else if (type == Type.AUDIO) {
+                                    progressDialog.setMessage(fragmentActivity.getString(R.string.downald_audio_ru));
+                                } else if (type == Type.PDF) {
+                                    progressDialog.setMessage(fragmentActivity.getString(R.string.downald_pdf_ru));
+                                }
                             }
-                        } else if (Utils.language == Language.RU) {
-                            if (type == Type.HYMN) {
-                                progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ru));
-                            } else if (type == Type.AUDIO) {
-                                progressDialog.setMessage(fragmentActivity.getString(R.string.downald_audio_ru));
-                            } else if (type == Type.PDF) {
-                                progressDialog.setMessage(fragmentActivity.getString(R.string.downald_pdf_ru));
-                            }
+                            toDownload.add(fileFtp.getName());
+                            UpdateFilesTask.fileSize += fileFtp.getSize();
+                            if (type != Type.AUDIO || count == 2)
+                                break;
                         }
-                        updateItem(ftpPatch
-                                        + File.separator + fileFtp.getName(),
-                                internalDir.getAbsolutePath() + File.separator + fileFtp.getName());
-                        break;
-                    }
                 }
                 if (!exist) {
+                    brokedAfterStart = true;
                     if (Utils.language == Language.RO)
                         fragmentActivity.runOnUiThread(() -> Toast.makeText(context, R.string.dont_exist_ro, Toast.LENGTH_SHORT).show());
                     if (Utils.language == Language.RU)
                         fragmentActivity.runOnUiThread(() -> Toast.makeText(context, R.string.dont_exist_ru, Toast.LENGTH_SHORT).show());
+                } else if (exist) {
+                    for (String file : toDownload)
+                        updateItem(ftpPatch
+                                        + File.separator + file,
+                                internalDir.getAbsolutePath() + File.separator + file);
                 }
             } catch (Exception ex) {
+                brokedAfterStart = true;
                 ex.printStackTrace();
                 fragmentActivity.runOnUiThread(() -> Toast.makeText(context, "Failed: " + ex.getLocalizedMessage(), Toast.LENGTH_LONG).show());
                 progressDialog.dismiss();
@@ -161,8 +184,34 @@ public class DownloadSingleFileTask extends AsyncTask<String, String, String> {
     }
 
     protected void onPostExecute(String result) {
-        Utils.loadHymns(context);
         progressDialog.dismiss();
+        try {
+            Utils.dosentDownloadCorectly = PrefConfig.load_not_download_corectly(context);
+            if (Utils.dosentDownloadCorectly != null)
+                if (Utils.dosentDownloadCorectly.size() > 0 && Utils.ifDownloadBrokedChangeListItem) {
+                    brokedAfterStart = true;
+                }
+            if (brokedAfterStart) {
+                Utils.ifDownloadBrokedChangeListItem = false;
+                Utils.constraintLayout.setBackground(context.getDrawable(R.drawable.hymn_nonexistent_list_press));
+                Utils.hymn_title_to_edit.setTextColor(context.getResources().getColor(R.color.nonpressed_nonexis_contur));
+                if (hymn.isSaved())
+                    Utils.saved.setImageDrawable(context.getResources().getDrawable(R.drawable.nonexisting_save_clicked));
+                else
+                    Utils.saved.setImageDrawable(context.getResources().getDrawable(R.drawable.nonexisting_save_nonclicked));
+            }
+            if (Utils.dosentDownloadCorectly != null && !Utils.dosentDownloadCorectly.isEmpty()) {
+                for (String s : Utils.dosentDownloadCorectly) {
+                    File file = new File(s);
+                    Utils.DeleteRecursive(file);
+                }
+                Utils.dosentDownloadCorectly.clear();
+                PrefConfig.saveNotDownloadCorectly(context, Utils.dosentDownloadCorectly);
+            }
+        } catch (Exception e) {
+            Toast.makeText(context, "Error: " + e.getMessage().toString(), Toast.LENGTH_SHORT).show();
+        }
+        Utils.loadHymns(context);
         fragmentActivity.recreate();
     }
 
@@ -178,10 +227,12 @@ public class DownloadSingleFileTask extends AsyncTask<String, String, String> {
             ftpClient.logout();
             ftpClient.disconnect();
         } catch (Exception ex) {
+            brokedAfterStart = true;
             ex.printStackTrace();
             fragmentActivity.runOnUiThread(() -> Toast.makeText(context, "Failed: " + ex.getLocalizedMessage(), Toast.LENGTH_LONG).show());
         }
     }
+
 
     private void deleteFiles(FTPFile[] subFiles) {
         File internalDir = context.getDir(internalPatch, Context.MODE_PRIVATE);

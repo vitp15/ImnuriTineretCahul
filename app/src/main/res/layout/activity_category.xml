@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="56dp"
-    tools:context=".tablayouts.hymns.activites.CategoryActivity">
+    tools:context=".items.categories.CategoryActivity">
 
     <ImageView
         android:id="@+id/imageView2"

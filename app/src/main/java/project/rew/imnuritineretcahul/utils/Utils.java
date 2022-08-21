@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.fragment.app.FragmentActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
@@ -27,7 +27,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import project.rew.imnuritineretcahul.MainActivity;
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.enums.Type;
@@ -48,6 +47,11 @@ public class Utils {
     public static TextView appBarTitle;
     public static String appBarTitleString;
     public static boolean audioList = false;
+    public static TextView hymn_title_to_edit;
+    public static ConstraintLayout constraintLayout;
+    public static boolean ifDownloadBrokedChangeListItem = false;
+    public static boolean needsToNotify = false;
+
 
     public static void deleteFile(Context context, String forDelete, Type type) {
         String folder = null;
@@ -70,9 +74,25 @@ public class Utils {
         File[] dirFiles = internalDir.listFiles();
         for (File dirFile : dirFiles) {
             try {
-                String[] fileName = dirFile.getName().split("\\.");
-                String fileNametoDelete = fileName[0] + "." + fileName[2];
-                if (fileNametoDelete.equals(forDelete)) DeleteRecursive(dirFile);
+                int count = 0;
+                if (type == Type.AUDIO) {
+                    String[] fileName = dirFile.getName().split("\\.");
+                    String fileNametoDelete = fileName[0];
+                    if (fileNametoDelete.equals(forDelete)) {
+                        DeleteRecursive(dirFile);
+                        count++;
+                    }
+                    if (count == 2) break;
+                } else if (type != Type.AUDIO) {
+                    String[] fileName = dirFile.getName().split("\\.");
+                    String fileNametoDelete = "";
+                    if (fileName.length > 0)
+                        fileNametoDelete = fileName[0];
+                    if (fileNametoDelete.equals(forDelete)) {
+                        DeleteRecursive(dirFile);
+                        break;
+                    }
+                }
                 Utils.loadHymns(context);
             } catch (Exception e) {
 
@@ -107,7 +127,7 @@ public class Utils {
             dosentDownloadCorectly = new ArrayList<>();
         String savePatchToAdd;
         if (downloadFile.getName().split("\\.")[1].equals("txt"))
-            savePatchToAdd = savePath.substring(0,savePath.length()-downloadFile.getName().length()-1);
+            savePatchToAdd = savePath.substring(0, savePath.length() - downloadFile.getName().length() - 1);
         else savePatchToAdd = savePath;
         dosentDownloadCorectly.add(savePatchToAdd);
         PrefConfig.saveNotDownloadCorectly(context, dosentDownloadCorectly);
@@ -161,7 +181,8 @@ public class Utils {
     public static String readContent(int nr, boolean chordsFlag, Context context) {
         StringBuilder contentBuilder = new StringBuilder();
         String filename = "";
-
+        String color = context.getString(R.string.text_color_hc);
+        String background = context.getString(R.string.background_hmn_canvas);
         try {
             File internalDir = null;
             if (language == Language.RO)
@@ -185,23 +206,23 @@ public class Utils {
             if (!file.exists()) {
                 if (language == Language.RO)
                     if (chordsFlag)
-                        contentBuilder.append("<body bgcolor=\\\"\" + background + \"\\\" text=\\\"\" + color + \"\\\">" +
+                        contentBuilder.append("<body background-color=\"" + background + "\" text=\"" + color + "\">" +
                                 "<span style=\"font-family:"
                                 + context.getResources().getString(R.string.hymn_font) + "\">" +
                                 "<p>" + context.getString(R.string.chords_absent_ro) + "</p></span></body>");
                     else
-                        contentBuilder.append("<body bgcolor=\\\"\" + background + \"\\\" text=\\\"\" + color + \"\\\">" +
+                        contentBuilder.append("<body background-color=\"" + background + "\" text=\"" + color + "\">" +
                                 "<span style=\"font-family:"
                                 + context.getResources().getString(R.string.hymn_font) + "\">" +
                                 "<p>" + context.getString(R.string.hymn_words_absent_ro) + "</p></span></body>");
                 else if (language == Language.RU)
                     if (chordsFlag)
-                        contentBuilder.append("<body bgcolor=\\\"\" + background + \"\\\" text=\\\"\" + color + \"\\\">" +
+                        contentBuilder.append("<body background-color=\"" + background + "\" text=\"" + color + "\">" +
                                 "<span style=\"font-family:"
                                 + context.getResources().getString(R.string.hymn_font) + "\">" +
                                 "<p>" + context.getString(R.string.chords_absent_ru) + "</p></span></body>");
                     else
-                        contentBuilder.append("<body bgcolor=\\\"\" + background + \"\\\" text=\\\"\" + color + \"\\\">" +
+                        contentBuilder.append("<body background-color=\"" + background + "\" text=\"" + color + "\">" +
                                 "<span style=\"font-family:"
                                 + context.getResources().getString(R.string.hymn_font) + "\">" +
                                 "<p>" + context.getString(R.string.hymn_words_absent_ru) + "</p></sapn></body>");
@@ -216,9 +237,7 @@ public class Utils {
         } catch (IOException e) {
             Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
         }
-        String color = context.getString(R.string.text_color_hc);
-        String background = context.getString(R.string.background_hmn_canvas);
-        return "<body bgcolor=\"" + background + "\" text=\"" + color + "\">" +
+        return "<body background-color=\"" + background + "\" text=\"" + color + "\">" +
                 "<span style=\"font-family:"
                 + context.getResources().getString(R.string.hymn_font) + "\">" +
                 contentBuilder.toString() + "</span></body>";
@@ -239,6 +258,7 @@ public class Utils {
                 for (File dirFile : dirFiles) {
                     String[] hymn = dirFile.getName().split(" - ");
                     String[] id = hymn[0].split("\\.");
+
                     Hymn hymn_h = new Hymn(Integer.parseInt(id[0]), hymn[2]);
                     String[] categories = hymn[1].split("\\.");
                     List<String> categoryes = new ArrayList<>();
@@ -375,9 +395,6 @@ public class Utils {
                 }
             if (!exist) {
                 savedHymnsRo.add(id);
-                for (Hymn hymn : hymns_ro) {
-                    if (String.valueOf(hymn.getId()).equals(id)) savedHymns_Ro.add(hymn);
-                }
                 PrefConfig.saveHymnsinPreferedRo(context, Utils.savedHymnsRo);
             }
         } else if (language == Language.RU) {
@@ -389,9 +406,6 @@ public class Utils {
                 }
             if (!exist) {
                 savedHymnsRu.add(id);
-                for (Hymn hymn : hymns_ru) {
-                    if (String.valueOf(hymn.getId()).equals(id)) savedHymns_Ru.add(hymn);
-                }
                 PrefConfig.saveHymnsinPreferedRu(context, Utils.savedHymnsRu);
             }
         }
@@ -402,9 +416,6 @@ public class Utils {
             for (String s : savedHymnsRo) {
                 if (s.equals(id)) {
                     savedHymnsRo.remove(id);
-                    for (Hymn hymn : hymns_ro) {
-                        if (String.valueOf(hymn.getId()).equals(id)) savedHymns_Ro.remove(hymn);
-                    }
                     PrefConfig.saveHymnsinPreferedRo(context, Utils.savedHymnsRo);
                     break;
                 }
@@ -413,70 +424,9 @@ public class Utils {
             for (String s : savedHymnsRu) {
                 if (s.equals(id)) {
                     savedHymnsRu.remove(id);
-                    for (Hymn hymn : hymns_ru) {
-                        if (String.valueOf(hymn.getId()).equals(id))
-                            savedHymns_Ru.remove(hymn);
-                    }
                     PrefConfig.saveHymnsinPreferedRu(context, Utils.savedHymnsRu);
                     break;
                 }
             }
-    }
-
-    public static boolean needsToUpdate(Context context, Type type) {
-        FTPClient ftpClient = new FTPClient();
-        int port = Integer.parseInt(context.getString(R.string.port));
-        String server = context.getString(R.string.server);
-        String user = context.getString(R.string.user);
-        String pass = context.getString(R.string.password);
-        String internalPatchRO = context.getString(R.string.ro_internal_hymns_folder);
-        String ftpPatchRO = context.getString(R.string.ro_external_hymns_folder);
-        String internalPatchRU = context.getString(R.string.ru_internal_hymns_folder);
-        String ftpPatchRU = context.getString(R.string.ru_external_hymns_folder);
-        try {
-            ftpClient.connect(server, port);
-            ftpClient.login(user, pass);
-            ftpClient.enterLocalPassiveMode();
-            FTPFile[] subFilesRO = Utils.getDirectoryFiles(ftpClient, ftpPatchRO);
-            FTPFile[] subFilesRU = Utils.getDirectoryFiles(ftpClient, ftpPatchRU);
-            ftpClient.logout();
-            ftpClient.disconnect();
-            File internalDirRO = context.getDir(internalPatchRO, Context.MODE_PRIVATE);
-            File internalDirRU = context.getDir(internalPatchRU, Context.MODE_PRIVATE);
-            File[] dirFilesRO = internalDirRO.listFiles();
-            File[] dirFilesRU = internalDirRU.listFiles();
-            for (FTPFile ftpFile : subFilesRO) {
-                if (ftpFile.getName().equals(".") || ftpFile.getName().equals("..")) {
-                    continue;
-                }
-                boolean exist = false;
-                for (File fileDir : dirFilesRO) {
-                    if (ftpFile.getName().equals(fileDir.getName())) {
-                        exist = true;
-                    }
-                }
-                if (!exist) {
-                    return true;
-                }
-            }
-            for (FTPFile ftpFile : subFilesRU) {
-                if (ftpFile.getName().equals(".") || ftpFile.getName().equals("..")) {
-                    continue;
-                }
-                boolean exist = false;
-                for (File fileDir : dirFilesRU) {
-                    if (ftpFile.getName().equals(fileDir.getName())) {
-                        exist = true;
-                    }
-                }
-                if (!exist) {
-                    return true;
-                }
-            }
-            return false;
-        } catch (Exception e) {
-            Toast.makeText(context, "Failed: " + e.getMessage().toString(), Toast.LENGTH_SHORT).show();
-            return false;
-        }
     }
 }
