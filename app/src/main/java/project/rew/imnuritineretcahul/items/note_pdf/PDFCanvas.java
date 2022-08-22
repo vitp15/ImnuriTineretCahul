@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.github.barteksc.pdfviewer.PDFView;
+import com.google.android.material.appbar.AppBarLayout;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -35,6 +36,7 @@ public class PDFCanvas extends AppCompatActivity {
     ImageView downloadBtn;
     ConstraintLayout constraintLayout;
     TextView indicationsToDownload;
+    AppBarLayout appBarLayout;
 
 
     @Override
@@ -43,6 +45,7 @@ public class PDFCanvas extends AppCompatActivity {
         setContentView(R.layout.activity_pdf_canvas);
 
         constraintLayout = findViewById(R.id.nonexist);
+        appBarLayout = findViewById(R.id.appBar);
 
         int id = getIntent().getIntExtra("id", 0);
         int nr = getIntent().getIntExtra("nr", 0);

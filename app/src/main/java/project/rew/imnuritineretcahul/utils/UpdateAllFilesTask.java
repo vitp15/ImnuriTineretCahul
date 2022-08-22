@@ -2,7 +2,6 @@ package project.rew.imnuritineretcahul.utils;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Looper;
 import android.widget.Toast;
@@ -68,7 +67,7 @@ public class UpdateAllFilesTask extends AsyncTask<String, String, String> {
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.setMax(100);
         if (Utils.language == Language.RO) {
-            progressDialog.setMessage(fragmentActivity.getString(R.string.ready_ro));
+            fragmentActivity.runOnUiThread(() -> progressDialog.setMessage(fragmentActivity.getString(R.string.ready_ro)));
            /*progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, fragmentActivity.getString(R.string.cancel_ro), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -77,7 +76,7 @@ public class UpdateAllFilesTask extends AsyncTask<String, String, String> {
             });*/
 
         } else if (Utils.language == Language.RU) {
-            progressDialog.setMessage(fragmentActivity.getString(R.string.ready_ru));
+            fragmentActivity.runOnUiThread(() -> progressDialog.setMessage(fragmentActivity.getString(R.string.ready_ru)));
             /*progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, fragmentActivity.getString(R.string.cancel_ru), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -360,9 +359,9 @@ public class UpdateAllFilesTask extends AsyncTask<String, String, String> {
                     downaldAll(ftpClient, subFilesforDownaldPRU, true, ftpPatchPRU, internalDirPRU.getAbsolutePath(), Type.PDF);
                 }
                 if (Utils.language == Language.RO)
-                    progressDialog.setMessage(fragmentActivity.getString(R.string.cancel_operation_update_ro));
+                    fragmentActivity.runOnUiThread(() -> progressDialog.setMessage(fragmentActivity.getString(R.string.cancel_operation_update_ro)));
                 else if (Utils.language == Language.RU)
-                    progressDialog.setMessage(fragmentActivity.getString(R.string.cancel_operation_update_ru));
+                    fragmentActivity.runOnUiThread(() -> progressDialog.setMessage(fragmentActivity.getString(R.string.cancel_operation_update_ru)));
             } catch (Exception ex) {
                 ex.printStackTrace();
                 fragmentActivity.runOnUiThread(() -> Toast.makeText(context, "Failed: " + ex.getLocalizedMessage(), Toast.LENGTH_LONG).show());
@@ -406,13 +405,13 @@ public class UpdateAllFilesTask extends AsyncTask<String, String, String> {
                     }
                     if (Utils.language == Language.RO) {
                         if (type == Type.HYMN) {
-                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_all_hymn_ro) + "   " +
-                                    String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
+                            fragmentActivity.runOnUiThread(() -> progressDialog.setMessage(fragmentActivity.getString(R.string.downald_all_hymn_ro) + "   " +
+                                    String.valueOf(curentItem) + " / " + String.valueOf(totalItems)));
                         }
                     } else if (Utils.language == Language.RU) {
                         if (type == Type.HYMN) {
-                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_all_hymn_ru) + "   " +
-                                    String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
+                            fragmentActivity.runOnUiThread(() -> progressDialog.setMessage(fragmentActivity.getString(R.string.downald_all_hymn_ru) + "   " +
+                                    String.valueOf(curentItem) + " / " + String.valueOf(totalItems)));
                         }
                     }
                     File newDir = new File(dirSave + File.separator + fileFtp.getName());
@@ -424,25 +423,25 @@ public class UpdateAllFilesTask extends AsyncTask<String, String, String> {
                     savePatch = dirSave + File.separator + fileFtp.getName();
                     if (Utils.language == Language.RO) {
                         if (type == Type.HYMN) {
-                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_all_hymn_ro) + "   " +
-                                    String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
+                            fragmentActivity.runOnUiThread(() -> progressDialog.setMessage(fragmentActivity.getString(R.string.downald_all_hymn_ro) + "   " +
+                                    String.valueOf(curentItem) + " / " + String.valueOf(totalItems)));
                         } else if (type == Type.AUDIO) {
-                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_all_audio_ro) + "   " +
-                                    String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
+                            fragmentActivity.runOnUiThread(() -> progressDialog.setMessage(fragmentActivity.getString(R.string.downald_all_audio_ro) + "   " +
+                                    String.valueOf(curentItem) + " / " + String.valueOf(totalItems)));
                         } else if (type == Type.PDF) {
-                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_all_pdf_ro) + "   " +
-                                    String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
+                            fragmentActivity.runOnUiThread(() -> progressDialog.setMessage(fragmentActivity.getString(R.string.downald_all_pdf_ro) + "   " +
+                                    String.valueOf(curentItem) + " / " + String.valueOf(totalItems)));
                         }
                     } else if (Utils.language == Language.RU) {
                         if (type == Type.HYMN) {
-                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_all_hymn_ru) + "   " +
-                                    String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
+                            fragmentActivity.runOnUiThread(() -> progressDialog.setMessage(fragmentActivity.getString(R.string.downald_all_hymn_ru) + "   " +
+                                    String.valueOf(curentItem) + " / " + String.valueOf(totalItems)));
                         } else if (type == Type.AUDIO) {
-                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_all_audio_ru) + "   " +
-                                    String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
+                            fragmentActivity.runOnUiThread(() -> progressDialog.setMessage(fragmentActivity.getString(R.string.downald_all_audio_ru) + "   " +
+                                    String.valueOf(curentItem) + " / " + String.valueOf(totalItems)));
                         } else if (type == Type.PDF) {
-                            progressDialog.setMessage(fragmentActivity.getString(R.string.downald_all_pdf_ru) + "   " +
-                                    String.valueOf(curentItem) + " / " + String.valueOf(totalItems));
+                            fragmentActivity.runOnUiThread(() -> progressDialog.setMessage(fragmentActivity.getString(R.string.downald_all_pdf_ru) + "   " +
+                                    String.valueOf(curentItem) + " / " + String.valueOf(totalItems)));
                         }
                     }
                     updateItem(remoteFilePatch, savePatch);

@@ -40,8 +40,8 @@
 
     <ImageView
         android:id="@+id/download_all"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/btn_update_press"
         android:src="@drawable/update_btn"
@@ -86,8 +86,8 @@
 
     <ImageView
         android:id="@+id/download_hymns"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/btn_update_press"
         android:src="@drawable/update_btn"
@@ -142,8 +142,8 @@
 
     <ImageView
         android:id="@+id/download_audio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/btn_update_press"
         android:src="@drawable/update_btn"
@@ -198,8 +198,8 @@
 
     <ImageView
         android:id="@+id/download_pdf"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="70dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="20dp"
         android:background="@drawable/btn_update_press"
         android:src="@drawable/update_btn"

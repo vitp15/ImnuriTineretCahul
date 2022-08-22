@@ -83,7 +83,7 @@ public class DownloadSingleFileTask extends AsyncTask<String, String, String> {
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         progressDialog.setMax(100);
         if (Utils.language == Language.RO) {
-            progressDialog.setMessage(fragmentActivity.getString(R.string.ready_ro));
+            fragmentActivity.runOnUiThread(() -> progressDialog.setMessage(fragmentActivity.getString(R.string.ready_ro)));
             /*progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, fragmentActivity.getString(R.string.cancel_ro), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -91,7 +91,7 @@ public class DownloadSingleFileTask extends AsyncTask<String, String, String> {
                 }
             });*/
         } else if (Utils.language == Language.RU) {
-            progressDialog.setMessage(fragmentActivity.getString(R.string.ready_ru));
+            fragmentActivity.runOnUiThread(() -> progressDialog.setMessage(fragmentActivity.getString(R.string.ready_ru)));
             /*progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, fragmentActivity.getString(R.string.cancel_ru), new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
@@ -134,19 +134,19 @@ public class DownloadSingleFileTask extends AsyncTask<String, String, String> {
                             count++;
                             if (Utils.language == Language.RO) {
                                 if (type == Type.HYMN) {
-                                    progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ro));
+                                    fragmentActivity.runOnUiThread(() -> progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ro)));
                                 } else if (type == Type.AUDIO) {
-                                    progressDialog.setMessage(fragmentActivity.getString(R.string.downald_audio_ro));
+                                    fragmentActivity.runOnUiThread(() -> progressDialog.setMessage(fragmentActivity.getString(R.string.downald_audio_ro)));
                                 } else if (type == Type.PDF) {
-                                    progressDialog.setMessage(fragmentActivity.getString(R.string.downald_pdf_ro));
+                                    fragmentActivity.runOnUiThread(() -> progressDialog.setMessage(fragmentActivity.getString(R.string.downald_pdf_ro)));
                                 }
                             } else if (Utils.language == Language.RU) {
                                 if (type == Type.HYMN) {
-                                    progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ru));
+                                    fragmentActivity.runOnUiThread(() -> progressDialog.setMessage(fragmentActivity.getString(R.string.downald_hymn_ru)));
                                 } else if (type == Type.AUDIO) {
-                                    progressDialog.setMessage(fragmentActivity.getString(R.string.downald_audio_ru));
+                                    fragmentActivity.runOnUiThread(() -> progressDialog.setMessage(fragmentActivity.getString(R.string.downald_audio_ru)));
                                 } else if (type == Type.PDF) {
-                                    progressDialog.setMessage(fragmentActivity.getString(R.string.downald_pdf_ru));
+                                    fragmentActivity.runOnUiThread(() -> progressDialog.setMessage(fragmentActivity.getString(R.string.downald_pdf_ru)));
                                 }
                             }
                             toDownload.add(fileFtp.getName());

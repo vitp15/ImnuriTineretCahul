@@ -31,22 +31,23 @@
     <color name="text_color">@color/black</color>
     <color name="txt_lyst_not_found">#373737</color>
 
-    <color name="layout_transparence">#80FFFFFF</color>
+    <color name="layout_transparence">#B3FFFFFF</color>
     <color name="item_nonpressed_transparence">#99FFFFFF</color>
     <color name="item_pressed_transparence">#99FFFFFF</color>
     <color name="nonpressed_contur">#232323</color>
     <color name="pressed_contur">#000000</color>
-    <color name="background_press">#1A000000</color>
+    <color name="background_press">#66BBBBBB</color>
     <color name="background_nonexistent_press">#1A000000</color>
     <color name="item_nonexistent_nonpressed_transparence">#80FFFFFF</color>
-    <color name="layout_transparence_nonexisting_files">#80000000</color>
+    <color name="layout_transparence_nonexisting_files">#CC000000</color>
     <color name="nonpressed_nonexis_contur">#787878</color>
     <color name="pressed_nonexist_contur">#424242</color>
     <color name="layout_transparence_hymn">#D9FFFFFF</color>
-    <color name="layout_transparence_update">#CCFFFFFF</color>
+    <color name="layout_transparence_update">#E6FFFFFF</color>
     <color name="item_pressed_app_bar">#1AFFFFFF</color>
     <color name="item_pressed_audio_bottom">#0DFFFFFF</color>
     <color name="title_press">#A5A5A5</color>
+    <color name="layout_transparence_nonexisting_files_pdf">#CCFFFFFF</color>
 
     <!--hymn canvas-->
     <string name="text_color_hc">#000000</string>

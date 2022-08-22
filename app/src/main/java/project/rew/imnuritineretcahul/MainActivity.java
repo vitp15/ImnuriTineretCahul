@@ -88,11 +88,13 @@ public class MainActivity extends AppCompatActivity {
             navigationView.getMenu().getItem(1).setTitle(this.getResources().getString(R.string.menu_audio_ro));
             navigationView.getMenu().getItem(2).setTitle(this.getResources().getString(R.string.menu_notspdf_ro));
             navigationView.getMenu().getItem(3).setTitle(this.getResources().getString(R.string.menu_updates_ro));
+            navigationView.getMenu().getItem(4).setTitle(this.getResources().getString(R.string.language_ro));
         } else if (Utils.language == Language.RU) {
             navigationView.getMenu().getItem(0).setTitle(this.getResources().getString(R.string.hymns_ru));
             navigationView.getMenu().getItem(1).setTitle(this.getResources().getString(R.string.menu_audio_ru));
             navigationView.getMenu().getItem(2).setTitle(this.getResources().getString(R.string.menu_notspdf_ru));
             navigationView.getMenu().getItem(3).setTitle(this.getResources().getString(R.string.menu_updates_ru));
+            navigationView.getMenu().getItem(4).setTitle(this.getResources().getString(R.string.language_ru));
         }
         if (Utils.language == Language.RO)
             navigationView.getMenu().getItem(4).setActionView(R.layout.menu_language_ro);

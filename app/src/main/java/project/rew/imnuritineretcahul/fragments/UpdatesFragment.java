@@ -74,6 +74,10 @@ public class UpdatesFragment extends Fragment {
             iconDHymns.setVisibility(View.VISIBLE);
             iconDAudio.setVisibility(View.VISIBLE);
             iconDPDF.setVisibility(View.VISIBLE);
+            downloadAll.setImageDrawable(getContext().getDrawable(R.drawable.disable_update_btn));
+            downloadHymns.setImageDrawable(getContext().getDrawable(R.drawable.disable_update_btn));
+            downloadAudio.setImageDrawable(getContext().getDrawable(R.drawable.disable_update_btn));
+            downloadPDF.setImageDrawable(getContext().getDrawable(R.drawable.disable_update_btn));
             iconDAll.setImageDrawable(getContext().getDrawable(R.drawable.outline_rotate_left_gray_24));
             iconDHymns.setImageDrawable(getContext().getDrawable(R.drawable.outline_rotate_left_gray_24));
             iconDAudio.setImageDrawable(getContext().getDrawable(R.drawable.outline_rotate_left_gray_24));
@@ -197,6 +201,7 @@ public class UpdatesFragment extends Fragment {
                 iconDHymns.setVisibility(View.GONE);
                 downloadHymns.setImageDrawable(context.getDrawable(R.drawable.update_progres1));
                 if (!UpdatesFragment.needsToDownloadA && !UpdatesFragment.needsToDownloadP) {
+                    iconDAll.setVisibility(View.GONE);
                     downloadAll.setImageDrawable(context.getDrawable(R.drawable.update_progres1));
                     if (currentState != null)
                         currentState.setIcon(context.getDrawable(R.drawable.updates_all_progress));
@@ -220,6 +225,7 @@ public class UpdatesFragment extends Fragment {
                 iconDAudio.setVisibility(View.GONE);
                 downloadAudio.setImageDrawable(context.getDrawable(R.drawable.update_progres1));
                 if (!UpdatesFragment.needsToDownloadH && !UpdatesFragment.needsToDownloadP) {
+                    iconDAll.setVisibility(View.GONE);
                     downloadAll.setImageDrawable(context.getDrawable(R.drawable.update_progres1));
                     if (currentState != null)
                         currentState.setIcon(context.getDrawable(R.drawable.updates_all_progress));
@@ -243,6 +249,7 @@ public class UpdatesFragment extends Fragment {
                 iconDPDF.setVisibility(View.GONE);
                 downloadPDF.setImageDrawable(context.getDrawable(R.drawable.update_progres1));
                 if (!UpdatesFragment.needsToDownloadA && !UpdatesFragment.needsToDownloadH) {
+                    iconDAll.setVisibility(View.GONE);
                     downloadAll.setImageDrawable(context.getDrawable(R.drawable.update_progres1));
                     if (currentState != null)
                         currentState.setIcon(context.getDrawable(R.drawable.updates_all_progress));
