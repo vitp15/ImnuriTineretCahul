@@ -46,6 +46,7 @@
     <color name="layout_transparence_update">#CCFFFFFF</color>
     <color name="item_pressed_app_bar">#1AFFFFFF</color>
     <color name="item_pressed_audio_bottom">#0DFFFFFF</color>
+    <color name="title_press">#A5A5A5</color>
 
     <!--hymn canvas-->
     <string name="text_color_hc">#000000</string>
@@ -96,5 +97,6 @@
     <color name="btn_text_color_updt">@color/white</color>
     <color name="line_update">#cfcfcf</color>
     <color name="no_network">#9b9b9b</color>
+    <color name="loading_progress">#7E7E7E</color>
 
 </resources>

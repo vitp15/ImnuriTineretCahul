@@ -127,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (Utils.language == Language.RU) {
                 PrefConfig.SaveLanguage(MainActivity.this, "RO");
             }
+            Utils.appBarTitle.setTextColor(getColor(R.color.title_press));
             recreate();
         });
         if (Utils.audioList) {

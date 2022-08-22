@@ -55,6 +55,18 @@
         android:layout_height="wrap_content"
         android:clickable="false"
         android:src="@drawable/outline_rotate_left_gray_24"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/download_all"
+        app:layout_constraintEnd_toEndOf="@+id/download_all"
+        app:layout_constraintStart_toStartOf="@+id/download_all"
+        app:layout_constraintTop_toTopOf="@+id/download_all" />
+
+    <ProgressBar
+        android:id="@+id/loading_all"
+        android:layout_width="27dp"
+        android:layout_height="27dp"
+        android:indeterminateDrawable="@drawable/loading_customization"
+        android:indeterminateDuration="1500"
         app:layout_constraintBottom_toBottomOf="@+id/download_all"
         app:layout_constraintEnd_toEndOf="@+id/download_all"
         app:layout_constraintStart_toStartOf="@+id/download_all"
@@ -89,6 +101,18 @@
         android:layout_height="wrap_content"
         android:clickable="false"
         android:src="@drawable/outline_rotate_left_gray_24"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/download_hymns"
+        app:layout_constraintEnd_toEndOf="@+id/download_hymns"
+        app:layout_constraintStart_toStartOf="@+id/download_hymns"
+        app:layout_constraintTop_toTopOf="@+id/download_hymns" />
+
+    <ProgressBar
+        android:id="@+id/loading_hymns"
+        android:layout_width="27dp"
+        android:layout_height="27dp"
+        android:indeterminateDrawable="@drawable/loading_customization"
+        android:indeterminateDuration="1500"
         app:layout_constraintBottom_toBottomOf="@+id/download_hymns"
         app:layout_constraintEnd_toEndOf="@+id/download_hymns"
         app:layout_constraintStart_toStartOf="@+id/download_hymns"
@@ -133,6 +157,18 @@
         android:layout_height="wrap_content"
         android:clickable="false"
         android:src="@drawable/outline_rotate_left_gray_24"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/download_audio"
+        app:layout_constraintEnd_toEndOf="@+id/download_audio"
+        app:layout_constraintStart_toStartOf="@+id/download_audio"
+        app:layout_constraintTop_toTopOf="@+id/download_audio" />
+
+    <ProgressBar
+        android:id="@+id/loading_audio"
+        android:layout_width="27dp"
+        android:layout_height="27dp"
+        android:indeterminateDrawable="@drawable/loading_customization"
+        android:indeterminateDuration="1500"
         app:layout_constraintBottom_toBottomOf="@+id/download_audio"
         app:layout_constraintEnd_toEndOf="@+id/download_audio"
         app:layout_constraintStart_toStartOf="@+id/download_audio"
@@ -177,6 +213,18 @@
         android:layout_height="wrap_content"
         android:clickable="false"
         android:src="@drawable/outline_rotate_left_gray_24"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/download_pdf"
+        app:layout_constraintEnd_toEndOf="@+id/download_pdf"
+        app:layout_constraintStart_toStartOf="@+id/download_pdf"
+        app:layout_constraintTop_toTopOf="@+id/download_pdf" />
+
+    <ProgressBar
+        android:id="@+id/loading_pdf"
+        android:layout_width="27dp"
+        android:layout_height="27dp"
+        android:indeterminateDrawable="@drawable/loading_customization"
+        android:indeterminateDuration="1500"
         app:layout_constraintBottom_toBottomOf="@+id/download_pdf"
         app:layout_constraintEnd_toEndOf="@+id/download_pdf"
         app:layout_constraintStart_toStartOf="@+id/download_pdf"

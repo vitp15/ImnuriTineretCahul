@@ -42,7 +42,6 @@ public class Utils {
     public static List<Hymn> savedHymns_Ro = new ArrayList<>();
     public static List<Hymn> savedHymns_Ru = new ArrayList<>();
     public static Language language;
-    public static boolean isFirst = true;
     public static ImageView saved;
     public static TextView appBarTitle;
     public static String appBarTitleString;
@@ -51,7 +50,6 @@ public class Utils {
     public static ConstraintLayout constraintLayout;
     public static boolean ifDownloadBrokedChangeListItem = false;
     public static boolean needsToNotify = false;
-
 
     public static void deleteFile(Context context, String forDelete, Type type) {
         String folder = null;
@@ -429,4 +427,5 @@ public class Utils {
                 }
             }
     }
+
 }

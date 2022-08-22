@@ -1,26 +1,26 @@
 package project.rew.imnuritineretcahul.items.note_pdf;
 
-import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.pdf.PdfRenderer;
 import android.os.Bundle;
+import android.os.ParcelFileDescriptor;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.github.barteksc.pdfviewer.PDFView;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.enums.Language;
@@ -30,12 +30,12 @@ import project.rew.imnuritineretcahul.utils.DownloadSingleFileTask;
 import project.rew.imnuritineretcahul.utils.Utils;
 
 public class PDFCanvas extends AppCompatActivity {
-    Hymn hymn;
     LinearLayout linearLayout;
-
+    Hymn hymn;
     ImageView downloadBtn;
     ConstraintLayout constraintLayout;
     TextView indicationsToDownload;
+
 
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -81,11 +81,13 @@ public class PDFCanvas extends AppCompatActivity {
             downloadBtn.setOnClickListener(v -> {
                 new DownloadSingleFileTask(this, this, hymn, Type.PDF).execute();
                 Utils.ifDownloadBrokedChangeListItem = true;
-                Utils.constraintLayout.setBackground(this.getDrawable(R.drawable.hymn_list_press));
-                Utils.hymn_title_to_edit.setTextColor(this.getResources().getColor(R.color.text_color));
-                if (hymn.isSaved())
+                if (Utils.constraintLayout != null)
+                    Utils.constraintLayout.setBackground(this.getDrawable(R.drawable.hymn_list_press));
+                if (Utils.hymn_title_to_edit != null)
+                    Utils.hymn_title_to_edit.setTextColor(this.getResources().getColor(R.color.text_color));
+                if (hymn.isSaved() && Utils.saved != null)
                     Utils.saved.setImageDrawable(this.getResources().getDrawable(R.drawable.to_save_btn_enable01));
-                else
+                else if (Utils.saved != null)
                     Utils.saved.setImageDrawable(this.getResources().getDrawable(R.drawable.to_save_btn_disable01));
             });
         }

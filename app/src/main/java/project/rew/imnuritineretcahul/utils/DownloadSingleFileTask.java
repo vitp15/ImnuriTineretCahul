@@ -119,7 +119,6 @@ public class DownloadSingleFileTask extends AsyncTask<String, String, String> {
                 ftpClient.login(user, pass);
                 ftpClient.enterLocalPassiveMode();
                 FTPFile[] subFiles = Utils.getDirectoryFiles(ftpClient, ftpPatch);
-                deleteFiles(subFiles);
                 ftpClient.logout();
                 ftpClient.disconnect();
                 boolean exist = false;

@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.fragment.app.FragmentActivity;
@@ -22,6 +23,7 @@ public class VerifyForUpdate extends AsyncTask {
     Context context;
     FragmentActivity activity;
     ImageView downloadAll, downloadHymns, downloadAudio, downloadPDF, iconDAll, iconDHymns, iconDAudio, iconDPDF;
+    ProgressBar loading_all, loading_hymns, loading_audio, loading_pdf;
     MenuItem currentState;
     private String server;
     private int port;
@@ -33,7 +35,8 @@ public class VerifyForUpdate extends AsyncTask {
 
 
     public VerifyForUpdate(Context context, FragmentActivity activity, ImageView downloadAll, ImageView downloadHymns, ImageView downloadAudio, ImageView downloadPDF,
-                           ImageView iconDAll, ImageView iconDHymns, ImageView iconDAudio, ImageView iconDPDF, MenuItem currentState) {
+                           ImageView iconDAll, ImageView iconDHymns, ImageView iconDAudio, ImageView iconDPDF,
+                           ProgressBar loading_all, ProgressBar loading_hymns, ProgressBar loading_audio, ProgressBar loading_pdf, MenuItem currentState) {
         this.context = context;
         this.activity = activity;
         this.downloadAll = downloadAll;
@@ -45,11 +48,17 @@ public class VerifyForUpdate extends AsyncTask {
         this.iconDAudio = iconDAudio;
         this.iconDPDF = iconDPDF;
         this.currentState = currentState;
+        this.loading_all = loading_all;
+        this.loading_hymns = loading_hymns;
+        this.loading_audio = loading_audio;
+        this.loading_pdf = loading_pdf;
         port = Integer.parseInt(context.getString(R.string.port));
         server = context.getString(R.string.server);
         user = context.getString(R.string.user);
         pass = context.getString(R.string.password);
-        UpdatesFragment.needsToDownload = 0;
+        UpdatesFragment.needsToDownloadH = false;
+        UpdatesFragment.needsToDownloadA = false;
+        UpdatesFragment.needsToDownloadP = false;
         errorOcured = false;
     }
 
@@ -93,33 +102,39 @@ public class VerifyForUpdate extends AsyncTask {
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
+
+                    loading_hymns.setVisibility(View.GONE);
                     if (needsToUpdate(internalDirHRO, internalDirHRU, subFilesHRO, subFilesHRU)) {
                         iconDHymns.setVisibility(View.VISIBLE);
                         iconDHymns.setImageDrawable(context.getDrawable(R.drawable.outline_rotate_left_24));
-                        UpdatesFragment.needsToDownload++;
+                        UpdatesFragment.needsToDownloadH = true;
                     } else {
                         downloadHymns.setImageDrawable(context.getDrawable(R.drawable.update_done));
                         iconDHymns.setVisibility(View.GONE);
                     }
 
+                    loading_audio.setVisibility(View.GONE);
                     if (needsToUpdate(internalDirARO, internalDirARU, subFilesARO, subFilesARU)) {
                         iconDAudio.setVisibility(View.VISIBLE);
                         iconDAudio.setImageDrawable(context.getDrawable(R.drawable.outline_rotate_left_24));
-                        UpdatesFragment.needsToDownload++;
+                        UpdatesFragment.needsToDownloadA = true;
                     } else {
                         downloadAudio.setImageDrawable(context.getDrawable(R.drawable.update_done));
                         iconDAudio.setVisibility(View.GONE);
                     }
 
+                    loading_pdf.setVisibility(View.GONE);
                     if (needsToUpdate(internalDirPRO, internalDirPRU, subFilesPRO, subFilesPRU)) {
                         iconDPDF.setVisibility(View.VISIBLE);
                         iconDPDF.setImageDrawable(context.getDrawable(R.drawable.outline_rotate_left_24));
-                        UpdatesFragment.needsToDownload++;
+                        UpdatesFragment.needsToDownloadP = true;
                     } else {
                         downloadPDF.setImageDrawable(context.getDrawable(R.drawable.update_done));
                         iconDPDF.setVisibility(View.GONE);
                     }
-                    if (UpdatesFragment.needsToDownload > 0) {
+
+                    loading_all.setVisibility(View.GONE);
+                    if (UpdatesFragment.needsToDownloadH || UpdatesFragment.needsToDownloadA || UpdatesFragment.needsToDownloadP) {
                         iconDAll.setVisibility(View.VISIBLE);
                         iconDAll.setImageDrawable(context.getDrawable(R.drawable.outline_rotate_left_24));
                         currentState.setIcon(context.getDrawable(R.drawable.outline_rotate_left_white_24));
@@ -147,7 +162,7 @@ public class VerifyForUpdate extends AsyncTask {
     @Override
     protected void onPostExecute(Object o) {
         if (errorOcured) {
-
+            UpdatesFragment.setBtnsOnErrorClickListener(context, activity);
         } else {
             UpdatesFragment.setBtnsOnClickListener(context, activity);
         }
@@ -158,34 +173,44 @@ public class VerifyForUpdate extends AsyncTask {
         try {
             File[] dirFilesRO = internalDirRO.listFiles();
             File[] dirFilesRU = internalDirRU.listFiles();
-            for (FTPFile ftpFile : subFilesRO) {
-                if (ftpFile.getName().equals(".") || ftpFile.getName().equals("..")) {
-                    continue;
-                }
-                boolean exist = false;
-                for (File fileDir : dirFilesRO) {
-                    if (ftpFile.getName().equals(fileDir.getName())) {
-                        exist = true;
+            if (subFilesRO != null)
+                if (subFilesRO.length > 0)
+                    for (FTPFile ftpFile : subFilesRO) {
+                        if (ftpFile.getName().equals(".") || ftpFile.getName().equals("..")) {
+                            continue;
+                        }
+                        boolean exist = false;
+                        if (dirFilesRO != null)
+                            if (dirFilesRO.length > 0)
+                                for (File fileDir : dirFilesRO) {
+                                    if (ftpFile.getName().equals(fileDir.getName())) {
+                                        exist = true;
+                                        break;
+                                    }
+                                }
+                        if (!exist) {
+                            return true;
+                        }
                     }
-                }
-                if (!exist) {
-                    return true;
-                }
-            }
-            for (FTPFile ftpFile : subFilesRU) {
-                if (ftpFile.getName().equals(".") || ftpFile.getName().equals("..")) {
-                    continue;
-                }
-                boolean exist = false;
-                for (File fileDir : dirFilesRU) {
-                    if (ftpFile.getName().equals(fileDir.getName())) {
-                        exist = true;
+            if (subFilesRU != null)
+                if (subFilesRU.length > 0)
+                    for (FTPFile ftpFile : subFilesRU) {
+                        if (ftpFile.getName().equals(".") || ftpFile.getName().equals("..")) {
+                            continue;
+                        }
+                        boolean exist = false;
+                        if (dirFilesRU != null)
+                            if (dirFilesRU.length > 0)
+                                for (File fileDir : dirFilesRU) {
+                                    if (ftpFile.getName().equals(fileDir.getName())) {
+                                        exist = true;
+                                        break;
+                                    }
+                                }
+                        if (!exist) {
+                            return true;
+                        }
                     }
-                }
-                if (!exist) {
-                    return true;
-                }
-            }
             return false;
         } catch (Exception e) {
             errorOcured = true;

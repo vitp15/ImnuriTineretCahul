@@ -87,11 +87,13 @@ public class AudioCanvas extends AppCompatActivity {
                 Utils.deleteFile(this, String.valueOf(hymn.getId()), Type.AUDIO);
                 if (mediaPlayer != null)
                     mediaPlayer.stop();
-                Utils.constraintLayout.setBackground(this.getDrawable(R.drawable.hymn_nonexistent_list_press));
-                Utils.hymn_title_to_edit.setTextColor(this.getResources().getColor(R.color.nonpressed_nonexis_contur));
-                if (hymn.isSaved())
+                if (Utils.constraintLayout != null)
+                    Utils.constraintLayout.setBackground(this.getDrawable(R.drawable.hymn_nonexistent_list_press));
+                if (Utils.hymn_title_to_edit != null)
+                    Utils.hymn_title_to_edit.setTextColor(this.getResources().getColor(R.color.nonpressed_nonexis_contur));
+                if (hymn.isSaved() && Utils.saved != null)
                     Utils.saved.setImageDrawable(this.getResources().getDrawable(R.drawable.nonexisting_save_clicked));
-                else
+                else if (Utils.saved != null)
                     Utils.saved.setImageDrawable(this.getResources().getDrawable(R.drawable.nonexisting_save_nonclicked));
                 Utils.loadHymns(this);
                 recreate();
@@ -113,12 +115,14 @@ public class AudioCanvas extends AppCompatActivity {
                     Utils.deleteFromSaved(this, String.valueOf(hymn.getId()));
                     hymn.setSaved(false);
                     btnSave.setImageDrawable(this.getResources().getDrawable(R.drawable.player_pg_not_savet_white));
-                    Utils.saved.setImageDrawable(this.getResources().getDrawable(R.drawable.to_save_btn_disable01));
+                    if (Utils.saved != null)
+                        Utils.saved.setImageDrawable(this.getResources().getDrawable(R.drawable.to_save_btn_disable01));
                 } else {
                     Utils.addInSaved(this, String.valueOf(hymn.getId()));
                     hymn.setSaved(true);
                     btnSave.setImageDrawable(this.getResources().getDrawable(R.drawable.player_pg_savet_white));
-                    Utils.saved.setImageDrawable(this.getResources().getDrawable(R.drawable.to_save_btn_enable01));
+                    if (Utils.saved != null)
+                        Utils.saved.setImageDrawable(this.getResources().getDrawable(R.drawable.to_save_btn_enable01));
                 }
                 Utils.needsToNotify = true;
             });
@@ -316,11 +320,13 @@ public class AudioCanvas extends AppCompatActivity {
             downloadBtn.setOnClickListener(v -> {
                 new DownloadSingleFileTask(this, this, hymn, Type.AUDIO).execute();
                 Utils.ifDownloadBrokedChangeListItem = true;
-                Utils.constraintLayout.setBackground(this.getDrawable(R.drawable.hymn_list_press));
-                Utils.hymn_title_to_edit.setTextColor(this.getResources().getColor(R.color.text_color));
-                if (hymn.isSaved())
+                if (Utils.constraintLayout != null)
+                    Utils.constraintLayout.setBackground(this.getDrawable(R.drawable.hymn_list_press));
+                if (Utils.hymn_title_to_edit != null)
+                    Utils.hymn_title_to_edit.setTextColor(this.getResources().getColor(R.color.text_color));
+                if (hymn.isSaved() && Utils.saved != null)
                     Utils.saved.setImageDrawable(this.getResources().getDrawable(R.drawable.to_save_btn_enable01));
-                else
+                else if (Utils.saved != null)
                     Utils.saved.setImageDrawable(this.getResources().getDrawable(R.drawable.to_save_btn_disable01));
             });
         }

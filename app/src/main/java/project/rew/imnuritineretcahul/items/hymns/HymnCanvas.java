@@ -96,18 +96,19 @@ public class HymnCanvas extends AppCompatActivity {
             }
             return true;
         });
-
         btnSave.setOnClickListener(v -> {
             if (hymn.isSaved()) {
                 Utils.deleteFromSaved(this, String.valueOf(hymn.getId()));
                 hymn.setSaved(false);
                 btnSave.setImageDrawable(this.getResources().getDrawable(R.drawable.save_acces_btn_white01));
-                Utils.saved.setImageDrawable(this.getResources().getDrawable(R.drawable.to_save_btn_disable01));
+                if (Utils.saved != null)
+                    Utils.saved.setImageDrawable(this.getResources().getDrawable(R.drawable.to_save_btn_disable01));
             } else {
                 Utils.addInSaved(this, String.valueOf(hymn.getId()));
                 hymn.setSaved(true);
                 btnSave.setImageDrawable(this.getResources().getDrawable(R.drawable.save_acces_btn_clicked_white01));
-                Utils.saved.setImageDrawable(this.getResources().getDrawable(R.drawable.to_save_btn_enable01));
+                if (Utils.saved != null)
+                    Utils.saved.setImageDrawable(this.getResources().getDrawable(R.drawable.to_save_btn_enable01));
             }
             Utils.needsToNotify = true;
         });
