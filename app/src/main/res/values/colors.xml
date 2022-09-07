@@ -98,6 +98,6 @@
     <color name="btn_text_color_updt">@color/white</color>
     <color name="line_update">#cfcfcf</color>
     <color name="no_network">#9b9b9b</color>
-    <color name="loading_progress">#7E7E7E</color>
+    <color name="loading_progress">#000000</color>
 
 </resources>

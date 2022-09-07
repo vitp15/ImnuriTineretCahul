@@ -63,8 +63,8 @@
 
     <ProgressBar
         android:id="@+id/loading_all"
-        android:layout_width="27dp"
-        android:layout_height="27dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:indeterminateDrawable="@drawable/loading_customization"
         android:indeterminateDuration="1500"
         app:layout_constraintBottom_toBottomOf="@+id/download_all"
@@ -109,8 +109,8 @@
 
     <ProgressBar
         android:id="@+id/loading_hymns"
-        android:layout_width="27dp"
-        android:layout_height="27dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:indeterminateDrawable="@drawable/loading_customization"
         android:indeterminateDuration="1500"
         app:layout_constraintBottom_toBottomOf="@+id/download_hymns"
@@ -165,8 +165,8 @@
 
     <ProgressBar
         android:id="@+id/loading_audio"
-        android:layout_width="27dp"
-        android:layout_height="27dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:indeterminateDrawable="@drawable/loading_customization"
         android:indeterminateDuration="1500"
         app:layout_constraintBottom_toBottomOf="@+id/download_audio"
@@ -221,8 +221,8 @@
 
     <ProgressBar
         android:id="@+id/loading_pdf"
-        android:layout_width="27dp"
-        android:layout_height="27dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:indeterminateDrawable="@drawable/loading_customization"
         android:indeterminateDuration="1500"
         app:layout_constraintBottom_toBottomOf="@+id/download_pdf"

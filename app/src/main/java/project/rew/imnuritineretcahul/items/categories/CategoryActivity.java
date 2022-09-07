@@ -97,8 +97,16 @@ public class CategoryActivity extends AppCompatActivity {
                 textView.setVisibility(View.VISIBLE);
             } else {
                 textView.setVisibility(View.GONE);
-                adapter = new HymnsAdapter(categorieHymns);
-                recyclerView.setAdapter(adapter);
+                if (type == Type.HYMN) {
+                    adapter = new HymnsAdapter(categorieHymns);
+                    recyclerView.setAdapter(adapter);
+                } else if (type == Type.AUDIO) {
+                    audioListHymnsAdapter = new AudioListHymnsAdapter(categorieHymns);
+                    recyclerView.setAdapter(audioListHymnsAdapter);
+                } else if (type == Type.PDF) {
+                    pdfAdapter = new HymnsPdfAdapter(categorieHymns);
+                    recyclerView.setAdapter(pdfAdapter);
+                }
             }
         }
         recyclerView.setHasFixedSize(true);

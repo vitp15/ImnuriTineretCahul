@@ -50,7 +50,6 @@
                 android:id="@+id/image3"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
                 android:scaleType="centerCrop"
                 android:src="@drawable/c3" />
         </com.google.android.material.card.MaterialCardView>
@@ -100,7 +99,6 @@
                 android:id="@+id/image4"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:scaleType="centerCrop"
                 android:src="@drawable/c4" />
         </com.google.android.material.card.MaterialCardView>

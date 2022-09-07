@@ -27,8 +27,8 @@
 
     <ImageView
         android:id="@+id/saved"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="7dp"
         android:src="@drawable/to_save_btn_disable01"

@@ -8,8 +8,8 @@
             android:toDegrees="360">
             <shape
                 android:shape="ring"
-                android:thickness="4dp"
-                android:innerRadius="9dp"
+                android:thickness="2dp"
+                android:innerRadius="8dp"
                 android:useLevel="true">
                 <solid android:color="@color/loading_progress" />
             </shape>

@@ -254,27 +254,31 @@ public class Utils {
             if (dirFiles.length != 0) {
                 hymns_ro.clear();
                 for (File dirFile : dirFiles) {
-                    String[] hymn = dirFile.getName().split(" - ");
-                    String[] id = hymn[0].split("\\.");
+                    if (dirFile.listFiles().length > 0) {
+                        String[] hymn = dirFile.getName().split(" - ");
+                        String[] id = hymn[0].split("\\.");
 
-                    Hymn hymn_h = new Hymn(Integer.parseInt(id[0]), hymn[2]);
-                    String[] categories = hymn[1].split("\\.");
-                    List<String> categoryes = new ArrayList<>();
-                    for (String s : categories)
-                        categoryes.add(s);
-                    hymn_h.setCategoryes(categoryes);
-                    hymn_h.setSaved(false);
+                        Hymn hymn_h = new Hymn(Integer.parseInt(id[0]), hymn[2]);
+                        String[] categories = hymn[1].split("\\.");
+                        List<String> categoryes = new ArrayList<>();
+                        for (String s : categories)
+                            categoryes.add(s);
+                        hymn_h.setCategoryes(categoryes);
+                        hymn_h.setSaved(false);
 
-                    setAudio(context, hymn_h);
-                    setPDF(context, hymn_h);
+                        setAudio(context, hymn_h);
+                        setPDF(context, hymn_h);
 
-                    for (String s : savedHymnsRo) {
-                        if (s.equals(id[0])) {
-                            hymn_h.setSaved(true);
-                            break;
+                        for (String s : savedHymnsRo) {
+                            if (s.equals(id[0])) {
+                                hymn_h.setSaved(true);
+                                break;
+                            }
                         }
+                        hymns_ro.add(hymn_h);
+                    } else {
+                        DeleteRecursive(dirFile);
                     }
-                    hymns_ro.add(hymn_h);
                 }
             }
             Collections.sort(hymns_ro, Hymn.HymnComparator);
@@ -286,22 +290,30 @@ public class Utils {
             if (dirFiles.length != 0) {
                 hymns_ru.clear();
                 for (File dirFile : dirFiles) {
-                    String[] hymn = dirFile.getName().split(" - ");
-                    String[] id = hymn[0].split("\\.");
-                    Hymn hymn_h = new Hymn(Integer.parseInt(id[0]), hymn[2]);
-                    String[] categories = hymn[1].split("\\.");
-                    List<String> categoryes = new ArrayList<>();
-                    for (String s : categories)
-                        categoryes.add(s);
-                    hymn_h.setCategoryes(categoryes);
-                    hymn_h.setSaved(false);
-                    for (String s : savedHymnsRo) {
-                        if (s.equals(id[0])) {
-                            hymn_h.setSaved(true);
-                            break;
+                    if (dirFile.listFiles().length > 0) {
+                        String[] hymn = dirFile.getName().split(" - ");
+                        String[] id = hymn[0].split("\\.");
+                        Hymn hymn_h = new Hymn(Integer.parseInt(id[0]), hymn[2]);
+                        String[] categories = hymn[1].split("\\.");
+                        List<String> categoryes = new ArrayList<>();
+                        for (String s : categories)
+                            categoryes.add(s);
+                        hymn_h.setCategoryes(categoryes);
+                        hymn_h.setSaved(false);
+
+                        setAudio(context, hymn_h);
+                        setPDF(context, hymn_h);
+
+                        for (String s : savedHymnsRo) {
+                            if (s.equals(id[0])) {
+                                hymn_h.setSaved(true);
+                                break;
+                            }
                         }
+                        hymns_ru.add(hymn_h);
+                    } else {
+                        DeleteRecursive(dirFile);
                     }
-                    hymns_ru.add(hymn_h);
                 }
             }
             Collections.sort(hymns_ru, Hymn.HymnComparator);
