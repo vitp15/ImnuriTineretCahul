@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,6 +40,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        if (position + 1 == getItemCount())
+            holder.marginBottom.setVisibility(View.VISIBLE);
+        else holder.marginBottom.setVisibility(View.GONE);
         if (Utils.language == Language.RO) {
             if (categories.size() > position * 4) {
                 holder.image1.setImageDrawable(categories.get(position * 4).getImg());
@@ -125,6 +129,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         public MaterialCardView materialCardView2;
         public MaterialCardView materialCardView3;
         public MaterialCardView materialCardView4;
+        public LinearLayout marginBottom;
 
 
         public ViewHolder(View itemView) {
@@ -137,6 +142,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
             materialCardView2 = itemView.findViewById(R.id.materialCardView2);
             materialCardView3 = itemView.findViewById(R.id.materialCardView3);
             materialCardView4 = itemView.findViewById(R.id.materialCardView4);
+            marginBottom = itemView.findViewById(R.id.marginBottom);
         }
     }
 }

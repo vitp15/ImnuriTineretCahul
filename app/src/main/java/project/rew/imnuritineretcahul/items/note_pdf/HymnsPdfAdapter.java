@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -41,6 +42,10 @@ public class HymnsPdfAdapter extends RecyclerView.Adapter<HymnsPdfAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+
+        if (position == 0) holder.marginTop.setVisibility(View.VISIBLE);
+        else holder.marginTop.setVisibility(View.GONE);
+
         final Hymn hymn = hymns.get(position);
         holder.textView.setText(hymn.getNr() + ". " + hymn.getTitle());
 
@@ -153,12 +158,14 @@ public class HymnsPdfAdapter extends RecyclerView.Adapter<HymnsPdfAdapter.ViewHo
         public TextView textView;
         public ConstraintLayout constraintLayout;
         public ImageView saved;
+        LinearLayout marginTop;
 
         public ViewHolder(View itemView) {
             super(itemView);
             this.textView = itemView.findViewById(R.id.textView);
             saved = itemView.findViewById(R.id.saved);
             constraintLayout = itemView.findViewById(R.id.constraintLayout);
+            marginTop = itemView.findViewById(R.id.marginTop);
         }
     }
 }

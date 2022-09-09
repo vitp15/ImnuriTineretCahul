@@ -261,8 +261,9 @@ public class Utils {
                 for (File dirFile : dirFiles) {
                     if (dirFile.listFiles().length > 0) {
                         String[] hymn = dirFile.getName().split(" - ");
+                        if (hymn.length != 3)
+                            continue;
                         String[] id = hymn[0].split("\\.");
-
                         Hymn hymn_h = new Hymn(Integer.parseInt(id[0]), hymn[2]);
                         String[] categories = hymn[1].split("\\.");
                         List<String> categoryes = new ArrayList<>();
@@ -297,6 +298,8 @@ public class Utils {
                 for (File dirFile : dirFiles) {
                     if (dirFile.listFiles().length > 0) {
                         String[] hymn = dirFile.getName().split(" - ");
+                        if (hymn.length != 3)
+                            continue;
                         String[] id = hymn[0].split("\\.");
                         Hymn hymn_h = new Hymn(Integer.parseInt(id[0]), hymn[2]);
                         String[] categories = hymn[1].split("\\.");
@@ -446,12 +449,10 @@ public class Utils {
     }
 
     public static void setCategoryes(Context context) {
-        categories_ro.clear();
-        categories_ru.clear();
-        List<Drawable> imageForCategory_ro = new ArrayList<>();
-        List<String> titles_ro = new ArrayList<>();
-        List<Drawable> imageForCategory_ru = new ArrayList<>();
-        List<String> titles_ru = new ArrayList<>();
+        if (language == Language.RO) {
+            categories_ro.clear();
+            List<Drawable> imageForCategory_ro = new ArrayList<>();
+            List<String> titles_ro = new ArrayList<>();
 
         /*imageForCategory_ro.add(context.getDrawable(R.drawable.c1_icon));
         imageForCategory_ro.add(context.getDrawable(R.drawable.c2_icon));
@@ -462,36 +463,40 @@ public class Utils {
         imageForCategory_ro.add(context.getDrawable(R.drawable.c7_icon));
         imageForCategory_ro.add(context.getDrawable(R.drawable.c8_icon));
         imageForCategory_ro.add(context.getDrawable(R.drawable.c9_icon));*/
-        imageForCategory_ro.add(context.getDrawable(R.drawable.c1));
-        imageForCategory_ro.add(context.getDrawable(R.drawable.c2));
-        imageForCategory_ro.add(context.getDrawable(R.drawable.c3));
-        imageForCategory_ro.add(context.getDrawable(R.drawable.c4));
-        imageForCategory_ro.add(context.getDrawable(R.drawable.c5));
-        imageForCategory_ro.add(context.getDrawable(R.drawable.c6));
-        imageForCategory_ro.add(context.getDrawable(R.drawable.c7));
-        imageForCategory_ro.add(context.getDrawable(R.drawable.c8));
-        imageForCategory_ro.add(context.getDrawable(R.drawable.c9));
-        titles_ro.add("Noul Pământ");
-        titles_ro.add("Fericire");
-        titles_ro.add("Bunătate");
-        titles_ro.add("Iubire");
-        titles_ro.add("Mântuire");
-        titles_ro.add("Încercări");
-        titles_ro.add("Devotament");
-        titles_ro.add("Speranță");
-        titles_ro.add("Chemare");
-        for (int i = 1; i <= 9; i++) {
-            List<Hymn> hymns = new ArrayList<>();
-            for (Hymn hymn : hymns_ro) {
-                for (String id : hymn.getCategoryes()) {
-                    if (id.equals(String.valueOf(i))) {
-                        hymns.add(hymn);
-                        break;
+            imageForCategory_ro.add(context.getDrawable(R.drawable.c1));
+            imageForCategory_ro.add(context.getDrawable(R.drawable.c2));
+            imageForCategory_ro.add(context.getDrawable(R.drawable.c3));
+            imageForCategory_ro.add(context.getDrawable(R.drawable.c4));
+            imageForCategory_ro.add(context.getDrawable(R.drawable.c5));
+            imageForCategory_ro.add(context.getDrawable(R.drawable.c6));
+            imageForCategory_ro.add(context.getDrawable(R.drawable.c7));
+            imageForCategory_ro.add(context.getDrawable(R.drawable.c8));
+            imageForCategory_ro.add(context.getDrawable(R.drawable.c9));
+            titles_ro.add("Noul Pământ");
+            titles_ro.add("Fericire");
+            titles_ro.add("Bunătate");
+            titles_ro.add("Iubire");
+            titles_ro.add("Mântuire");
+            titles_ro.add("Încercări");
+            titles_ro.add("Devotament");
+            titles_ro.add("Speranță");
+            titles_ro.add("Chemare");
+            for (int i = 1; i <= 9; i++) {
+                List<Hymn> hymns = new ArrayList<>();
+                for (Hymn hymn : hymns_ro) {
+                    for (String id : hymn.getCategoryes()) {
+                        if (id.equals(String.valueOf(i))) {
+                            hymns.add(hymn);
+                            break;
+                        }
                     }
                 }
+                categories_ro.add(new Category(String.valueOf(i), titles_ro.get(i - 1), imageForCategory_ro.get(i - 1), hymns));
             }
-            categories_ro.add(new Category(String.valueOf(i), titles_ro.get(i - 1), imageForCategory_ro.get(i - 1), hymns));
-        }
+        } else if (language == Language.RU) {
+            categories_ru.clear();
+            List<Drawable> imageForCategory_ru = new ArrayList<>();
+            List<String> titles_ru = new ArrayList<>();
 
         /*imageForCategory_ru.add(context.getDrawable(R.drawable.c1_icon));
         imageForCategory_ru.add(context.getDrawable(R.drawable.c2_icon));
@@ -502,37 +507,37 @@ public class Utils {
         imageForCategory_ru.add(context.getDrawable(R.drawable.c7_icon));
         imageForCategory_ru.add(context.getDrawable(R.drawable.c8_icon));
         imageForCategory_ru.add(context.getDrawable(R.drawable.c9_icon));*/
-        imageForCategory_ru.add(context.getDrawable(R.drawable.c1ru));
-        imageForCategory_ru.add(context.getDrawable(R.drawable.c2ru));
-        imageForCategory_ru.add(context.getDrawable(R.drawable.c3ru));
-        imageForCategory_ru.add(context.getDrawable(R.drawable.c4ru));
-        imageForCategory_ru.add(context.getDrawable(R.drawable.c5ru));
-        imageForCategory_ru.add(context.getDrawable(R.drawable.c6ru));
-        imageForCategory_ru.add(context.getDrawable(R.drawable.c7ru));
-        imageForCategory_ru.add(context.getDrawable(R.drawable.c8ru));
-        imageForCategory_ru.add(context.getDrawable(R.drawable.c9ru));
-        titles_ru.add("Новая Земля");
-        titles_ru.add("Счастье");
-        titles_ru.add("Доброта");
-        titles_ru.add("Любовь");
-        titles_ru.add("Спасение");
-        titles_ru.add("Испытание");
-        titles_ru.add("Преданность");
-        titles_ru.add("Надежда");
-        titles_ru.add("Вызов");
-        for (int i = 1; i <= 9; i++) {
-            List<Hymn> hymns = new ArrayList<>();
-            for (Hymn hymn : hymns_ru) {
-                for (String id : hymn.getCategoryes()) {
-                    if (id.equals(String.valueOf(i))) {
-                        hymns.add(hymn);
-                        break;
+            imageForCategory_ru.add(context.getDrawable(R.drawable.c1ru));
+            imageForCategory_ru.add(context.getDrawable(R.drawable.c2ru));
+            imageForCategory_ru.add(context.getDrawable(R.drawable.c3ru));
+            imageForCategory_ru.add(context.getDrawable(R.drawable.c4ru));
+            imageForCategory_ru.add(context.getDrawable(R.drawable.c5ru));
+            imageForCategory_ru.add(context.getDrawable(R.drawable.c6ru));
+            imageForCategory_ru.add(context.getDrawable(R.drawable.c7ru));
+            imageForCategory_ru.add(context.getDrawable(R.drawable.c8ru));
+            imageForCategory_ru.add(context.getDrawable(R.drawable.c9ru));
+            titles_ru.add("Новая Земля");
+            titles_ru.add("Счастье");
+            titles_ru.add("Доброта");
+            titles_ru.add("Любовь");
+            titles_ru.add("Спасение");
+            titles_ru.add("Испытание");
+            titles_ru.add("Преданность");
+            titles_ru.add("Надежда");
+            titles_ru.add("Вызов");
+            for (int i = 1; i <= 9; i++) {
+                List<Hymn> hymns = new ArrayList<>();
+                for (Hymn hymn : hymns_ru) {
+                    for (String id : hymn.getCategoryes()) {
+                        if (id.equals(String.valueOf(i))) {
+                            hymns.add(hymn);
+                            break;
+                        }
                     }
                 }
+                categories_ru.add(new Category(String.valueOf(i), titles_ru.get(i - 1), imageForCategory_ru.get(i - 1), hymns));
             }
-            categories_ru.add(new Category(String.valueOf(i), titles_ru.get(i - 1), imageForCategory_ru.get(i - 1), hymns));
         }
-
     }
 
 }

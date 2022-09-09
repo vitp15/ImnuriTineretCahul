@@ -2,105 +2,118 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="430dp"
-    android:orientation="horizontal"
-    android:weightSum="2">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:weightSum="3">
+        android:layout_height="430dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialCardView1"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="10dp"
             android:layout_weight="1"
-            app:cardCornerRadius="20dp"
-            app:strokeColor="#000000"
-            app:strokeWidth="0.7dp">
+            android:orientation="vertical"
+            android:weightSum="3">
 
-            <ImageView
-                android:id="@+id/image1"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/materialCardView1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/c1" />
-        </com.google.android.material.card.MaterialCardView>
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="20dp"
+                app:strokeColor="#000000"
+                app:strokeWidth="0.7dp">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialCardView3"
+                <ImageView
+                    android:id="@+id/image1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/c1" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/materialCardView3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="2"
+                app:cardCornerRadius="20dp"
+                app:strokeColor="#000000"
+                app:strokeWidth="0.7dp">
+
+                <ImageView
+                    android:id="@+id/image3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/c3" />
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="2"
-            app:cardCornerRadius="20dp"
-            app:strokeColor="#000000"
-            app:strokeWidth="0.7dp">
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:weightSum="3">
 
-            <ImageView
-                android:id="@+id/image3"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/materialCardView2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/c3" />
-        </com.google.android.material.card.MaterialCardView>
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="2"
+                app:cardCornerRadius="20dp"
+                app:strokeColor="#000000"
+                app:strokeWidth="0.7dp">
+
+                <ImageView
+                    android:id="@+id/image2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/c2" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/materialCardView4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="20dp"
+                app:strokeColor="#000000"
+                app:strokeWidth="0.7dp">
+
+                <ImageView
+                    android:id="@+id/image4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/c4" />
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/marginBottom"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:weightSum="3">
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialCardView2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="20dp"
-            android:layout_weight="2"
-            app:cardCornerRadius="20dp"
-            app:strokeColor="#000000"
-            app:strokeWidth="0.7dp">
-
-            <ImageView
-                android:id="@+id/image2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/c2" />
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/materialCardView4"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:layout_weight="1"
-            app:cardCornerRadius="20dp"
-            app:strokeColor="#000000"
-            app:strokeWidth="0.7dp">
-
-            <ImageView
-                android:id="@+id/image4"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/c4" />
-        </com.google.android.material.card.MaterialCardView>
-    </LinearLayout>
+        android:layout_height="20dp"
+        android:orientation="vertical" />
 </LinearLayout>
