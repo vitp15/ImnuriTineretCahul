@@ -84,35 +84,26 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         }
         if (categories.size() > position * 4) {
             holder.materialCardView1.setOnClickListener(v -> {
-                context.startActivity(new Intent(context, CategoryActivity.class).
-                        putExtra("id", categories.get(position * 4).getId())
-                        .putExtra("title", categories.get(position * 4).getTitle())
-                        .putExtra("type", type)
-                );
+                context.startActivity(new Intent(context, CategoryActivity.class).putExtra("type", type));
+                Utils.curentOpenedCategory = categories.get(position * 4);
             });
         }
         if (categories.size() > position * 4 + 1) {
             holder.materialCardView2.setOnClickListener(v -> {
-                context.startActivity(new Intent(context, CategoryActivity.class).
-                        putExtra("id", categories.get(position * 4 + 1).getId())
-                        .putExtra("title", categories.get(position * 4 + 1).getTitle())
-                        .putExtra("type", type));
+                context.startActivity(new Intent(context, CategoryActivity.class).putExtra("type", type));
+                Utils.curentOpenedCategory = categories.get(position * 4 + 1);
             });
         }
         if (categories.size() > position * 4 + 2) {
             holder.materialCardView3.setOnClickListener(v -> {
-                context.startActivity(new Intent(context, CategoryActivity.class).
-                        putExtra("id", categories.get(position * 4 + 2).getId())
-                        .putExtra("title", categories.get(position * 4 + 2).getTitle())
-                        .putExtra("type", type));
+                context.startActivity(new Intent(context, CategoryActivity.class).putExtra("type", type));
+                Utils.curentOpenedCategory = categories.get(position * 4 + 2);
             });
         }
         if (categories.size() > position * 4 + 3) {
             holder.materialCardView4.setOnClickListener(v -> {
-                context.startActivity(new Intent(context, CategoryActivity.class).
-                        putExtra("id", categories.get(position * 4 + 3).getId())
-                        .putExtra("title", categories.get(position * 4 + 3).getTitle())
-                        .putExtra("type", type));
+                context.startActivity(new Intent(context, CategoryActivity.class).putExtra("type", type));
+                Utils.curentOpenedCategory = categories.get(position * 4 + 3);
             });
         }
     }

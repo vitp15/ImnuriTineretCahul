@@ -2,6 +2,7 @@ package project.rew.imnuritineretcahul.utils;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,6 +31,7 @@ import java.util.List;
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.enums.Type;
+import project.rew.imnuritineretcahul.items.categories.Category;
 import project.rew.imnuritineretcahul.items.hymns.Hymn;
 
 public class Utils {
@@ -50,6 +52,9 @@ public class Utils {
     public static ConstraintLayout constraintLayout;
     public static boolean ifDownloadBrokedChangeListItem = false;
     public static boolean needsToNotify = false;
+    public static List<Category> categories_ro = new ArrayList<>();
+    public static List<Category> categories_ru = new ArrayList<>();
+    public static Category curentOpenedCategory;
 
     public static void deleteFile(Context context, String forDelete, Type type) {
         String folder = null;
@@ -438,6 +443,96 @@ public class Utils {
                     break;
                 }
             }
+    }
+
+    public static void setCategoryes(Context context) {
+        categories_ro.clear();
+        categories_ru.clear();
+        List<Drawable> imageForCategory_ro = new ArrayList<>();
+        List<String> titles_ro = new ArrayList<>();
+        List<Drawable> imageForCategory_ru = new ArrayList<>();
+        List<String> titles_ru = new ArrayList<>();
+
+        /*imageForCategory_ro.add(context.getDrawable(R.drawable.c1_icon));
+        imageForCategory_ro.add(context.getDrawable(R.drawable.c2_icon));
+        imageForCategory_ro.add(context.getDrawable(R.drawable.c3_icon));
+        imageForCategory_ro.add(context.getDrawable(R.drawable.c4_icon));
+        imageForCategory_ro.add(context.getDrawable(R.drawable.c5_icon));
+        imageForCategory_ro.add(context.getDrawable(R.drawable.c6_icon));
+        imageForCategory_ro.add(context.getDrawable(R.drawable.c7_icon));
+        imageForCategory_ro.add(context.getDrawable(R.drawable.c8_icon));
+        imageForCategory_ro.add(context.getDrawable(R.drawable.c9_icon));*/
+        imageForCategory_ro.add(context.getDrawable(R.drawable.c1));
+        imageForCategory_ro.add(context.getDrawable(R.drawable.c2));
+        imageForCategory_ro.add(context.getDrawable(R.drawable.c3));
+        imageForCategory_ro.add(context.getDrawable(R.drawable.c4));
+        imageForCategory_ro.add(context.getDrawable(R.drawable.c5));
+        imageForCategory_ro.add(context.getDrawable(R.drawable.c6));
+        imageForCategory_ro.add(context.getDrawable(R.drawable.c7));
+        imageForCategory_ro.add(context.getDrawable(R.drawable.c8));
+        imageForCategory_ro.add(context.getDrawable(R.drawable.c9));
+        titles_ro.add("Noul Pământ");
+        titles_ro.add("Fericire");
+        titles_ro.add("Bunătate");
+        titles_ro.add("Iubire");
+        titles_ro.add("Mântuire");
+        titles_ro.add("Încercări");
+        titles_ro.add("Devotament");
+        titles_ro.add("Speranță");
+        titles_ro.add("Chemare");
+        for (int i = 1; i <= 9; i++) {
+            List<Hymn> hymns = new ArrayList<>();
+            for (Hymn hymn : hymns_ro) {
+                for (String id : hymn.getCategoryes()) {
+                    if (id.equals(String.valueOf(i))) {
+                        hymns.add(hymn);
+                        break;
+                    }
+                }
+            }
+            categories_ro.add(new Category(String.valueOf(i), titles_ro.get(i - 1), imageForCategory_ro.get(i - 1), hymns));
+        }
+
+        /*imageForCategory_ru.add(context.getDrawable(R.drawable.c1_icon));
+        imageForCategory_ru.add(context.getDrawable(R.drawable.c2_icon));
+        imageForCategory_ru.add(context.getDrawable(R.drawable.c3_icon));
+        imageForCategory_ru.add(context.getDrawable(R.drawable.c4_icon));
+        imageForCategory_ru.add(context.getDrawable(R.drawable.c5_icon));
+        imageForCategory_ru.add(context.getDrawable(R.drawable.c6_icon));
+        imageForCategory_ru.add(context.getDrawable(R.drawable.c7_icon));
+        imageForCategory_ru.add(context.getDrawable(R.drawable.c8_icon));
+        imageForCategory_ru.add(context.getDrawable(R.drawable.c9_icon));*/
+        imageForCategory_ru.add(context.getDrawable(R.drawable.c1ru));
+        imageForCategory_ru.add(context.getDrawable(R.drawable.c2ru));
+        imageForCategory_ru.add(context.getDrawable(R.drawable.c3ru));
+        imageForCategory_ru.add(context.getDrawable(R.drawable.c4ru));
+        imageForCategory_ru.add(context.getDrawable(R.drawable.c5ru));
+        imageForCategory_ru.add(context.getDrawable(R.drawable.c6ru));
+        imageForCategory_ru.add(context.getDrawable(R.drawable.c7ru));
+        imageForCategory_ru.add(context.getDrawable(R.drawable.c8ru));
+        imageForCategory_ru.add(context.getDrawable(R.drawable.c9ru));
+        titles_ru.add("Новая Земля");
+        titles_ru.add("Счастье");
+        titles_ru.add("Доброта");
+        titles_ru.add("Любовь");
+        titles_ru.add("Спасение");
+        titles_ru.add("Испытание");
+        titles_ru.add("Преданность");
+        titles_ru.add("Надежда");
+        titles_ru.add("Вызов");
+        for (int i = 1; i <= 9; i++) {
+            List<Hymn> hymns = new ArrayList<>();
+            for (Hymn hymn : hymns_ru) {
+                for (String id : hymn.getCategoryes()) {
+                    if (id.equals(String.valueOf(i))) {
+                        hymns.add(hymn);
+                        break;
+                    }
+                }
+            }
+            categories_ru.add(new Category(String.valueOf(i), titles_ru.get(i - 1), imageForCategory_ru.get(i - 1), hymns));
+        }
+
     }
 
 }

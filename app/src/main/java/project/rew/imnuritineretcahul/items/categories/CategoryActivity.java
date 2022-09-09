@@ -1,12 +1,5 @@
 package project.rew.imnuritineretcahul.items.categories;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
@@ -15,14 +8,17 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import project.rew.imnuritineretcahul.R;
 import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.enums.Type;
 import project.rew.imnuritineretcahul.items.audio.AudioListHymnsAdapter;
-import project.rew.imnuritineretcahul.items.hymns.Hymn;
 import project.rew.imnuritineretcahul.items.hymns.HymnsAdapter;
 import project.rew.imnuritineretcahul.items.note_pdf.HymnsPdfAdapter;
 import project.rew.imnuritineretcahul.utils.Utils;
@@ -32,16 +28,16 @@ public class CategoryActivity extends AppCompatActivity {
     private HymnsAdapter adapter;
     private AudioListHymnsAdapter audioListHymnsAdapter;
     private HymnsPdfAdapter pdfAdapter;
-    private List<Hymn> categorieHymns = new ArrayList<>();
-    String id, title;
+    String title;
     Type type;
+    Category category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category);
-        id = getIntent().getStringExtra("id");
-        title = getIntent().getStringExtra("title");
+        category = Utils.curentOpenedCategory;
+        title = category.getTitle();
         type = (Type) getIntent().getSerializableExtra("type");
         RecyclerView recyclerView = findViewById(R.id.rvHymns);
         TextView textView = findViewById(R.id.textView);
@@ -57,58 +53,26 @@ public class CategoryActivity extends AppCompatActivity {
                 ActionBar.LayoutParams.MATCH_PARENT,
                 Gravity.CENTER));
 
-
-        if (Utils.language == Language.RO) {
-            for (Hymn hymn : Utils.hymns_ro) {
-                for (String hymn_id : hymn.getCategoryes()) {
-                    if (hymn_id.equals(id)) {
-                        categorieHymns.add(hymn);
-                        break;
-                    }
-                }
-            }
-            if (categorieHymns.isEmpty()) {
+        if (category.getHymns().isEmpty()) {
+            if (Utils.language == Language.RO)
                 textView.setText(R.string.no_hymns_in_category_ro);
-                textView.setVisibility(View.VISIBLE);
-            } else {
-                textView.setVisibility(View.GONE);
-                if (type == Type.HYMN) {
-                    adapter = new HymnsAdapter(categorieHymns);
-                    recyclerView.setAdapter(adapter);
-                } else if (type == Type.AUDIO) {
-                    audioListHymnsAdapter = new AudioListHymnsAdapter(categorieHymns);
-                    recyclerView.setAdapter(audioListHymnsAdapter);
-                } else if (type == Type.PDF) {
-                    pdfAdapter = new HymnsPdfAdapter(categorieHymns);
-                    recyclerView.setAdapter(pdfAdapter);
-                }
-            }
-        } else if (Utils.language == Language.RU) {
-            for (Hymn hymn : Utils.hymns_ru) {
-                for (String hymn_id : hymn.getCategoryes()) {
-                    if (hymn_id.equals(id)) {
-                        categorieHymns.add(hymn);
-                        break;
-                    }
-                }
-            }
-            if (categorieHymns.isEmpty()) {
+            else if (Utils.language == Language.RU)
                 textView.setText(R.string.no_hymns_in_category_ru);
-                textView.setVisibility(View.VISIBLE);
-            } else {
-                textView.setVisibility(View.GONE);
-                if (type == Type.HYMN) {
-                    adapter = new HymnsAdapter(categorieHymns);
-                    recyclerView.setAdapter(adapter);
-                } else if (type == Type.AUDIO) {
-                    audioListHymnsAdapter = new AudioListHymnsAdapter(categorieHymns);
-                    recyclerView.setAdapter(audioListHymnsAdapter);
-                } else if (type == Type.PDF) {
-                    pdfAdapter = new HymnsPdfAdapter(categorieHymns);
-                    recyclerView.setAdapter(pdfAdapter);
-                }
+            textView.setVisibility(View.VISIBLE);
+        } else {
+            textView.setVisibility(View.GONE);
+            if (type == Type.HYMN) {
+                adapter = new HymnsAdapter(category.getHymns());
+                recyclerView.setAdapter(adapter);
+            } else if (type == Type.AUDIO) {
+                audioListHymnsAdapter = new AudioListHymnsAdapter(category.getHymns());
+                recyclerView.setAdapter(audioListHymnsAdapter);
+            } else if (type == Type.PDF) {
+                pdfAdapter = new HymnsPdfAdapter(category.getHymns());
+                recyclerView.setAdapter(pdfAdapter);
             }
         }
+
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

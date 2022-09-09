@@ -2,19 +2,22 @@ package project.rew.imnuritineretcahul.items.categories;
 
 import android.graphics.drawable.Drawable;
 
+import java.util.List;
+
 import project.rew.imnuritineretcahul.enums.Language;
+import project.rew.imnuritineretcahul.items.hymns.Hymn;
 import project.rew.imnuritineretcahul.utils.Utils;
 
 public class Category {
-    String id, titleRO, titleRU;
-    Drawable ImgRO, ImgRU;
+    String id, title;
+    Drawable Img;
+    List<Hymn> hymns;
 
-    public Category(String id, String titleRO,String titleRU, Drawable imgRO, Drawable imgRU) {
+    public Category(String id, String title, Drawable img, List<Hymn> hymns) {
         this.id = id;
-        this.titleRO = titleRO;
-        this.titleRU = titleRU;
-        ImgRO = imgRO;
-        ImgRU = imgRU;
+        this.title = title;
+        Img = img;
+        this.hymns = hymns;
     }
 
     public String getId() {
@@ -26,34 +29,26 @@ public class Category {
     }
 
     public String getTitle() {
-        if (Utils.language == Language.RO)
-            return titleRO;
-        else if (Utils.language == Language.RU)
-            return titleRU;
-        return "";
+        return title;
     }
 
-    public void setTitleRO(String title) {
-        this.titleRO = title;
-    }
-
-    public void setTitleRU(String title) {
-        this.titleRU = title;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Drawable getImg() {
-        if (Utils.language == Language.RO)
-            return ImgRO;
-        else if (Utils.language == Language.RU)
-            return ImgRU;
-        return ImgRO;
+        return Img;
     }
 
-    public void setImgRO(Drawable imgRO) {
-        ImgRO = imgRO;
+    public void setImg(Drawable img) {
+        Img = img;
     }
 
-    public void setImgRU(Drawable imgRU) {
-        ImgRU = imgRU;
+    public List<Hymn> getHymns() {
+        return hymns;
+    }
+
+    public void setHymns(List<Hymn> hymns) {
+        this.hymns = hymns;
     }
 }

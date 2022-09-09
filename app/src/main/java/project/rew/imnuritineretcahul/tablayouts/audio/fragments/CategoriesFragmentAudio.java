@@ -9,37 +9,32 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import project.rew.imnuritineretcahul.R;
+import project.rew.imnuritineretcahul.enums.Language;
 import project.rew.imnuritineretcahul.enums.Type;
 import project.rew.imnuritineretcahul.items.categories.Category;
 import project.rew.imnuritineretcahul.items.categories.CategoryAdapter;
+import project.rew.imnuritineretcahul.items.categories.CategoryAdapter1;
+import project.rew.imnuritineretcahul.utils.Utils;
 
 public class CategoriesFragmentAudio extends Fragment {
     RecyclerView recyclerView;
-    List<Category> categories;
     CategoryAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_categories_audio, container, false);
+        Utils.setCategoryes(getContext());
         recyclerView = root.findViewById(R.id.recyclerView);
 
-        categories = new ArrayList<>();
-        categories.add(new Category("1", "Noul Pământ", "Новая Земля", getActivity().getDrawable(R.drawable.c1), getActivity().getDrawable(R.drawable.c1ru)));
-        categories.add(new Category("2", "Fericire", "Счастье", getActivity().getDrawable(R.drawable.c2), getActivity().getDrawable(R.drawable.c2ru)));
-        categories.add(new Category("3", "Bunătate", "Доброта", getActivity().getDrawable(R.drawable.c3), getActivity().getDrawable(R.drawable.c3ru)));
-        categories.add(new Category("4", "Iubire", "Любовь", getActivity().getDrawable(R.drawable.c4), getActivity().getDrawable(R.drawable.c4ru)));
-        categories.add(new Category("5", "Mântuire", "Спасение", getActivity().getDrawable(R.drawable.c5), getActivity().getDrawable(R.drawable.c5ru)));
-        categories.add(new Category("6", "Încercări", "Испытание", getActivity().getDrawable(R.drawable.c6), getActivity().getDrawable(R.drawable.c6ru)));
-        categories.add(new Category("7", "Devotament", "Преданность", getActivity().getDrawable(R.drawable.c7), getActivity().getDrawable(R.drawable.c7ru)));
-        categories.add(new Category("8", "Speranță", "Надежда", getActivity().getDrawable(R.drawable.c8), getActivity().getDrawable(R.drawable.c8ru)));
-        categories.add(new Category("9", "Chemare", "Вызов", getActivity().getDrawable(R.drawable.c9), getActivity().getDrawable(R.drawable.c9ru)));
-
-        adapter = new CategoryAdapter(categories, Type.AUDIO);
+        if (Utils.language == Language.RO) {
+            adapter = new CategoryAdapter(Utils.categories_ro, Type.AUDIO);
+        } else if (Utils.language == Language.RU) {
+            adapter = new CategoryAdapter(Utils.categories_ru, Type.AUDIO);
+        }
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));

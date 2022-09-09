@@ -48,6 +48,8 @@
     <color name="item_pressed_audio_bottom">#0DFFFFFF</color>
     <color name="title_press">#A5A5A5</color>
     <color name="layout_transparence_nonexisting_files_pdf">#CCFFFFFF</color>
+    <color name="line_separate_categories">#f2f2f2</color>
+    <color name="item_category_press">#65E8E8E8</color>
 
     <!--hymn canvas-->
     <string name="text_color_hc">#000000</string>
