@@ -10,7 +10,7 @@ android {
         applicationId "project.rew.imnuritineretcahul"
         minSdkVersion 24
         targetSdkVersion 33
-        versionCode 1
+        versionCode 3
         versionName "1.0.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
