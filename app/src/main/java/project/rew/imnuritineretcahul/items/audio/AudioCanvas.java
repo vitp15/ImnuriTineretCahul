@@ -1,11 +1,17 @@
 package project.rew.imnuritineretcahul.items.audio;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
@@ -13,6 +19,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import java.util.concurrent.TimeUnit;
 
@@ -25,7 +33,6 @@ import project.rew.imnuritineretcahul.utils.DownloadSingleFileTask;
 import project.rew.imnuritineretcahul.utils.Utils;
 
 public class AudioCanvas extends AppCompatActivity {
-
     MediaPlayer mediaPlayer;
     Handler handler = new Handler();
     Runnable runnable;
@@ -39,6 +46,8 @@ public class AudioCanvas extends AppCompatActivity {
     ImageView downloadBtn, btnBackNonExist;
     TextView indicationsToDownload;
     TextView hymn_nr_non_exist, hymn_title_non_exist;
+    private TelephonyManager telephonyManager;
+    private PhoneStateListener phoneStateListener;
 
 
     @Override
@@ -47,6 +56,28 @@ public class AudioCanvas extends AppCompatActivity {
         setContentView(R.layout.activity_audio_canvas);
 
         hymn = HymnsAudioRealTime.getHymnToPlay();
+        phoneStateListener = new PhoneStateListener() {
+            @Override
+            public void onCallStateChanged(int state, String phoneNumber) {
+                super.onCallStateChanged(state, phoneNumber);
+
+                switch (state) {
+                    case TelephonyManager.CALL_STATE_RINGING:
+                        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+                            mediaPlayer.pause();
+                        }
+                        break;
+                    case TelephonyManager.CALL_STATE_IDLE:
+                        if (mediaPlayer != null && !mediaPlayer.isPlaying()) {
+                            mediaPlayer.start();
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        };
+        telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 
         imgBackground = findViewById(R.id.imgBackground);
         btnSave = findViewById(R.id.saved);
@@ -345,6 +376,32 @@ public class AudioCanvas extends AppCompatActivity {
         if (mediaPlayer != null)
             mediaPlayer.stop();
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (Build.VERSION.SDK_INT >= 31) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED)
+                telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
+            else
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
+        } else {
+            telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_CALL_STATE);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (Build.VERSION.SDK_INT >= 31) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED)
+                telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
+            else
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1);
+        } else {
+            telephonyManager.listen(phoneStateListener, PhoneStateListener.LISTEN_NONE);
+        }
     }
 
     @Override
